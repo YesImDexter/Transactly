@@ -7,10 +7,55 @@
   <link rel="stylesheet" href="../style/styles.css" />
 </head>
 <body>
-  <div class="center">
-    <h1>Home</h1>
-    <p>Welcome! This is the beginning of your site.</p>
-    <a class="btn" href="../index.html">Back to Welcome</a>
+  <!-- Placeholder for header -->
+  <div id="header-placeholder"></div>
+
+  <div class="main-layout">
+    <aside class="sidebar">
+      <h2>Navigation</h2>
+      <ul>
+        <li><a href="home.html">Dashboard</a></li>
+        <li><a href="#">Transactions</a></li>
+        <li><a href="#">Accounts</a></li>
+        <li><a href="#">Settings</a></li>
+        <li><a href="../index.html">Logout</a></li>
+      </ul>
+    </aside>
+
+    <main class="content-area">
+      <div class="center">
+        <h1>Home</h1>
+        <p>Welcome! This is the beginning of your site.</p>
+        <a class="btn" href="../index.html">Back to Welcome</a>
+      </div>
+    </main>
   </div>
+
+  <!-- Placeholder for footer -->
+  <div id="footer-placeholder"></div>
+
+  <script>
+    // Function to load HTML content into a placeholder
+    async function loadHTML(url, elementId) {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const html = await response.text();
+        document.getElementById(elementId).innerHTML = html;
+      } catch (error) {
+        console.error(`Could not load ${url}:`, error);
+      }
+    }
+
+    // Load header and footer when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      // Assuming header.html and footer.html are in the same directory as home.html
+      // Adjust paths if they are in a different location (e.g., '../components/header.html')
+      loadHTML('header.html', 'header-placeholder');
+      loadHTML('footer.html', 'footer-placeholder');
+    });
+  </script>
 </body>
 </html>
