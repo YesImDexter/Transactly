@@ -9,6 +9,10 @@ body {
   flex-direction: column; /* Arrange header, main, footer vertically */
 }
 
+/* Import MuseoModerno font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap');
+
+
 /* Header */
 .site-header {
   background-color: #112240;
@@ -20,6 +24,7 @@ body {
 .site-header h1 {
   margin: 0;
   color: #ffffff;
+  font-family: 'MuseoModerno'; /* Apply MuseoModerno font */
 }
 
 /* Main Layout for Sidebar and Content */
@@ -81,6 +86,20 @@ body {
   width: 100%; /* Ensure it takes full width within max-width */
 }
 
+/* Apply MuseoModerno to the h1 in the .center class (for index.html) */
+.center h1 {
+    font-family: 'MuseoModerno', cursive;
+}
+
+/* Button Group for multiple buttons */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Space between buttons */
+  margin-top: 20px;
+}
+
+
 a.btn, button.btn {
   padding: 10px 20px;
   background-color: #1e3a8a;
@@ -112,7 +131,7 @@ a.btn:hover, button.btn:hover {
 }
 
 
-/* Login Box (no changes) */
+/* Login Box */
 .login-box {
   background-color: #112240;
   padding: 30px;
@@ -143,4 +162,19 @@ a.btn:hover, button.btn:hover {
   outline: none;
   background-color: #0a192f; /* Darker input background */
   color: #ffffff;
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9em;
+}
+
+.form-footer a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
 }
