@@ -13,11 +13,10 @@
   <div class="main-layout">
     <aside class="sidebar">
       <h2>Navigation</h2>
-      <ul>
-        <li><a href="home.html">Dashboard</a></li>
-        <li><a href="#">Transactions</a></li>
-        <li><a href="#">Accounts</a></li>
-        <li><a href="#">Settings</a></li>
+      <ul id="sidebar-menu">
+        <li><a href="#" data-page="dashboard">Dashboard</a></li>
+        <li><a href="#" data-page="ewallet">eWallet</a></li>
+        <li><a href="#" data-page="settings">Settings</a></li>
         <li><a href="../index.html">Logout</a></li>
       </ul>
     </aside>
@@ -57,5 +56,51 @@
       loadHTML('footer.html', 'footer-placeholder');
     });
   </script>
+  <script type="module">
+  const content = document.querySelector('.center');
+  const sidebar = document.getElementById('sidebar-menu');
+
+  const moduleMap = {
+    dashboard: './dashboard.js',
+    ewallet: './ewallet.js',
+    settings: './settings.js'
+  };
+
+  async function loadPage(page) {
+    try {
+      const modulePath = moduleMap[page];
+      if (!modulePath) throw new Error('Page not found');
+
+      const module = await import(modulePath);
+      const renderFunc = module[`render${capitalize(page)}`];
+
+      if (typeof renderFunc !== 'function') throw new Error('Render function not found');
+      content.innerHTML = renderFunc();
+    } catch (error) {
+      content.innerHTML = `<h1>Error</h1><p>${error.message}</p>`;
+    }
+  }
+
+  function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  sidebar.addEventListener('click', (e) => {
+    if (e.target.tagName === 'A' && e.target.dataset.page) {
+      e.preventDefault();
+      const page = e.target.dataset.page;
+      loadPage(page);
+
+      // Highlight active
+      Array.from(sidebar.querySelectorAll('li')).forEach(li => li.classList.remove('active'));
+      e.target.parentElement.classList.add('active');
+    }
+  });
+
+  // Load default
+  loadPage('dashboard');
+</script>
+
+
 </body>
 </html>
