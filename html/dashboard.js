@@ -1,5 +1,3 @@
-// dashboard.js
-
 /**
  * Returns the HTML string for the E-Wallet Dashboard with improved UI and styling for landscape view.
  * This function encapsulates the entire dashboard's visual structure.
@@ -30,10 +28,10 @@ export function renderDashboard() {
                         <button class="p-2 rounded-full hover:bg-white hover:bg-opacity-20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
                         </button>
-                        <!-- User Profile Icon -->
-                        <button class="p-2 rounded-full hover:bg-white hover:bg-opacity-20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50">
+                        <!-- User Profile Icon - Now a link to profile.html -->
+                        <a href="profile.html" class="p-2 rounded-full hover:bg-white hover:bg-opacity-20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class="text-4xl font-bold mb-8 drop-shadow-md">Good Morning</div>
