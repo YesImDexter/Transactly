@@ -44,14 +44,39 @@ body {
   padding: 0 20px;
 }
 
-/* Sidebar */
-.sidebar {
-  width: 250px;
-  background-color: #ffffff; /* White sidebar */
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-}
+/* Base nav-link style */
+  .nav-link {
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.3s ease;
+  }
+
+  /* Animated underline effect */
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    transition: width 0.3s ease;
+  }
+
+  /* Hover underline */
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* Active class underline */
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  .nav-link.active {
+    font-weight: bold;
+    color: #fff;
+  }
 
 .sidebar h2 {
   margin-top: 0;

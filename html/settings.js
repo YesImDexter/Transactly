@@ -75,8 +75,8 @@ export function renderSettings() {
             <h3 class="text-lg font-semibold text-gray-800 mb-4">General</h3>
             <ul class="bg-white rounded-xl shadow-sm overflow-hidden">
               <li class="border-b border-gray-200 last:border-b-0">
-                <!-- Changed to an anchor tag to navigate to edit_profile_page.html -->
-                <a href="edit_profile_page.html" class="w-full flex justify-between items-center p-4 hover:bg-gray-100 transition-colors duration-200">
+                <!-- Changed to an anchor tag to navigate to profile.html -->
+                <a href="profile.html" class="w-full flex justify-between items-center p-4 hover:bg-gray-100 transition-colors duration-200">
                   <span class="text-gray-700">Edit Profile</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
                 </a>

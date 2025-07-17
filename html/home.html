@@ -3,103 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home</title>
+  <title>Welcome to Transactly</title>
   <link rel="stylesheet" href="../style/styles.css" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Welcome Popup Styles */
+    .welcome-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    }
+
+    .welcome-popup.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .welcome-popup-content {
+      background: linear-gradient(to bottom right, #3B82F6, #60A5FA); /* Blue gradient */
+      color: white;
+      padding: 4rem;
+      border-radius: 1.5rem;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      transform: scale(0.9);
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .welcome-popup.show .welcome-popup-content {
+      transform: scale(1);
+    }
+
+    .welcome-popup-content h1 {
+      font-size: 3rem; /* text-5xl */
+      font-weight: bold;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .welcome-popup-content p {
+      font-size: 1.25rem; /* text-xl */
+      margin-bottom: 2rem;
+    }
+  </style>
 </head>
 <body>
-  <!-- Placeholder for header -->
-  <div id="header-placeholder"></div>
 
-  <div class="main-content-area p-4 md:p-8">
-    <div id="content-display" class="bg-white rounded-lg shadow-md p-6">
-      <!-- Content will be loaded here -->
-      <h1>Welcome to Transactly</h1>
-      <p>Select an option from the navigation menu above.</p>
+  <div id="welcomePopup" class="welcome-popup">
+    <div class="welcome-popup-content">
+      <h1>Welcome to Transactly!</h1>
+      <p>Your secure e-wallet is ready.</p>
+      <p class="text-sm">Redirecting to Dashboard...</p>
     </div>
   </div>
 
-  <!-- Placeholder for footer -->
-  <div id="footer-placeholder"></div>
-
-  <script src="shared.js"></script>
-  <script type="module">
-    // Load header and footer when the DOM is fully loaded
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Paths are relative to home.html (assuming header.html and footer.html are in the same directory)
-      loadHTML('header.html', 'header-placeholder');
-      loadHTML('footer.html', 'footer-placeholder');
+      const welcomePopup = document.getElementById('welcomePopup');
 
-      // Define the content area where pages will be loaded
-      const contentDisplay = document.getElementById('content-display');
+      // Show the welcome popup
+      if (welcomePopup) {
+        welcomePopup.classList.add('show');
 
-      // Map of page names to their corresponding module paths
-      const moduleMap = {
-        dashboard: './dashboard.js',
-        ewallet: './ewallet.js',
-        settings: './settings.js'
-      };
-
-      /**
-       * Capitalizes the first letter of a string.
-       * @param {string} str The input string.
-       * @returns {string} The capitalized string.
-       */
-      function capitalize(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
+        // Hide popup and redirect after 3 seconds
+        setTimeout(() => {
+          welcomePopup.classList.remove('show');
+          // Give a slight delay for the transition to start before redirecting
+          setTimeout(() => {
+            window.location.href = 'dashboard.html'; // Redirect to dashboard.html
+          }, 500); // Wait for half a second for the fade-out transition
+        }, 3000); // 3 seconds
       }
-
-      /**
-       * Loads and renders the content for a given page.
-       * @param {string} page The name of the page to load (e.g., 'dashboard', 'ewallet').
-       */
-      window.loadPage = async function(page) {
-        try {
-          const modulePath = moduleMap[page];
-          if (!modulePath) {
-            console.error(`Page not found in module map: ${page}`);
-            contentDisplay.innerHTML = `<h1>Error</h1><p>Page not found.</p>`;
-            return;
-          }
-
-          // Dynamically import the module
-          const module = await import(modulePath);
-          // Construct the function name (e.g., 'renderDashboard')
-          const renderFunc = module[`render${capitalize(page)}`];
-
-          if (typeof renderFunc !== 'function') {
-            console.error(`Render function not found for page: ${page}`);
-            contentDisplay.innerHTML = `<h1>Error</h1><p>Render function not found for this page.</p>`;
-            return;
-          }
-
-          // Render the content into the display area
-          contentDisplay.innerHTML = renderFunc();
-        } catch (error) {
-          console.error(`Failed to load page ${page}:`, error);
-          contentDisplay.innerHTML = `<h1>Error</h1><p>${error.message}</p>`;
-        }
-      };
-
-      // Event delegation for navigation links in the header
-      // This listener will catch clicks on any element with a data-page attribute,
-      // regardless of whether it's initially in the DOM or loaded dynamically.
-      document.body.addEventListener('click', (e) => {
-        if (e.target.tagName === 'A' && e.target.dataset.page) {
-          e.preventDefault();
-          const page = e.target.dataset.page;
-          window.loadPage(page);
-
-          // Close mobile menu if open
-          const mobileMenu = document.getElementById('mobile-menu');
-          if (mobileMenu && mobileMenu.classList.contains('show')) {
-            mobileMenu.classList.remove('show');
-          }
-        }
-      });
-
-      // Load dashboard as the default page on initial load
-      window.loadPage('dashboard');
     });
   </script>
 </body>

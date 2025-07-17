@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../style/styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom styles for the scrollbar */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div id="dashboard-container" class="main-content-area p-4 md:p-8">
+    </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="shared.js"></script>
+  <script type="module">
+    import { renderDashboard } from './dashboard.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Load header and footer
+      window.loadHTML('header.html', 'header-placeholder');
+      window.loadHTML('footer.html', 'footer-placeholder');
+
+      // Render the dashboard content
+      const dashboardContainer = document.getElementById('dashboard-container');
+      if (dashboardContainer) {
+        dashboardContainer.innerHTML = renderDashboard();
+      }
+    });
+  </script>
+</body>
+</html>
