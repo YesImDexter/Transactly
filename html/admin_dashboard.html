@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../styles.css" />
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen">
 
-  <!-- Header -->
+  <!-- Header Placeholder -->
   <div id="header-placeholder"></div>
 
   <!-- Main Content -->
@@ -52,23 +52,22 @@
             </tr>
           </thead>
           <tbody id="trust-score-body">
-            <!-- Will be filled by trust-score.js -->
+            <!-- Will be filled dynamically -->
           </tbody>
         </table>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
-  <div id="footer-placeholder" class="mt-10"></div>
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
 
-  <!-- Scripts -->
-  <script src="shared.js"></script>
-  <script src="trust-score.js"></script>
+  <!-- Load shared loader and HTML -->
+  <script src="../js/shared.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      loadHTML('header-admin.html', 'header-placeholder');
-      loadHTML('footer.html', 'footer-placeholder');
+    document.addEventListener("DOMContentLoaded", () => {
+      loadHTML("../html/header-admin.html", "header-placeholder");
+      loadHTML("../html/footer.html", "footer-placeholder");
     });
   </script>
 </body>
