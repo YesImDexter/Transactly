@@ -1,0 +1,78 @@
+<header class="site-header bg-gradient-to-r from-blue-700 to-blue-500 text-white p-4 shadow-lg flex justify-between items-center relative z-10">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom styles for the dropdown if needed for future expansion */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1000;
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+
+    .dropdown-menu a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      transition: background-color 0.2s;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown-menu.show {
+      display: block;
+    }
+
+    /* Styles for mobile menu toggle */
+    @media (max-width: 768px) {
+      .dropdown-menu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+        margin-top: 0.5rem;
+      }
+    }
+  </style>
+  <div class="text-2xl font-bold">Transactly</div>
+
+  <div class="md:hidden relative">
+    <button id="menu-button" class="text-white focus:outline-none focus:ring-2 focus:ring-white rounded-md p-2">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+    <div id="mobile-menu" class="dropdown-menu">
+      </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuButton = document.getElementById('menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      if (menuButton && mobileMenu) {
+        menuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('show');
+        });
+
+        // Close the dropdown if the user clicks outside of it
+        window.addEventListener('click', (event) => {
+          if (!event.target.matches('#menu-button') && !event.target.closest('#mobile-menu')) {
+            if (mobileMenu.classList.contains('show')) {
+              mobileMenu.classList.remove('show');
+            }
+          }
+        });
+      }
+    });
+  </script>
+</header>

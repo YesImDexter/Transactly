@@ -5,11 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sign Up for Banking</title>
   <link rel="stylesheet" href="../style/styles.css" />
-  <!-- Include Tailwind CSS for consistent styling -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="flex flex-col min-h-screen">
-  <!-- Placeholder for header -->
   <div id="header-placeholder"></div>
 
   <div class="flex-grow flex items-center justify-center p-4">
@@ -54,14 +52,13 @@
     </div>
   </div>
 
-  <!-- Placeholder for footer -->
   <div id="footer-placeholder"></div>
 
   <script src="shared.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Paths are relative to signup.html (assuming header.html and footer.html are in the same directory)
-      loadHTML('header.html', 'header-placeholder');
+      // Paths are relative to signup.html (assuming header-auth.html and footer.html are in the same directory)
+      loadHTML('header-auth.html', 'header-placeholder');
       loadHTML('footer.html', 'footer-placeholder');
     });
   </script>

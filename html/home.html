@@ -7,83 +7,55 @@
   <link rel="stylesheet" href="../style/styles.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Welcome Popup Styles */
-    .welcome-popup {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    body {
+      margin: 0;
+      overflow: hidden; /* Prevent scrolling */
+      display: flex; /* Use flexbox for centering */
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      height: 100vh; /* Full viewport height */
+      background: linear-gradient(to bottom right, #3B82F6, #60A5FA); /* Blue gradient background */
+      color: white; /* White text color */
+      text-align: center; /* Center text */
+      font-family: sans-serif; /* A clean font */
     }
 
-    .welcome-popup.show {
-      opacity: 1;
-      visibility: visible;
+    .welcome-content {
+      padding: 2rem; /* Add some padding */
+      /* No box-shadow or transform for a flat, full-screen look */
     }
 
-    .welcome-popup-content {
-      background: linear-gradient(to bottom right, #3B82F6, #60A5FA); /* Blue gradient */
-      color: white;
-      padding: 4rem;
-      border-radius: 1.5rem;
-      text-align: center;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      transform: scale(0.9);
-      transition: transform 0.5s ease-in-out;
-    }
-
-    .welcome-popup.show .welcome-popup-content {
-      transform: scale(1);
-    }
-
-    .welcome-popup-content h1 {
-      font-size: 3rem; /* text-5xl */
+    .welcome-content h1 {
+      font-size: 3rem; /* text-5xl equivalent */
       font-weight: bold;
       margin-bottom: 1rem;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      /* No text-shadow */
     }
 
-    .welcome-popup-content p {
-      font-size: 1.25rem; /* text-xl */
+    .welcome-content p {
+      font-size: 1.25rem; /* text-xl equivalent */
       margin-bottom: 2rem;
     }
   </style>
 </head>
 <body>
 
-  <div id="welcomePopup" class="welcome-popup">
-    <div class="welcome-popup-content">
-      <h1>Welcome to Transactly!</h1>
-      <p>Your secure e-wallet is ready.</p>
-      <p class="text-sm">Redirecting to Dashboard...</p>
-    </div>
+  <div id="welcomeScreen" class="welcome-content">
+    <h1>Welcome!</h1>
+    <p>Your secure e-wallet is ready.</p>
+    <p class="text-sm">Redirecting to Dashboard...</p>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const welcomePopup = document.getElementById('welcomePopup');
+      const welcomeScreen = document.getElementById('welcomeScreen');
 
-      // Show the welcome popup
-      if (welcomePopup) {
-        welcomePopup.classList.add('show');
+      // No need to toggle classes for display as it's always visible
+      // Simply set the timeout for redirection
 
-        // Hide popup and redirect after 3 seconds
-        setTimeout(() => {
-          welcomePopup.classList.remove('show');
-          // Give a slight delay for the transition to start before redirecting
-          setTimeout(() => {
-            window.location.href = 'dashboard.html'; // Redirect to dashboard.html
-          }, 500); // Wait for half a second for the fade-out transition
-        }, 3000); // 3 seconds
-      }
+      setTimeout(() => {
+        window.location.href = 'dashboard.html'; // Redirect to dashboard.html
+      }, 3000); // 3 seconds
     });
   </script>
 </body>
