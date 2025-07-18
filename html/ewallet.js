@@ -116,7 +116,8 @@ export function renderEwallet() {
                   </div>
                 </div>
               `).join('')}
-            </div> <button class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold text-lg hover:bg-indigo-700 transition-colors duration-200 mt-6">
+            </div>
+            <button id="addNewWalletBtn" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold text-lg hover:bg-indigo-700 transition-colors duration-200 mt-6">
               + Add New Wallet
             </button>
           </div>
@@ -141,6 +142,7 @@ export function renderEwallet() {
 export function setupEwalletInteractivity() {
   const walletCards = document.querySelectorAll('.wallet-card');
   const transactionListContainer = document.getElementById('transaction-list');
+  const addNewWalletBtn = document.getElementById('addNewWalletBtn'); // Get the new button
 
   // Function to render transactions based on wallet ID
   const updateTransactions = (walletId) => {
@@ -159,11 +161,19 @@ export function setupEwalletInteractivity() {
       walletCards.forEach(wc => wc.classList.remove('border-4', 'border-yellow-300'));
       // Add active class to clicked card
       card.classList.add('border-4', 'border-yellow-300');
-      
+
       const walletId = card.dataset.walletId;
       updateTransactions(walletId);
     });
   });
+
+  // Add click event listener to the "Add New Wallet" button
+  if (addNewWalletBtn) {
+    addNewWalletBtn.addEventListener('click', () => {
+      // Navigate to ekyc.html
+      window.location.href = 'ekyc.html';
+    });
+  }
 
   // Initial selection (first wallet is already highlighted by renderEwallet)
   // If you want to explicitly trigger a render for the first wallet's transactions
