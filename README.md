@@ -1,1 +1,3 @@
 # Transactly
+
+Transactly is a real-time e-wallet monitoring app focused on intelligent fraud detection through AI-driven trust scoring. It analyzes user behavior to detect anomalies and assign dynamic risk scores, helping to stop fraud before it happens—without relying on rigid, friction-heavy security rules. The current version is a Minimum Viable Product (MVP) showcasing the planned monitoring pages available to customers, with a strong emphasis on security architecture and adaptive trust logic. This repository includes the core components for secure transaction analysis, behavioral modeling, and the front-end structure for customer monitoring features.
