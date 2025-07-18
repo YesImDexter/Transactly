@@ -1,0 +1,96 @@
+<!-- header-admin.html -->
+<header class="site-header bg-gradient-to-r from-blue-700 to-blue-500 text-white p-4 shadow-lg flex justify-between items-center relative z-10">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1000;
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+
+    .dropdown-menu a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      transition: background-color 0.2s;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown-menu.show {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .dropdown-menu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+        margin-top: 0.5rem;
+      }
+    }
+  </style>
+
+  <!-- Branding -->
+  <div class="text-2xl font-bold">Transactly Admin</div>
+
+  <!-- Desktop Navigation -->
+  <nav class="hidden md:flex space-x-6 text-sm">
+    <a href="admin_dashboard.html" class="hover:text-gray-200">Dashboard</a>
+    <!-- <a href="admin_users.html" class="hover:text-gray-200">Users</a>
+    <a href="admin_reports.html" class="hover:text-gray-200">Reports</a>
+    <a href="admin_settings.html" class="hover:text-gray-200">Settings</a> -->
+    <a href="../index.html" class="hover:text-gray-200">Logout</a>
+  </nav>
+
+  <!-- Mobile Menu Toggle -->
+  <div class="md:hidden relative">
+    <button id="menu-button" class="text-white focus:outline-none focus:ring-2 focus:ring-white rounded-md p-2">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="dropdown-menu">
+      <a href="admin_dashboard.html">Dashboard</a>
+      <!-- <a href="admin_users.html">Users</a>
+      <a href="admin_reports.html">Reports</a>
+      <a href="admin_settings.html">Settings</a> -->
+      <a href="../index.html">Logout</a>
+    </div>
+  </div>
+
+  <!-- Dropdown Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuButton = document.getElementById('menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      if (menuButton && mobileMenu) {
+        menuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('show');
+        });
+
+        // Close the dropdown if the user clicks outside
+        window.addEventListener('click', (event) => {
+          if (!event.target.closest('#menu-button') && !event.target.closest('#mobile-menu')) {
+            mobileMenu.classList.remove('show');
+          }
+        });
+      }
+    });
+  </script>
+</header>
