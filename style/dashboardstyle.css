@@ -1,0 +1,16 @@
+/* dashboardstyles.css */
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5; /* Light grey background */
+}
+
+/* Custom scrollbar for instant send section */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}

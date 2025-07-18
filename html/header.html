@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Header</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom dropdown visibility */
+    .dropdown-menu {
+      display: none;
+    }
+    .dropdown-menu.show {
+      display: block;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 m-0 p-0">
+
+<header class="site-header bg-gradient-to-r from-blue-700 to-blue-500 text-white p-4 shadow-lg flex justify-between items-center relative z-50">
+  <div class="text-2xl font-bold">Transactly</div>
+
+  <!-- Desktop Navigation -->
+  <nav class="hidden md:flex space-x-4">
+    <a href="dashboard.html" class="hover:text-gray-200">Dashboard</a>
+    <a href="ewallet.html" class="hover:text-gray-200">eWallet</a>
+    <a href="settings.html" class="hover:text-gray-200">Settings</a>
+    <a href="../index.html" class="hover:text-gray-200">Logout</a>
+  </nav>
+
+  <!-- Mobile Menu Button -->
+  <div class="md:hidden relative">
+    <button id="menu-button" class="text-white focus:outline-none p-2">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="dropdown-menu absolute right-0 mt-2 bg-white text-black w-48 rounded-md shadow-lg">
+      <a href="dashboard.html" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
+      <a href="ewallet.html" class="block px-4 py-2 hover:bg-gray-100">eWallet</a>
+      <a href="settings.html" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
+      <a href="../index.html" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+
+      <!-- Optional: Social Icons -->
+      <div class="flex justify-around border-t pt-2 mt-2">
+        <a href="#"><img src="path/to/your/facebook-icon.png" alt="Facebook" class="w-6 h-6" /></a>
+        <a href="#"><img src="path/to/your/twitter-icon.png" alt="Twitter" class="w-6 h-6" /></a>
+        <a href="#"><img src="path/to/your/instagram-icon.png" alt="Instagram" class="w-6 h-6" /></a>
+        <a href="#"><img src="path/to/your/youtube-icon.png" alt="YouTube" class="w-6 h-6" /></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuButton = document.getElementById('menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuButton.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent event bubbling
+      mobileMenu.classList.toggle('show');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
+        mobileMenu.classList.remove('show');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

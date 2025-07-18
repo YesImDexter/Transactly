@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eKYC Registration Status</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Inter", sans-serif; /* Using Inter font */
+        }
+        /* Custom spinner animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .spinner {
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            border-top: 8px solid #fff; /* White spinner */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+        /* Loading overlay styles */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #3B82F6; /* Blue background for loading */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            z-index: 1000; /* Ensure it's on top */
+            transition: opacity 0.5s ease-out;
+        }
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none; /* Allow clicks through when hidden */
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner mb-6"></div>
+        <h1 class="text-3xl md:text-4xl font-bold text-center mb-4">Processing your eKYC Registration...</h1>
+        <p class="text-lg md:text-xl text-center max-w-md">
+            Please wait a moment while we verify your details. This may take a few seconds.
+        </p>
+    </div>
+
+    <!-- Main Failed Content -->
+    <div id="mainContent" class="hidden bg-white rounded-xl shadow-lg p-8 md:p-12 max-w-md w-full text-center flex flex-col items-center" style="background-color: #FEF2F2;">
+        <!-- Failure Icon (SVG Cross) -->
+        <div class="bg-red-500 rounded-full p-4 mb-6">
+            <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </div>
+        
+        <h1 class="text-3xl md:text-4xl font-bold text-red-700 mb-4">eKYC Registration Failed</h1>
+        <p class="text-lg text-gray-700 mb-8">
+            We're sorry, but your eKYC registration could not be completed at this time. This could be due to incorrect information or a technical issue.
+            Please review the details you provided and try again.
+        </p>
+        
+        <!-- Try Again Button -->
+        <button onclick="window.location.href='#'" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75">
+            Try Again
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const mainContent = document.getElementById('mainContent');
+
+            // Show loading overlay initially
+            loadingOverlay.classList.remove('hidden');
+            mainContent.classList.add('hidden');
+
+            // Hide loading overlay and show main content after 5 seconds
+            setTimeout(() => {
+                loadingOverlay.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+            }, 5000); // 5000 milliseconds = 5 seconds
+        });
+    </script>
+</body>
+</html>

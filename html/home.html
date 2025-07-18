@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<<<<<<< HEAD
   <title>Home</title>
   <link rel="stylesheet" href="../style/styles.css" />
 </head>
@@ -14,3 +15,62 @@
   </div>
 </body>
 </html>
+=======
+  <title>Welcome to Transactly</title>
+  <link rel="stylesheet" href="../style/styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden; /* Prevent scrolling */
+      display: flex; /* Use flexbox for centering */
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      height: 100vh; /* Full viewport height */
+      background: linear-gradient(to bottom right, #3B82F6, #60A5FA); /* Blue gradient background */
+      color: white; /* White text color */
+      text-align: center; /* Center text */
+      font-family: sans-serif; /* A clean font */
+    }
+
+    .welcome-content {
+      padding: 2rem; /* Add some padding */
+      /* No box-shadow or transform for a flat, full-screen look */
+    }
+
+    .welcome-content h1 {
+      font-size: 3rem; /* text-5xl equivalent */
+      font-weight: bold;
+      margin-bottom: 1rem;
+      /* No text-shadow */
+    }
+
+    .welcome-content p {
+      font-size: 1.25rem; /* text-xl equivalent */
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="welcomeScreen" class="welcome-content">
+    <h1>Welcome!</h1>
+    <p>Your secure e-wallet is ready.</p>
+    <p class="text-sm">Redirecting to Dashboard...</p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const welcomeScreen = document.getElementById('welcomeScreen');
+
+      // No need to toggle classes for display as it's always visible
+      // Simply set the timeout for redirection
+
+      setTimeout(() => {
+        window.location.href = 'dashboard.html'; // Redirect to dashboard.html
+      }, 3000); // 3 seconds
+    });
+  </script>
+</body>
+</html>
+>>>>>>> ekyc2
