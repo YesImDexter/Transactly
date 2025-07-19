@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deepfake Challenge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #e9f1fb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 420px;
+            width: 100%;
+            padding: 1rem;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .video-frame {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 3px solid #2b7bff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .challenge {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2b7bff;
+        }
+
+        .timer {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #444;
+        }
+
+        .proceed-btn {
+            margin-top: 1.5rem;
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            background-color: #2b7bff;
+            color: white;
+            cursor: pointer;
+            display: none;
+        }
+
+        .proceed-btn.success {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header style="margin-bottom:2rem;">
+            <div style="display:flex;align-items:center;justify-content:center;flex-direction:column;">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="AI Face"
+                    style="width:64px;height:64px;margin-bottom:0.5rem;" />
+                <h1 style="font-size:2rem;font-weight:700;color:#2b7bff;margin-bottom:0.25rem;">Deepfake Challenge
+                </h1>
+                <p style="font-size:1.05rem;color:#444;max-width:340px;margin:0 auto;">Prove your liveness and identity
+                    by completing the challenge below. Please follow the instructions and perform the gesture shown on
+                    camera.</p>
+            </div>
+        </header>
+        <div class="video-frame" style="margin-bottom:1.5rem;">
+            <img id="video-stream" src="{{ url_for('video') }}" style="width: 100%;background:#222;" />
+        </div>
+        <div class="challenge" id="challenge-text" style="margin-bottom:0.5rem;">Performing Challenge...</div>
+        <div class="timer" id="countdown" style="margin-bottom:1.5rem;">Timer: 0s</div>
+        <button class="proceed-btn" id="proceed-button"
+            onclick="window.location.href='http://127.0.0.1:5500/html/success.html'">Proceed</button>
+    </div>
+
+    <script>
+        const countdownEl = document.getElementById("countdown");
+        const challengeText = document.getElementById("challenge-text");
+        const proceedButton = document.getElementById("proceed-button");
+
+        let currentChallenge = "";
+        let elapsed = 0;
+        let interval = null;
+
+        function checkStatus() {
+            fetch("/challenge-status")
+                .then(res => res.json())
+                .then(data => {
+                    const challengeMap = {
+                        "peace_sign": "Challenge: Hold a peace sign for 3 seconds",
+                        "finger_gun": "Challenge: Make a finger gun gesture for 3 seconds",
+                        "high_five": "Challenge: Show a high five for 3 seconds",
+                        "thumbs_up": "Challenge: Give a thumbs up for 3 seconds"
+                    };
+
+                    challengeText.innerText = challengeMap[data.challenge] || "Performing Challenge...";
+
+                    if (data.success) {
+                        proceedButton.classList.add("success");
+                        challengeText.innerText = "✅ Challenge Passed!";
+                        countdownEl.style.color = "green";
+                        clearInterval(interval);
+                    } else if (elapsed > 0) {
+                        elapsed++;
+                        countdownEl.innerText = "Timer: " + elapsed + "s";
+                    }
+                });
+        }
+
+        window.onload = () => {
+            interval = setInterval(() => {
+                fetch("/challenge-status")
+                    .then(res => res.json())
+                    .then(data => {
+                        const challengeMap = {
+                            "peace_sign": "Challenge: Hold a peace sign for 3 seconds",
+                            "finger_gun": "Challenge: Make a finger gun gesture for 3 seconds",
+                            "high_five": "Challenge: Show a high five for 3 seconds",
+                            "thumbs_up": "Challenge: Give a thumbs up for 3 seconds"
+                        };
+
+                        challengeText.innerText = challengeMap[data.challenge] || "Performing Challenge...";
+
+                        if (data.success) {
+                            proceedButton.classList.add("success");
+                            challengeText.innerText = "✅ Challenge Passed!";
+                            countdownEl.style.color = "green";
+                            clearInterval(interval);
+                        } else {
+                            if (data.start_time) {
+                                elapsed = Math.floor((Date.now() - data.start_time) / 1000);
+                                countdownEl.innerText = "Timer: " + elapsed + "s";
+                            } else {
+                                elapsed = 0;
+                                countdownEl.innerText = "Timer: 0s";
+                            }
+                        }
+                    });
+            }, 1000);
+        };
+    </script>
+</body>
+
+</html>

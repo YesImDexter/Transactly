@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Behavior Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <button id="openModal" class="modal-toggle">⚙️ Options</button>
+    <div id="optionsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Options</h2>
+            <div class="modal-row">
+                <label class="switch">
+                    <input type="checkbox" id="modalHeatmapToggle" checked>
+                    <span class="slider"></span>
+                </label>
+                <span>Show Heatmap</span>
+            </div>
+            <div class="modal-row">
+                <label class="switch">
+                    <input type="checkbox" id="modalFingerprintToggle">
+                    <span class="slider"></span>
+                </label>
+                <span>Show Fingerprint ID</span>
+            </div>
+            <div id="fingerprintIdDisplay" class="fingerprint-id"></div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Simulate User Interaction</h1>
+        <button id="startTracking">Start Behavior Tracker</button>
+        <a href="/facial-deepfake-app" id="deepfakeAppBtn" class="deepfake-btn">Go to Facial Deepfake App</a>
+        <form id="sampleForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br><br>
+            <label for="email">Email:</label>
+            <input type="text" id="text" name="email"><br><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="javascript.js"></script>
+</body>
+
+</html>

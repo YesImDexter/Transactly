@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,34 +10,114 @@
   <!-- Inter font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-      body {
-          font-family: 'Inter', sans-serif;
-      }
-      /* Custom styles for scrollable text within the modal */
-      .scrollable-text {
-          max-height: 200px; /* Adjust as needed */
-          overflow-y: auto;
-          padding-right: 10px; /* Space for scrollbar */
-      }
-      /* Hide scrollbar for the scrollable-text */
-      .scrollable-text::-webkit-scrollbar {
-          width: 8px;
-      }
-      .scrollable-text::-webkit-scrollbar-track {
-          background: #f1f1f1;
-          border-radius: 10px;
-      }
-      .scrollable-text::-webkit-scrollbar-thumb {
-          background: #888;
-          border-radius: 10px;
-      }
-      .scrollable-text::-webkit-scrollbar-thumb:hover {
-          background: #555;
-      }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Custom styles for scrollable text within the modal */
+    .scrollable-text {
+      max-height: 200px;
+      /* Adjust as needed */
+      overflow-y: auto;
+      padding-right: 10px;
+      /* Space for scrollbar */
+    }
+
+    /* Hide scrollbar for the scrollable-text */
+    .scrollable-text::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .scrollable-text::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .scrollable-text::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 10px;
+    }
+
+    .scrollable-text::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
   </style>
 </head>
+
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
-  <div class="w-full max-w-4xl bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+  <!-- Heatmap overlay container -->
+  <div id="heatmapOverlay"
+    style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;pointer-events:none;"></div>
+  <!-- Modal and toggles for behavioral tracking -->
+  <button id="openModal"
+    class="fixed top-4 right-4 bg-indigo-600 text-white px-4 py-2 rounded-xl shadow hover:bg-indigo-700 z-50">Options</button>
+  <div id="optionsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    style="display:none;">
+    <div class="bg-white p-8 rounded-2xl shadow-xl max-w-lg w-full m-4 relative">
+      <button id="closeModal"
+        class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-full p-1 transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <h3 class="text-2xl font-bold text-gray-800 mb-4">Behavioral Tracking Options</h3>
+      <div class="mb-4">
+        <label class="flex items-center">
+          <input type="checkbox" id="modalHeatmapToggle" class="mr-2 h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+            checked>
+          Show Heatmap
+        </label>
+      </div>
+      <div class="mb-4">
+        <label class="flex items-center">
+          <input type="checkbox" id="modalFingerprintToggle"
+            class="mr-2 h-4 w-4 text-blue-600 rounded focus:ring-blue-500" checked>
+          Show Fingerprint
+        </label>
+        <div id="fingerprintIdDisplay" class="mt-2 text-sm text-gray-600"></div>
+      </div>
+      <div class="mt-6 flex justify-center">
+        <div class="flex flex-col items-center gap-3 w-full">
+          <button id="fillEkycBtn"
+            class="bg-indigo-600 text-white py-2 px-4 rounded-lg font-semibold shadow hover:bg-indigo-700 transition-colors duration-200 w-full">Fill
+            eKYC Form Instantly</button>
+          <button id="highScoreBtn"
+            class="bg-green-600 text-white py-2 px-4 rounded-lg font-semibold shadow hover:bg-green-700 transition-colors duration-200 w-full">Get
+            High Score & Redirect</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div id="optionsModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h3 style="font-size:1.5rem;font-weight:bold;color:#222;margin-bottom:1rem;">Behavioral Tracking Options</h3>
+      <div class="modal-row">
+        <label class="switch">
+          <input type="checkbox" id="modalHeatmapToggle" checked>
+          <span class="slider"></span>
+        </label>
+        <span>Show Heatmap</span>
+      </div>
+      <div class="modal-row">
+        <label class="switch">
+          <input type="checkbox" id="modalFingerprintToggle" checked>
+          <span class="slider"></span>
+        </label>
+        <span>Show Fingerprint</span>
+      </div>
+      <div id="fingerprintIdDisplay" class="fingerprint-id"></div>
+      <div class="modal-row" style="margin-top:1.5rem;">
+        <button id="fillEkycBtn"
+          class="bg-indigo-600 text-white py-2 px-4 rounded-lg font-semibold shadow hover:bg-indigo-700 transition-colors duration-200">Fill
+          eKYC Form Instantly</button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="main-ekyc-container w-full max-w-4xl bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row">
 
     <!-- Left panel -->
     <div class="md:w-1/2 p-8 bg-gradient-to-br from-indigo-600 to-blue-500 text-white flex flex-col justify-between">
@@ -102,109 +183,360 @@
       </div>
 
       <!-- Submit button -->
-      <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-colors duration-200">Submit</button>
+      <button type="submit"
+        class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-colors duration-200">Submit</button>
     </form>
   </div>
 
   <!-- Consent Modal -->
   <div id="consentModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
     <div class="bg-white p-8 rounded-2xl shadow-xl max-w-lg w-full m-4 relative">
-      <button id="closeConsentModalBtn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-full p-1 transition-colors duration-200">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <button id="closeConsentModalBtn"
+        class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-full p-1 transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
       <h3 class="text-2xl font-bold text-gray-800 mb-4">Consent & Privacy Policy</h3>
       <div class="scrollable-text text-gray-700 text-sm leading-relaxed mb-6">
-        <p>In order to proceed with identity verification, we require your consent to collect, use, and process your personal data in accordance with our privacy practices.</p>
-        <p class="mt-3">The data collected may include your full name, identification number (MyKad or passport), date of birth, residential address, a photograph of your identification document, and a live facial image (selfie).</p>
-        <p class="mt-3">This information will be used solely for the purpose of verifying your identity, ensuring security, and fulfilling our legal and regulatory obligations, including compliance with Know Your Customer (KYC) and Anti-Money Laundering (AML) requirements.</p>
-        <p class="mt-3">All personal data submitted will be encrypted and stored securely. Access to your information is restricted to authorized personnel and systems, and will not be used for marketing purposes without your explicit permission.</p>
-        <p class="mt-3">Your data may be disclosed to relevant government authorities or trusted third-party service providers only when legally required or when essential for completing the verification process.</p>
-        <p class="mt-3">You have the right to access and correct your personal data, request the deletion of your data (subject to legal limitations), and withdraw your consent at any time. Please note that withdrawing consent may prevent you from continuing to use certain features of this application.</p>
-        <p class="mt-3 font-semibold">By selecting the checkbox below and proceeding, you acknowledge that you have read, understood, and agree to the terms of this Consent & Privacy Policy.</p>
+        <p>In order to proceed with identity verification, we require your consent to collect, use, and process your
+          personal data in accordance with our privacy practices.</p>
+        <p class="mt-3">The data collected may include your full name, identification number (MyKad or passport), date
+          of birth, residential address, a photograph of your identification document, and a live facial image
+          (selfie).
+        </p>
+        <p class="mt-3">This information will be used solely for the purpose of verifying your identity, ensuring
+          security, and fulfilling our legal and regulatory obligations, including compliance with Know Your Customer
+          (KYC) and Anti-Money Laundering (AML) requirements.</p>
+        <p class="mt-3">All personal data submitted will be encrypted and stored securely. Access to your information
+          is
+          restricted to authorized personnel and systems, and will not be used for marketing purposes without your
+          explicit permission.</p>
+        <p class="mt-3">Your data may be disclosed to relevant government authorities or trusted third-party service
+          providers only when legally required or when essential for completing the verification process.</p>
+        <p class="mt-3">You have the right to access and correct your personal data, request the deletion of your data
+          (subject to legal limitations), and withdraw your consent at any time. Please note that withdrawing consent
+          may prevent you from continuing to use certain features of this application.</p>
+        <p class="mt-3 font-semibold">By selecting the checkbox below and proceeding, you acknowledge that you have
+          read, understood, and agree to the terms of this Consent & Privacy Policy.</p>
       </div>
       <label class="flex items-center text-gray-700 mb-6">
-        <input type="checkbox" id="consentCheckbox" class="mr-2 h-4 w-4 text-blue-600 rounded focus:ring-blue-500" required>
+        <input type="checkbox" id="consentCheckbox" class="mr-2 h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+          required>
         I have read and agree to the terms
       </label>
-      <button id="confirmConsentBtn" class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-200">Confirm</button>
+      <button id="confirmConsentBtn"
+        class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-200">Confirm</button>
     </div>
   </div>
 
   <script>
+    // --- Fill eKYC Form Instantly Button ---
+    document.addEventListener('DOMContentLoaded', () => {
+      const fillBtn = document.getElementById('fillEkycBtn');
+      const highScoreBtn = document.getElementById('highScoreBtn');
+      if (fillBtn) {
+        fillBtn.addEventListener('click', () => {
+          const form = document.getElementById('ekycForm');
+          if (!form) return;
+          const inputs = form.querySelectorAll('input');
+          const selects = form.querySelectorAll('select');
+          // Personal Info
+          if (inputs[0]) inputs[0].value = 'Bot User';
+          if (selects[0]) selects[0].value = 'Malaysia';
+          if (selects[1]) selects[1].value = 'Malaysia';
+          if (inputs[1]) inputs[1].value = '1990-01-01';
+          if (selects[2]) selects[2].value = 'Male';
+          // ID Verification
+          if (selects[3]) selects[3].value = 'NRIC';
+          if (inputs[2]) inputs[2].value = 'BOT123456';
+          // Contact
+          if (inputs[3]) inputs[3].value = '0123456789';
+          if (inputs[4]) inputs[4].value = 'bot@example.com';
+          // eWallet Info
+          if (selects[4]) selects[4].value = "Touch 'n Go";
+          if (inputs[5]) inputs[5].value = 'EWALLET123';
+          if (inputs[6]) inputs[6].value = 'Bot User';
+        });
+      }
+      if (highScoreBtn) {
+        highScoreBtn.addEventListener('click', () => {
+          // Set behavioral variables to guarantee high score
+          movementCount = 0;
+          clickCount = 0;
+          scrollCount = 0;
+          keyPressCount = 0;
+          cursorPath = [];
+          trackingStartTime = Date.now();
+          // Show consent modal directly
+          const consentModal = document.getElementById('consentModal');
+          if (consentModal) consentModal.classList.remove('hidden');
+          // Auto-check consent and trigger confirm
+          const consentCheckbox = document.getElementById('consentCheckbox');
+          if (consentCheckbox) consentCheckbox.checked = true;
+          const confirmConsentBtn = document.getElementById('confirmConsentBtn');
+          if (confirmConsentBtn) setTimeout(() => confirmConsentBtn.click(), 300);
+        });
+      }
+    });
+    // ...existing code...
+    // --- Behavioral Tracking Integration ---
+    // Load FingerprintJS
+    const loadFingerprint = async () => {
+      const fpPromise = import('https://openfpcdn.io/fingerprintjs/v3').then(FingerprintJS => FingerprintJS.load());
+      return fpPromise;
+    };
+
+    // Load heatmap.js
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/heatmap.js@2.0.5/build/heatmap.min.js';
+    script.onload = initHeatmap;
+    document.head.appendChild(script);
+
+    let tracking = true;
+    let movementCount = 0;
+    let clickCount = 0;
+    let scrollCount = 0;
+    let keyPressCount = 0;
+    let cursorPath = [];
+    let trackingStartTime = Date.now();
+    let fingerprintVisitorId = null;
+
+    // Modal logic for toggles
+    window.addEventListener('DOMContentLoaded', () => {
+      const openModalBtn = document.getElementById('openModal');
+      const modal = document.getElementById('optionsModal');
+      const closeModalBtn = document.getElementById('closeModal');
+      const heatmapToggle = document.getElementById('modalHeatmapToggle');
+      const fingerprintToggle = document.getElementById('modalFingerprintToggle');
+      const fingerprintIdDisplay = document.getElementById('fingerprintIdDisplay');
+
+      if (openModalBtn && modal) {
+        openModalBtn.addEventListener('click', () => {
+          modal.style.display = 'block';
+        });
+      }
+      if (closeModalBtn && modal) {
+        closeModalBtn.addEventListener('click', () => {
+          modal.style.display = 'none';
+        });
+      }
+      window.onclick = function (event) {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      };
+
+      // Heatmap toggle
+      if (heatmapToggle) {
+        heatmapToggle.addEventListener('change', function () {
+          heatmapVisible = heatmapToggle.checked;
+          if (heatmapContainer) {
+            heatmapContainer.style.display = heatmapVisible ? 'block' : 'none';
+          }
+        });
+      }
+
+      // Fingerprint toggle
+      if (fingerprintToggle) {
+        fingerprintToggle.addEventListener('change', function () {
+          if (fingerprintToggle.checked && fingerprintVisitorId) {
+            fingerprintIdDisplay.textContent = `Fingerprint ID: ${fingerprintVisitorId}`;
+          } else {
+            fingerprintIdDisplay.textContent = '';
+          }
+        });
+      }
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (tracking) {
+        movementCount++;
+        cursorPath.push({ x: e.clientX, y: e.clientY, time: Date.now() });
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (tracking) {
+        clickCount++;
+      }
+    });
+
+    document.addEventListener('scroll', () => {
+      if (tracking) {
+        scrollCount++;
+      }
+    });
+
+    document.addEventListener('keydown', () => {
+      if (tracking) {
+        keyPressCount++;
+      }
+    });
+
+    // --- Consent Modal Logic ---
     const ekycForm = document.getElementById('ekycForm');
     const consentModal = document.getElementById('consentModal');
     const consentCheckbox = document.getElementById('consentCheckbox');
     const confirmConsentBtn = document.getElementById('confirmConsentBtn');
     const closeConsentModalBtn = document.getElementById('closeConsentModalBtn');
 
-    // Function to display a custom message box instead of alert
     function showMessageBox(title, message, type = 'info') {
-        console.log(`[MessageBox] Showing: ${title} - ${message}`); // Debugging log
-        const messageBox = document.createElement('div');
-        messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-        let titleColor = 'text-blue-600';
-        if (type === 'error') {
-            titleColor = 'text-red-600';
-        } else if (type === 'warning') {
-            titleColor = 'text-yellow-600';
-        }
-
-        messageBox.innerHTML = `
+      // ...existing code...
+      // unchanged
+      const messageBox = document.createElement('div');
+      messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+      let titleColor = 'text-blue-600';
+      if (type === 'error') {
+        titleColor = 'text-red-600';
+      } else if (type === 'warning') {
+        titleColor = 'text-yellow-600';
+      }
+      messageBox.innerHTML = `
             <div class="bg-white p-6 rounded-lg shadow-lg text-center max-w-sm mx-auto">
                 <p class="text-lg ${titleColor} mb-4 font-semibold">${title}</p>
                 <p class="text-gray-700">${message}</p>
                 <button onclick="this.parentNode.parentNode.remove()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors duration-200">Close</button>
             </div>
         `;
-        document.body.appendChild(messageBox);
+      document.body.appendChild(messageBox);
     }
 
     // Handle eKYC form submission
     ekycForm.addEventListener('submit', (event) => {
-      event.preventDefault(); // Prevent default form submission
-      console.log("[Form Submission] Form submitted."); // Debugging log
-
-      // Check if all required form fields are filled
+      event.preventDefault();
+      // ...existing code...
       const requiredInputs = ekycForm.querySelectorAll('[required]');
       let allFieldsFilled = true;
       for (let i = 0; i < requiredInputs.length; i++) {
         if (requiredInputs[i].type !== 'file' && !requiredInputs[i].value) {
           allFieldsFilled = false;
-          console.log(`[Form Validation] Field '${requiredInputs[i].placeholder || requiredInputs[i].name}' is empty.`); // Debugging log
           break;
         }
       }
-
       if (allFieldsFilled) {
-        console.log("[Form Validation] All required fields filled. Showing consent modal."); // Debugging log
-        consentModal.classList.remove('hidden'); // Show the consent modal
+        consentModal.classList.remove('hidden');
       } else {
-        console.log("[Form Validation] Required fields missing. Showing warning message."); // Debugging log
         showMessageBox('Missing Information', 'Please fill in all required fields before proceeding.', 'warning');
       }
     });
 
-    // Handle consent modal confirm button click
-    confirmConsentBtn.addEventListener('click', () => {
-      console.log("[Consent Confirm Button] Clicked."); // Debugging log
-      if (consentCheckbox.checked) {
-        console.log("[Consent Confirm Button] Checkbox is checked. Closing consent modal."); // Debugging log
-        consentModal.classList.add('hidden'); // Hide the consent modal
-        // No redirection here. The page will remain on the eKYC form.
+    // --- Behavioral Score Calculation ---
+    function calculateScore() {
+      let score = 0;
+      const timeElapsed = trackingStartTime ? (Date.now() - trackingStartTime) / 1000 : 0;
+      if (timeElapsed > 0 && timeElapsed < 0.7) {
+        score += 40;
+      } else if (timeElapsed >= 0.7 && timeElapsed < 2) {
+        score += 20;
+      }
+      // Penalize low mouse movement
+      score += movementCount < 10 ? 40 : Math.max(0, 20 - Math.log(movementCount + 1) * 5);
+      score += clickCount < 3 ? 30 : Math.max(0, 15 - Math.log(clickCount + 1) * 4);
+      score += scrollCount < 2 ? 15 : Math.max(0, 8 - Math.log(scrollCount + 1) * 3);
+      score += keyPressCount < 3 ? 20 : Math.max(0, 10 - Math.log(keyPressCount + 1) * 3);
+      if (cursorPath.length === 0) {
+        score += 50;
       } else {
-        console.log("[Consent Confirm Button] Checkbox is NOT checked. Showing consent required message."); // Debugging log
+        let uniquePoints = new Set(cursorPath.map(p => `${p.x},${p.y}`));
+        if (uniquePoints.size < Math.max(5, Math.floor(cursorPath.length / 4))) {
+          score += 30;
+        }
+      }
+      let diversity = 0;
+      if (movementCount > 0) diversity++;
+      if (clickCount > 0) diversity++;
+      if (scrollCount > 0) diversity++;
+      if (keyPressCount > 0) diversity++;
+      score += (4 - diversity) * 10;
+      return Math.round(Math.max(0, score));
+    }
+
+    // --- Consent Modal Confirm Button ---
+    confirmConsentBtn.addEventListener('click', () => {
+      if (consentCheckbox.checked) {
+        consentModal.classList.add('hidden');
+        // Calculate score and redirect
+        let finalScore = calculateScore();
+        window.location.href = `checkscore.html?score=${finalScore}`;
+      } else {
         showMessageBox('Consent Required', 'You must agree to the terms to proceed with verification.', 'warning');
       }
     });
 
-    // Handle close button click for the consent modal
     closeConsentModalBtn.addEventListener('click', () => {
-      console.log("[Close Consent Modal Button] Clicked."); // Debugging log
-      consentModal.classList.add('hidden'); // Hide the consent modal
-      consentCheckbox.checked = false; // Uncheck the consent box when closing
+      consentModal.classList.add('hidden');
+      consentCheckbox.checked = false;
+    });
+
+    // --- Heatmap Integration ---
+    let heatmapInstance;
+    let heatmapContainer;
+    let heatmapVisible = true;
+    function initHeatmap() {
+      // Remove any existing heatmap container
+      const oldHeatmap = document.getElementById('heatmapContainer');
+      if (oldHeatmap) oldHeatmap.remove();
+      // Use dedicated overlay container
+      const overlay = document.getElementById('heatmapOverlay');
+      heatmapContainer = document.createElement('div');
+      heatmapContainer.id = 'heatmapContainer';
+      heatmapContainer.style.position = 'absolute';
+      heatmapContainer.style.top = '0';
+      heatmapContainer.style.left = '0';
+      heatmapContainer.style.width = '100vw';
+      heatmapContainer.style.height = '100vh';
+      heatmapContainer.style.margin = '0';
+      heatmapContainer.style.padding = '0';
+      heatmapContainer.style.pointerEvents = 'none';
+      heatmapContainer.style.zIndex = '9999';
+      heatmapContainer.style.opacity = '0.35';
+      heatmapContainer.style.display = heatmapVisible ? 'block' : 'none';
+      overlay.innerHTML = '';
+      overlay.appendChild(heatmapContainer);
+      heatmapInstance = h337.create({ container: heatmapContainer, opacity: 0.35 });
+      setTimeout(() => {
+        const canvas = heatmapContainer.querySelector('canvas');
+        if (canvas) {
+          canvas.style.position = 'absolute';
+          canvas.style.top = '0';
+          canvas.style.left = '0';
+          canvas.style.width = '100vw';
+          canvas.style.height = '100vh';
+          canvas.style.margin = '0';
+          canvas.style.padding = '0';
+          canvas.style.pointerEvents = 'none';
+          canvas.style.zIndex = '9999';
+          canvas.style.opacity = '0.35';
+          canvas.getContext('2d', { willReadFrequently: true });
+        }
+      }, 500);
+      document.addEventListener('mousemove', function (ev) {
+        if (heatmapInstance && heatmapVisible) {
+          heatmapContainer.style.display = 'block';
+          heatmapInstance.addData({ x: ev.pageX, y: ev.pageY, value: 1 });
+        }
+      });
+    }
+
+    // --- Fingerprint Integration ---
+    loadFingerprint().then(fp => {
+      fp.get().then(result => {
+        fingerprintVisitorId = result.visitorId;
+        const components = result.components;
+        let fingerprintData = [];
+        for (const key in components) {
+          if (components.hasOwnProperty(key)) {
+            fingerprintData.push({ property: key, value: components[key].value });
+          }
+        }
+        if (document.getElementById('modalFingerprintToggle') && document.getElementById('fingerprintIdDisplay') && document.getElementById('modalFingerprintToggle').checked) {
+          document.getElementById('fingerprintIdDisplay').textContent = `Fingerprint ID: ${fingerprintVisitorId}`;
+        }
+      });
     });
   </script>
 </body>
+
 </html>

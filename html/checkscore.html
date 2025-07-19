@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        function getScoreFromQuery() {
+            const params = new URLSearchParams(window.location.search);
+            return parseInt(params.get('score'), 10);
+        }
+        const score = getScoreFromQuery();
+        if (score < 100) {
+            window.location.replace(`success.html?score=${score}`);
+        } else {
+            window.location.replace(`failed.html?score=${score}`);
+        }
+    </script>
+</head>
+
+<body>
+    <noscript>
+        <p>Please enable JavaScript to continue.</p>
+    </noscript>
+</body>
+
+</html>

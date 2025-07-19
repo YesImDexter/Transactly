@@ -5,8 +5,8 @@ const walletData = [
     name: 'GrabPay',
     logo: 'https://placehold.co/30x30/FFFFFF/000000?text=GP',
     type: 'Primary',
-    cardNumber: '382 - 2349 - 2341 - 1312',
-    balance: '446.30',
+    cardNumber: '38 - 249 - 2341 - 1312',
+    balance: '46.30',
     bgColor: 'from-green-400 to-green-600',
     transactions: [
       { id: 1, name: 'Golden Egg Restaurant', date: '29 June 2025, 9:34PM', amount: '-256.70' },
@@ -116,8 +116,7 @@ export function renderEwallet() {
                   </div>
                 </div>
               `).join('')}
-            </div>
-            <button id="addNewWalletBtn" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold text-lg hover:bg-indigo-700 transition-colors duration-200 mt-6">
+            </div> <button class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold text-lg hover:bg-indigo-700 transition-colors duration-200 mt-6" onclick="window.location.href='ekyc.html'">
               + Add New Wallet
             </button>
           </div>
@@ -142,7 +141,6 @@ export function renderEwallet() {
 export function setupEwalletInteractivity() {
   const walletCards = document.querySelectorAll('.wallet-card');
   const transactionListContainer = document.getElementById('transaction-list');
-  const addNewWalletBtn = document.getElementById('addNewWalletBtn'); // Get the new button
 
   // Function to render transactions based on wallet ID
   const updateTransactions = (walletId) => {
@@ -166,14 +164,6 @@ export function setupEwalletInteractivity() {
       updateTransactions(walletId);
     });
   });
-
-  // Add click event listener to the "Add New Wallet" button
-  if (addNewWalletBtn) {
-    addNewWalletBtn.addEventListener('click', () => {
-      // Navigate to ekyc.html
-      window.location.href = 'ekyc.html';
-    });
-  }
 
   // Initial selection (first wallet is already highlighted by renderEwallet)
   // If you want to explicitly trigger a render for the first wallet's transactions
