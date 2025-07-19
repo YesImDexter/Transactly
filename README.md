@@ -28,5 +28,3 @@ Transactly is a prototype web application focused on strengthening identity veri
 3. The user must perform the gesture in front of the webcam.
 4. The system detects motion and uses MediaPipe to validate the gesture.
 5. If successful for 3 seconds → user can proceed.
-
-## 🧩 Project Structure
