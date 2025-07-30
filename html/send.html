@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Send Payment - QR Scanner</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jsQR library for QR code scanning -->
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            background-color: #111827;
+        }
+        body {
+            overflow: hidden;
+        }
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            display: none;
+        }
+        #scanner-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            padding-bottom: 5rem; 
+        }
+        #scanner-box {
+            width: 70vw;
+            max-width: 300px;
+            height: 70vw;
+            max-height: 300px;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            border-radius: 1.5rem;
+            box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.5);
+        }
+        #permission-popup {
+            background-color: rgba(17, 24, 39, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+        #amount-view, #authorize-view, #receipt-view {
+            background-image: linear-gradient(to bottom right, #00D4FF, #090979, #020024);
+            min-height: 100vh;
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-white">
+
+    <!-- Container for the Scanner View -->
+    <div id="scanner-view">
+        <button id="scanner-back-btn" class="absolute top-6 left-6 text-white z-50 p-2 rounded-full hover:bg-white/10 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+
+        <video id="video-background" playsinline></video>
+        <canvas id="canvas" class="hidden"></canvas>
+        <input type="file" id="file-input" accept="image/*" class="hidden" />
+        <button id="exit-scanner-btn" class="fixed top-6 right-6 text-white text-4xl font-bold z-30 hidden transition-opacity duration-300 hover:opacity-75">&times;</button>
+        <div id="scanner-overlay">
+            <h2 class="text-lg font-semibold text-center mb-4 px-4 text-white">Scan the recipient’s QR Code to Send Money</h2>
+            <div id="scanner-box"></div>
+            <button id="scan-image-live-btn" class="mt-8 bg-white text-gray-700 font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-blue-500 shadow-md">
+                Scan an Image
+            </button>
+        </div>
+        <div id="permission-popup" class="fixed inset-0 flex items-center justify-center p-4">
+            <div class="w-11/12 max-w-sm p-8 text-center rounded-2xl shadow-lg">
+                <h2 class="text-2xl font-bold mb-6">Scan QR Code to Pay</h2>
+                <div class="space-y-4">
+                    <button id="request-camera-btn" class="w-full text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-blue-500 shadow-md">
+                        Request Camera Permissions
+                    </button>
+                    <button id="scan-file-btn" class="w-full text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-gray-500 shadow-md">
+                        Upload From Library
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="fixed bottom-0 left-0 right-0 z-40 px-4 py-4" style="padding-bottom: calc(1rem + env(safe-area-inset-bottom));">
+            <div class="relative flex items-center max-w-sm mx-auto bg-white rounded-xl p-1 shadow-lg">
+                <div id="nav-highlight" class="absolute left-1 top-1 w-[calc(50%-0.25rem)] h-[calc(100%-0.5rem)] rounded-xl transition-transform duration-300 ease-in-out" style="background-image: linear-gradient(to right, #00D4FF, #090979, #020024);"></div>
+                <button class="relative flex-1 text-center font-bold text-white py-3">Send</button>
+                <button id="receive-btn" class="relative flex-1 text-center font-bold text-gray-400 py-3">Receive</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container for the Amount Entry View -->
+    <div id="amount-view" class="hidden">
+        <div class="container mx-auto p-4 relative">
+            <header class="relative flex items-center justify-center py-4">
+                <button id="back-btn" class="absolute left-4 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <h1 class="text-2xl font-bold">Send Money</h1>
+            </header>
+            <main class="flex flex-col items-center justify-center text-center mt-16">
+                <h2 class="text-lg mb-4">Enter Amount</h2>
+                <input type="text" inputmode="numeric" id="amount-input" value="0.00" class="bg-transparent text-white text-6xl font-bold w-full text-center border-none focus:ring-0 outline-none" />
+                <div class="w-full max-w-sm mt-12">
+                    <label for="reference" class="sr-only">Recipient's Reference (optional)</label>
+                    <input type="text" id="reference" placeholder="Recipients’s Reference (optional)" class="w-full bg-transparent border-b-2 border-white/50 py-2 text-center text-white placeholder-gray-300 focus:border-white focus:ring-0 outline-none transition">
+                </div>
+                <button id="proceed-btn" class="w-full max-w-sm mt-16 bg-white text-blue-900 font-bold py-4 px-6 rounded-xl text-lg transition-transform duration-200 hover:scale-105" disabled>
+                    Proceed
+                </button>
+            </main>
+        </div>
+        <div id="cancel-popup" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
+            <div class="bg-gray-800 rounded-2xl p-8 text-center shadow-lg w-full max-w-sm">
+                <h2 class="text-xl font-bold mb-6 text-white">Cancel transaction?</h2>
+                <div class="flex justify-center space-x-4">
+                    <button id="popup-cancel-btn" class="bg-gray-400 text-black font-semibold py-3 px-8 rounded-xl transition-opacity hover:opacity-80">Cancel</button>
+                    <button id="popup-confirm-btn" class="font-semibold py-3 px-8 rounded-xl transition-opacity hover:opacity-80 text-white" style="background-color: #090979;">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container for the Authorize View -->
+    <div id="authorize-view" class="hidden">
+        <div class="relative min-h-screen flex flex-col">
+            <div class="container mx-auto p-4 flex-shrink-0">
+                 <header class="relative flex items-center justify-center py-4">
+                    <button id="authorize-back-btn" class="absolute left-4 text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                    </button>
+                    <h1 class="text-2xl font-bold">Authorize Transaction</h1>
+                </header>
+            </div>
+            <div class="flex-grow flex flex-col justify-between absolute bottom-0 left-0 right-0 h-3/4 bg-white rounded-t-3xl p-6 text-gray-800">
+                <div>
+                    <p class="text-center mt-2 mb-6 text-gray-600">Please complete the final step to send your payment.</p>
+                    <h3 class="text-lg font-bold mb-4 text-gray-900 text-center">Transaction Details</h3>
+                    <div class="space-y-3 text-sm px-4">
+                        <div class="flex justify-between"><span class="text-gray-500">Transfer to</span><span class="font-semibold text-gray-900">Choo Wen Ren</span></div>
+                        <div class="flex justify-between"><span class="text-gray-500">Reference ID</span><span class="font-semibold text-gray-900">3274283742GHA</span></div>
+                        <div class="flex justify-between"><span class="text-gray-500">Reference</span><span id="auth-reference" class="font-semibold text-gray-900 text-right break-all"></span></div>
+                        <div class="flex justify-between"><span class="text-gray-500">Transaction Type</span><span class="font-semibold text-gray-900">DuitNow</span></div>
+                        <div class="flex justify-between items-center"><span class="text-gray-500">Sent Amount</span><span id="auth-sent-amount" class="text-2xl font-bold text-gray-900"></span></div>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <p class="text-xs text-gray-500 text-center mb-4">To proceed, please review the transaction details carefully and confirm your authorization.</p>
+                    <div class="flex justify-center space-x-4">
+                        <button id="reject-btn" class="w-1/2 text-center font-semibold py-3 rounded-xl transition-opacity hover:opacity-80 border" style="color: #090979; border-color: #090979;">Reject</button>
+                        <button id="authorize-btn" class="w-1/2 text-center font-semibold py-3 rounded-xl transition-opacity hover:opacity-80 text-white" style="background-color: #090979;">Authorize</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container for the Receipt View -->
+    <div id="receipt-view" class="hidden">
+        <div class="relative min-h-screen flex flex-col items-center justify-center p-4">
+             <button id="receipt-close-btn" class="absolute top-6 right-6 text-white text-4xl font-bold z-10">&times;</button>
+            <div class="w-full max-w-sm bg-white rounded-2xl shadow-lg p-6 text-gray-800 text-center">
+                <div class="mx-auto bg-green-100 rounded-full h-16 w-16 flex items-center justify-center mb-4">
+                    <svg class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900">Successful</h2>
+                <p id="receipt-timestamp" class="text-sm text-gray-500 mt-1 mb-6"></p>
+                <div class="space-y-3 text-sm text-left border-t border-b py-4">
+                    <div class="flex justify-between"><span class="text-gray-500">Transfer to</span><span class="font-semibold text-gray-900">Choo Wen Ren</span></div>
+                    <div class="flex justify-between"><span class="text-gray-500">Reference ID</span><span class="font-semibold text-gray-900">3274283742GHA</span></div>
+                    <div class="flex justify-between"><span class="text-gray-500">Reference</span><span id="receipt-reference" class="font-semibold text-gray-900 text-right break-all"></span></div>
+                    <div class="flex justify-between"><span class="text-gray-500">Transaction Type</span><span class="font-semibold text-gray-900">DuitNow</span></div>
+                    <div class="flex justify-between items-center"><span class="text-gray-500">Sent Amount</span><span id="receipt-sent-amount" class="text-2xl font-bold text-gray-900"></span></div>
+                </div>
+            </div>
+            <div class="flex justify-center space-x-8 mt-6">
+                <button id="share-btn" class="text-white flex flex-col items-center space-y-1">
+                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6.002l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.368a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" /></svg>
+                    <span>Share</span>
+                </button>
+                <button id="download-btn" class="text-white flex flex-col items-center space-y-1">
+                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    <span>Download</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM element references ---
+        const scannerView = document.getElementById('scanner-view');
+        const scannerBackBtn = document.getElementById('scanner-back-btn');
+        const amountView = document.getElementById('amount-view');
+        const authorizeView = document.getElementById('authorize-view');
+        const receiptView = document.getElementById('receipt-view');
+        const backBtn = document.getElementById('back-btn');
+        const proceedBtn = document.getElementById('proceed-btn');
+        const authorizeBackBtn = document.getElementById('authorize-back-btn');
+        const rejectBtn = document.getElementById('reject-btn');
+        const authorizeBtn = document.getElementById('authorize-btn');
+        const receiptCloseBtn = document.getElementById('receipt-close-btn');
+        const shareBtn = document.getElementById('share-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const amountInput = document.getElementById('amount-input');
+        const referenceInput = document.getElementById('reference');
+        const cancelPopup = document.getElementById('cancel-popup');
+        const popupCancelBtn = document.getElementById('popup-cancel-btn');
+        const popupConfirmBtn = document.getElementById('popup-confirm-btn');
+        const receiveBtn = document.getElementById('receive-btn');
+        
+        const video = document.getElementById('video-background');
+        const canvasElement = document.getElementById('canvas');
+        const canvas = canvasElement.getContext('2d');
+        const permissionPopup = document.getElementById('permission-popup');
+        const requestCameraButton = document.getElementById('request-camera-btn');
+        const scanFileButton = document.getElementById('scan-file-btn');
+        const fileInput = document.getElementById('file-input');
+        const scannerOverlay = document.getElementById('scanner-overlay');
+        const exitScannerButton = document.getElementById('exit-scanner-btn');
+        const scanImageLiveButton = document.getElementById('scan-image-live-btn');
+
+        let stream = null;
+        let scanning = false;
+
+        // --- View Switching Functions ---
+        function showReceiptPage() {
+            const now = new Date();
+            const timestamp = now.toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' });
+            document.getElementById('receipt-timestamp').textContent = timestamp;
+            document.getElementById('receipt-sent-amount').textContent = amountInput.value;
+            document.getElementById('receipt-reference').textContent = referenceInput.value || 'N/A';
+            authorizeView.classList.add('hidden');
+            receiptView.classList.remove('hidden');
+        }
+
+        function showAuthorizePage() {
+            document.getElementById('auth-sent-amount').textContent = amountInput.value;
+            document.getElementById('auth-reference').textContent = referenceInput.value || 'N/A';
+            amountView.classList.add('hidden');
+            authorizeView.classList.remove('hidden');
+        }
+
+        function showAmountPage(fromAuthorize = false) {
+            if (!fromAuthorize) stopScanner();
+            authorizeView.classList.add('hidden');
+            scannerView.classList.add('hidden');
+            amountView.classList.remove('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // MODIFIED: This function now resets the page to its initial state
+        function resetToInitialState() {
+            amountInput.value = '0.00';
+            referenceInput.value = '';
+            proceedBtn.disabled = true;
+            amountView.classList.add('hidden');
+            authorizeView.classList.add('hidden');
+            receiptView.classList.add('hidden');
+            scannerView.classList.remove('hidden');
+            permissionPopup.style.display = 'flex';
+            scannerOverlay.style.display = 'none';
+            document.body.style.overflow = 'hidden';
+            stopScanner(); // Ensure camera is off
+        }
+
+        async function startScanner() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { alert("Camera not supported"); return; }
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } } });
+                video.srcObject = stream;
+                video.style.display = 'block';
+                await video.play();
+                permissionPopup.style.display = 'none';
+                scannerOverlay.style.display = 'flex';
+                exitScannerButton.style.display = 'block'; 
+                scanning = true;
+                requestAnimationFrame(tick);
+            } catch (err) {
+                console.error("Camera access error:", err);
+                alert("Could not access the camera. Please check permissions.");
+            }
+        }
+        
+        function stopScanner() {
+            scanning = false;
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+            video.srcObject = null;
+            video.style.display = 'none';
+            scannerOverlay.style.display = 'none';
+            exitScannerButton.style.display = 'none';
+        }
+
+        // --- Event Listeners ---
+        scannerBackBtn.addEventListener('click', () => window.location.href = 'dashboard.html');
+        requestCameraButton.addEventListener('click', startScanner);
+        backBtn.addEventListener('click', () => cancelPopup.classList.remove('hidden'));
+        popupCancelBtn.addEventListener('click', () => cancelPopup.classList.add('hidden'));
+        popupConfirmBtn.addEventListener('click', () => {
+            cancelPopup.classList.add('hidden');
+            window.location.href = 'dashboard.html';
+        });
+
+        proceedBtn.addEventListener('click', showAuthorizePage);
+        authorizeBackBtn.addEventListener('click', () => showAmountPage(true));
+        rejectBtn.addEventListener('click', () => window.location.href = 'dashboard.html');
+        authorizeBtn.addEventListener('click', showReceiptPage);
+        receiptCloseBtn.addEventListener('click', () => window.location.href = 'dashboard.html');
+        receiveBtn.addEventListener('click', () => window.location.href = 'dashboard.html');
+
+
+        shareBtn.addEventListener('click', () => alert('Share functionality not implemented.'));
+        downloadBtn.addEventListener('click', () => alert('Download functionality not implemented.'));
+
+        scanFileButton.addEventListener('click', () => fileInput.click());
+        scanImageLiveButton.addEventListener('click', () => fileInput.click());
+        exitScannerButton.addEventListener('click', () => {
+            stopScanner();
+            resetToInitialState();
+        });
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const image = new Image();
+                image.onload = () => {
+                    canvasElement.width = image.width;
+                    canvasElement.height = image.height;
+                    canvas.drawImage(image, 0, 0, image.width, image.height);
+                    const imageData = canvas.getImageData(0, 0, image.width, image.height);
+                    const code = jsQR(imageData.data, imageData.width, imageData.height);
+                    if (code) {
+                        showAmountPage();
+                    } else {
+                        alert('No QR code found in the selected image.');
+                    }
+                };
+                image.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+            event.target.value = '';
+        });
+
+        function tick() {
+            if (!scanning) return;
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                canvasElement.height = video.videoHeight;
+                canvasElement.width = video.videoWidth;
+                canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+                const imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
+                const code = jsQR(imageData.data, imageData.width, imageData.height);
+                if (code) {
+                    if (navigator.vibrate) navigator.vibrate(200);
+                    showAmountPage();
+                    return;
+                }
+            }
+            requestAnimationFrame(tick);
+        }
+
+        amountInput.addEventListener('input', (e) => {
+            let digits = e.target.value.replace(/\D/g, '');
+            if (digits) {
+                digits = BigInt(digits).toString();
+            } else {
+                digits = '0';
+            }
+            const paddedAmount = digits.padStart(3, '0');
+            const integerPart = paddedAmount.slice(0, -2);
+            const decimalPart = paddedAmount.slice(-2);
+            const formattedValue = `${integerPart}.${decimalPart}`;
+            e.target.value = formattedValue;
+            proceedBtn.disabled = formattedValue === '0.00';
+        });
+    </script>
+</body>
+</html>
