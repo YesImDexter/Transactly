@@ -1,0 +1,79 @@
+body {
+  font-family: 'Inter', sans-serif;
+  background: #181a20;
+  color: #e5e7eb;
+}
+
+.glass {
+  background: rgba(30, 41, 59, 0.85);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(8px);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.metric-box {
+  background: linear-gradient(135deg, #2563eb 0%, #1e293b 100%);
+  color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px 0 rgba(37, 99, 235, 0.15);
+}
+
+.metric-box .label {
+  opacity: 0.7;
+  font-size: 0.95rem;
+}
+
+.metric-box .value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.table-dark th,
+.table-dark td {
+  border-bottom: 1px solid #23272f;
+}
+
+.table-dark th {
+  background: #23272f;
+  color: #60a5fa;
+  font-weight: 600;
+}
+
+.table-dark tr {
+  transition: background 0.2s;
+}
+
+.table-dark tr:hover {
+  background: #23272f;
+}
+
+.table-dark td {
+  background: transparent;
+}
+
+.brand {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #60a5fa;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 16px #2563eb33;
+}
+
+/* Transaction widgets */
+.widget-red {
+  background: linear-gradient(135deg, #ef4444 0%, #7f1d1d 100%);
+  color: #fff;
+}
+
+.widget-green {
+  background: linear-gradient(135deg, #22c55e 0%, #166534 100%);
+  color: #fff;
+}
+
+.widget-yellow {
+  background: linear-gradient(135deg, #eab308 0%, #78350f 100%);
+  color: #fff;
+}

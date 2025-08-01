@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AI Transaction Risk Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+        }
+
+        .summary-box {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #e0e0e0;
+        }
+
+        code {
+            white-space: pre-wrap;
+            background: #f9f9f9;
+            padding: 10px;
+            display: block;
+            border-left: 3px solid #00aaff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>AI Risk Analysis Summary</h1>
+
+    <div class="summary-box">
+        <p><strong>Total Transactions:</strong> {{ result.total_trxns }}</p>
+        <p><strong>Unique Transactions:</strong> {{ result.unique_trxns }}</p>
+    </div>
+
+    <h2>🔍 AI-Generated Risk Insights</h2>
+    <code>{{ result.summary_text }}</code>
+
+    <h2>🚩 Flagged Transactions</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Account Number</th>
+                    <th>Entity Name</th>
+                    <th>Amount</th>
+                    <th>Suspicion Flags</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trx in result.flagged_transactions %}
+                <tr>
+                    <td>{{ trx.trxn_id }}</td>
+                    <td>{{ trx.ofi_acct_number }}</td>
+                    <td>{{ trx.get('rfi_entity_name', '-') }}</td>
+                    <td>{{ trx.trxn_amount }}</td>
+                    <td>{{ trx.suspicion_flag }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2>📌 Related Transactions (for context)</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Account Number</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trx in result.related_sample %}
+                <tr>
+                    <td>{{ trx.trxn_id }}</td>
+                    <td>{{ trx.ofi_acct_number }}</td>
+                    <td>{{ trx.trxn_amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>

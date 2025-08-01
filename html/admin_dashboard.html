@@ -4,46 +4,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Dashboard</title>
+  <title>TrustX Admin Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../style/adminstyles.css" />
 </head>
 
-<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
-
+<body class="min-h-screen flex flex-col bg-[#181a20] text-[#e5e7eb]">
   <!-- Header Placeholder -->
   <div id="header-placeholder"></div>
 
   <!-- Main Content -->
   <main class="p-6 flex-1">
-    <h1 class="text-3xl font-bold mb-6 text-blue-700">Admin Dashboard</h1>
-
+    <!-- <div class="brand text-center">TrustX Admin Dashboard</div> -->
     <!-- Metric Boxes -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-      <div class="bg-blue-600 text-white rounded-lg p-4 shadow">
-        <p class="text-sm opacity-80">Total Users</p>
-        <h3 class="text-2xl font-semibold">249</h3>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+      <div class="metric-box p-6 flex flex-col items-center glass">
+        <span class="label">Total Users</span>
+        <span class="value">249</span>
       </div>
-      <div class="bg-blue-500 text-white rounded-lg p-4 shadow">
-        <p class="text-sm opacity-80">New Users</p>
-        <h3 class="text-2xl font-semibold">2</h3>
+      <div class="metric-box p-6 flex flex-col items-center glass">
+        <span class="label">New Users</span>
+        <span class="value">2</span>
       </div>
-      <div class="bg-blue-400 text-white rounded-lg p-4 shadow">
-        <p class="text-sm opacity-80">Tasks</p>
-        <h3 class="text-2xl font-semibold">7</h3>
+      <div class="metric-box p-6 flex flex-col items-center glass">
+        <span class="label">Tasks</span>
+        <span class="value">7</span>
       </div>
-      <div class="bg-blue-300 text-white rounded-lg p-4 shadow">
-        <p class="text-sm opacity-80">Issues</p>
-        <h3 class="text-2xl font-semibold">3</h3>
+      <div class="metric-box p-6 flex flex-col items-center glass">
+        <span class="label">Issues</span>
+        <span class="value">3</span>
       </div>
     </div>
 
     <!-- Trust Score Table -->
     <section>
-      <h2 class="text-xl font-semibold mb-4 text-blue-700">Real-time Trust Score Monitoring</h2>
-      <div class="overflow-x-auto bg-white rounded-lg shadow">
-        <table class="min-w-full text-sm text-gray-700">
-          <thead class="bg-blue-100 text-blue-700 uppercase text-xs">
+      <h2 class="text-xl font-semibold mb-4 text-blue-400">Real-time Trust Score Monitoring</h2>
+      <div class="overflow-x-auto glass p-4">
+        <table class="min-w-full text-sm table-dark rounded-xl overflow-hidden">
+          <thead>
             <tr>
               <th class="px-4 py-3 text-left">Username</th>
               <th class="px-4 py-3 text-left">Email</th>
@@ -58,33 +56,37 @@
               <td class="px-4 py-3">alice</td>
               <td class="px-4 py-3">alice@example.com</td>
               <td class="px-4 py-3">98</td>
-              <td class="px-4 py-3 text-green-600 font-bold">Low</td>
+              <td class="px-4 py-3 text-green-400 font-bold">Low</td>
               <td class="px-4 py-3">Verified</td>
-              <td class="px-4 py-3"><button class="bg-blue-500 text-white px-3 py-1 rounded">View</button></td>
+              <td class="px-4 py-3"><button
+                  class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">View</button></td>
             </tr>
             <tr>
               <td class="px-4 py-3">bob</td>
               <td class="px-4 py-3">bob@example.com</td>
               <td class="px-4 py-3">45</td>
-              <td class="px-4 py-3 text-red-600 font-bold">High</td>
+              <td class="px-4 py-3 text-red-400 font-bold">High</td>
               <td class="px-4 py-3">Flagged</td>
-              <td class="px-4 py-3"><button class="bg-blue-500 text-white px-3 py-1 rounded">View</button></td>
+              <td class="px-4 py-3"><button
+                  class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">View</button></td>
             </tr>
             <tr>
               <td class="px-4 py-3">charlie</td>
               <td class="px-4 py-3">charlie@example.com</td>
               <td class="px-4 py-3">72</td>
-              <td class="px-4 py-3 text-yellow-600 font-bold">Medium</td>
+              <td class="px-4 py-3 text-yellow-400 font-bold">Medium</td>
               <td class="px-4 py-3">Pending</td>
-              <td class="px-4 py-3"><button class="bg-blue-500 text-white px-3 py-1 rounded">View</button></td>
+              <td class="px-4 py-3"><button
+                  class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">View</button></td>
             </tr>
             <tr>
               <td class="px-4 py-3">diana</td>
               <td class="px-4 py-3">diana@example.com</td>
               <td class="px-4 py-3">88</td>
-              <td class="px-4 py-3 text-green-600 font-bold">Low</td>
+              <td class="px-4 py-3 text-green-400 font-bold">Low</td>
               <td class="px-4 py-3">Verified</td>
-              <td class="px-4 py-3"><button class="bg-blue-500 text-white px-3 py-1 rounded">View</button></td>
+              <td class="px-4 py-3"><button
+                  class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">View</button></td>
             </tr>
           </tbody>
         </table>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrustX Admin Transactions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../style/adminstyles.css" />
+</head>
+
+<body class="bg-[#181a20] text-[#e5e7eb] min-h-screen flex flex-col">
+    <div id="header-placeholder"></div>
+    <main class="p-6 flex-1">
+        <h1 class="text-3xl font-bold mb-6 text-blue-400">Admin Transactions</h1>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-gradient-to-r from-red-500 to-red-700 rounded-lg p-6 shadow text-white">
+                <div class="text-lg font-semibold mb-2">Suspicious Transactions Detected</div>
+                <div class="text-3xl font-bold">5</div>
+            </div>
+            <div class="bg-gradient-to-r from-green-500 to-green-700 rounded-lg p-6 shadow text-white">
+                <div class="text-lg font-semibold mb-2">Total Transactions</div>
+                <div class="text-3xl font-bold">1,234</div>
+            </div>
+            <div class="bg-gradient-to-r from-yellow-500 to-yellow-700 rounded-lg p-6 shadow text-white">
+                <div class="text-lg font-semibold mb-2">Pending Reviews</div>
+                <div class="text-3xl font-bold">12</div>
+            </div>
+        </div>
+        <section>
+            <h2 class="text-xl font-semibold mb-4 text-blue-300">Recent Transactions</h2>
+            <div class="overflow-x-auto bg-[#23272f] rounded-lg shadow p-4">
+                <table class="min-w-full text-sm text-gray-200">
+                    <thead class="bg-blue-900 text-blue-300 uppercase text-xs">
+                        <tr>
+                            <th class="px-4 py-3 text-left">Transaction ID</th>
+                            <th class="px-4 py-3 text-left">User</th>
+                            <th class="px-4 py-3 text-left">Amount</th>
+                            <th class="px-4 py-3 text-left">Status</th>
+                            <th class="px-4 py-3 text-left">Risk</th>
+                            <th class="px-4 py-3 text-left">Date</th>
+                            <th class="px-4 py-3 text-left">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="px-4 py-3">TXN-1001</td>
+                            <td class="px-4 py-3">alice</td>
+                            <td class="px-4 py-3">$1,200</td>
+                            <td class="px-4 py-3 text-green-400 font-bold">Completed</td>
+                            <td class="px-4 py-3 text-yellow-400 font-bold">Medium</td>
+                            <td class="px-4 py-3">2025-07-30</td>
+                            <td class="px-4 py-3"><button
+                                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3">TXN-1002</td>
+                            <td class="px-4 py-3">bob</td>
+                            <td class="px-4 py-3">$5,000</td>
+                            <td class="px-4 py-3 text-red-400 font-bold">Flagged</td>
+                            <td class="px-4 py-3 text-red-400 font-bold">High</td>
+                            <td class="px-4 py-3">2025-07-30</td>
+                            <td class="px-4 py-3"><button
+                                    class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition">Review</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3">TXN-1003</td>
+                            <td class="px-4 py-3">charlie</td>
+                            <td class="px-4 py-3">$300</td>
+                            <td class="px-4 py-3 text-yellow-400 font-bold">Pending</td>
+                            <td class="px-4 py-3 text-yellow-400 font-bold">Medium</td>
+                            <td class="px-4 py-3">2025-07-29</td>
+                            <td class="px-4 py-3"><button
+                                    class="bg-yellow-600 text-white px-3 py-1 rounded hover:bg-yellow-700 transition">Review</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3">TXN-1004</td>
+                            <td class="px-4 py-3">diana</td>
+                            <td class="px-4 py-3">$2,000</td>
+                            <td class="px-4 py-3 text-green-400 font-bold">Completed</td>
+                            <td class="px-4 py-3 text-green-400 font-bold">Low</td>
+                            <td class="px-4 py-3">2025-07-28</td>
+                            <td class="px-4 py-3"><button
+                                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3">TXN-1005</td>
+                            <td class="px-4 py-3">eve</td>
+                            <td class="px-4 py-3">$7,500</td>
+                            <td class="px-4 py-3 text-red-400 font-bold">Flagged</td>
+                            <td class="px-4 py-3 text-red-400 font-bold">High</td>
+                            <td class="px-4 py-3">2025-07-27</td>
+                            <td class="px-4 py-3"><button
+                                    class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition">Review</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <div id="footer-placeholder"></div>
+    <script src="shared.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadHTML("header-admin.html", "header-placeholder");
+            loadHTML("footer.html", "footer-placeholder");
+        });
+    </script>
+</body>
+
+</html>
