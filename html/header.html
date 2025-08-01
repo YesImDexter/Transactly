@@ -36,64 +36,62 @@
 </style>
 
 <script>
-  // Mobile menu functionality
-  document.addEventListener('DOMContentLoaded', function() {
-    const menuButton = document.getElementById('menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
+  // Mobile menu functionality - NO DOMContentLoaded listener here
+  const menuButton = document.getElementById('menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
 
-    if (menuButton && mobileMenu) {
-      menuButton.addEventListener('click', function(e) {
-        e.stopPropagation(); // Prevent document click from immediately closing
-        const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-        menuButton.setAttribute('aria-expanded', !isExpanded);
+  if (menuButton && mobileMenu) {
+    menuButton.addEventListener('click', function(e) {
+      e.stopPropagation(); // Prevent document click from immediately closing
+      const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+      menuButton.setAttribute('aria-expanded', !isExpanded);
 
-        if (!isExpanded) {
-          mobileMenu.classList.remove('max-h-0', 'opacity-0');
-          mobileMenu.classList.add('max-h-screen', 'opacity-100');
-          // Focus the first link in the menu for accessibility
-          mobileMenu.querySelector('a')?.focus();
-          document.addEventListener('click', closeMenuOutside);
-        } else {
-          mobileMenu.classList.remove('max-h-screen', 'opacity-100');
-          mobileMenu.classList.add('max-h-0', 'opacity-0');
-          document.removeEventListener('click', closeMenuOutside);
-          // Return focus to the button when menu closes
-          menuButton.focus();
-        }
-      });
-
-      // Keyboard accessibility for the button
-      menuButton.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          menuButton.click();
-        }
-      });
-
-      function closeMenuOutside(event) {
-        if (!mobileMenu.contains(event.target) && !menuButton.contains(event.target)) {
-          menuButton.setAttribute('aria-expanded', 'false');
-          mobileMenu.classList.remove('max-h-screen', 'opacity-100');
-          mobileMenu.classList.add('max-h-0', 'opacity-0');
-          document.removeEventListener('click', closeMenuOutside);
-        }
+      if (!isExpanded) {
+        mobileMenu.classList.remove('max-h-0', 'opacity-0');
+        mobileMenu.classList.add('max-h-screen', 'opacity-100');
+        // Focus the first link in the menu for accessibility
+        mobileMenu.querySelector('a')?.focus();
+        document.addEventListener('click', closeMenuOutside);
+      } else {
+        mobileMenu.classList.remove('max-h-screen', 'opacity-100');
+        mobileMenu.classList.add('max-h-0', 'opacity-0');
+        document.removeEventListener('click', closeMenuOutside);
+        // Return focus to the button when menu closes
+        menuButton.focus();
       }
+    });
 
-      // Optional: Close menu if window is resized past mobile breakpoint
-      let resizeTimer;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-          if (window.innerWidth >= 768) { // Tailwind's 'md' breakpoint
-            if (menuButton.getAttribute('aria-expanded') === 'true') {
-              menuButton.setAttribute('aria-expanded', 'false');
-              mobileMenu.classList.remove('max-h-screen', 'opacity-100');
-              mobileMenu.classList.add('max-h-0', 'opacity-0');
-              document.removeEventListener('click', closeMenuOutside);
-            }
-          }
-        }, 250); // Debounce resize event
-      });
+    // Keyboard accessibility for the button
+    menuButton.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        menuButton.click();
+      }
+    });
+
+    function closeMenuOutside(event) {
+      if (!mobileMenu.contains(event.target) && !menuButton.contains(event.target)) {
+        menuButton.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.remove('max-h-screen', 'opacity-100');
+        mobileMenu.classList.add('max-h-0', 'opacity-0');
+        document.removeEventListener('click', closeMenuOutside);
+      }
     }
-  });
+
+    // Optional: Close menu if window is resized past mobile breakpoint
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (window.innerWidth >= 768) { // Tailwind's 'md' breakpoint
+          if (menuButton.getAttribute('aria-expanded') === 'true') {
+            menuButton.setAttribute('aria-expanded', 'false');
+            mobileMenu.classList.remove('max-h-screen', 'opacity-100');
+            mobileMenu.classList.add('max-h-0', 'opacity-0');
+            document.removeEventListener('click', closeMenuOutside);
+          }
+        }
+      }, 250); // Debounce resize event
+    });
+  }
 </script>
