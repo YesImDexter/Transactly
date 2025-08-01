@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard</title>
-  <link rel="stylesheet" href="../style/styles.css" />
+  <link rel="stylesheet" href="../styles/dashboardstyles.css" />  <!-- Updated path -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* Custom styles for the scrollbar */
@@ -15,14 +15,22 @@
 
     .no-scrollbar {
       -ms-overflow-style: none;
-      /* IE and Edge */
       scrollbar-width: none;
-      /* Firefox */
+    }
+    
+    /* Dark mode base styles */
+    body {
+      background-color: #111827; /* Dark background */
+      color: #E5E7EB; /* Light text */
+    }
+    
+    .main-content-area {
+      background-color: #111827;
     }
   </style>
 </head>
 
-<body>
+<body class="bg-gray-900 text-gray-100">
   <div id="header-placeholder"></div>
 
   <div id="dashboard-container" class="main-content-area p-4 md:p-8">

@@ -1,8 +1,45 @@
-/* dashboardstyles.css */
+/* dashboardstyles.css - Dark Mode */
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #f0f2f5; /* Light grey background */
+    background-color: #111827; /* Dark gray background */
+    color: #E5E7EB; /* Light text color */
+}
+
+/* Main content area */
+.main-content-area {
+    background-color: #1F2937; /* Slightly lighter dark background */
+    min-height: calc(100vh - 128px); /* Adjust based on header/footer height */
+}
+
+/* Cards and containers */
+.card {
+    background-color: #1F2937;
+    border: 1px solid #374151;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #3B82F6;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2563EB;
+}
+
+/* Input fields */
+.input-field {
+    background-color: #1F2937;
+    border: 1px solid #374151;
+    color: #F3F4F6;
+}
+
+.input-field:focus {
+    border-color: #3B82F6;
+    outline: none;
 }
 
 /* Custom scrollbar for instant send section */
@@ -13,4 +50,18 @@ body {
 .no-scrollbar {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+}
+
+/* Dark mode specific styles */
+.dark-mode-text {
+    color: #E5E7EB;
+}
+
+.dark-mode-bg {
+    background-color: #111827;
+}
+
+.dark-mode-card {
+    background-color: #1F2937;
+    border-color: #374151;
 }
