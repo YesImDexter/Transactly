@@ -52,9 +52,11 @@ export function renderDashboard() {
                     </a>
                     <a href = "receive.html">
                     <div class="flex flex-col items-center group">
+                        <a href="receive.html">
                         <button class="bg-blue-100 text-blue-600 p-4 rounded-xl mb-2 shadow-sm group-hover:bg-blue-200 group-hover:scale-105 transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
                         </button>
+                        </a>
                         <span class="text-sm text-gray-700 font-medium">Receive</span>
                     </div>
                     </a>

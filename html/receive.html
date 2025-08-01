@@ -8,6 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   
 </head>
+<<<<<<< Updated upstream
 
 <body>
     
@@ -40,10 +41,32 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
             <span>Download</span>
+=======
+<body>
+    <div id="header-placeholder"></div>
+    <div class="w-full max-w-6xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden my-8">
+        <!-- Receive Header Section -->
+        <div class="bg-gradient-to-br from-blue-700 to-blue-500 p-4 text-white flex items-center rounded-t-3xl">
+            <h2 class="text-xl font-bold flex-grow text-center">Receive Money</h2>
+        </div>
+
+        <!-- Profile Content Section -->
+        <div class="relative w-50 h-100 mx-auto mb-10">
+        <h3 class="text-center font-light mt-4">Show the provided QR to the sender</h3>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://example.com" alt="QR Code" class="mx-auto w-80 h-80 object-contain mt-4">
+        <div class="flex justify-center mt-8">
+        <div class="flex rounded-xl overflow-hidden border-2 border-white bg-white text-sm font-semibold">
+            <button class="px-6 py-2 text-gray-400 bg-white hover:text-black focus:outline-none">
+            Send
+            </button>
+            <button class="bg-gradient-to-br from-blue-700 to-blue-500 px-6 py-2 text-white bg-[#00008B] hover:bg-blue-900 focus:outline-none">
+            Receive
+>>>>>>> Stashed changes
             </button>
         </div>
         </div>
 
+<<<<<<< Updated upstream
         
         <div class="relative flex items-center bg-white rounded-xl p-1 shadow-lg mt-6">
             <div id="nav-highlight"
@@ -61,13 +84,30 @@
         </div>
         </div>
 
+=======
+    
+        </div>
+        </div>
+>>>>>>> Stashed changes
     
     <script src="shared.js"></script>
     <script type="module">
         import { renderSettings } from './settings.js';
 
         document.addEventListener('DOMContentLoaded', () => {
+<<<<<<< Updated upstream
         window.loadHTML('footer.html', 'footer-placeholder');
+=======
+        // Load header and footer
+        window.loadHTML('header.html', 'header-placeholder');
+        window.loadHTML('footer.html', 'footer-placeholder');
+
+        // Render the settings content
+        //const settingsContainer = document.getElementById('settings-container');
+        //if (settingsContainer) {
+            //settingsContainer.innerHTML = renderSettings();
+        // }
+>>>>>>> Stashed changes
         });
     </script>
 
