@@ -32,6 +32,27 @@ export function renderDashboard() {
             <p class="text-sm text-gray-400">This process helps us comply with regulatory requirements and protect your account from fraud, ensuring a safe platform for all users.</p>
           </div>
         </div>
+
+        <h2 class="text-gray-100 font-semibold text-lg mb-4 mt-10">Bantuan Kerajaan</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+            <div class="flex flex-col bg-gray-700/50 rounded-lg shadow-md overflow-hidden hover:bg-gray-600/50 transition-colors duration-200">
+              <img src="../images/budi_individu.png" alt="People at a market stall" class="w-full h-32 object-cover">
+              <div class="p-4">
+                <h4 class="text-base font-semibold text-gray-100">BUDI Individu</h4>
+                <p class="text-sm text-gray-400 mt-1">Cash assistance for eligible individual diesel vehicle owners.</p>
+              </div>
+            </div>
+
+            <div class="flex flex-col bg-gray-700/50 rounded-lg shadow-md overflow-hidden hover:bg-gray-600/50 transition-colors duration-200">
+              <img src="../images/budi_agri.png" alt="Farmer in a field" class="w-full h-32 object-cover">
+              <div class="p-4">
+                <h4 class="text-base font-semibold text-gray-100">BUDI Agri-Komoditi</h4>
+                <p class="text-sm text-gray-400 mt-1">Cash subsidy for small-scale farmers and smallholders to offset diesel cost increases.</p>
+              </div>
+            </div>
+
+        </div>
         
         <h2 class="text-gray-100 font-semibold text-lg mb-4">Use your eKYC to register for accounts</h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
@@ -127,11 +148,6 @@ export function renderDashboard() {
               <p class="text-xs text-gray-400">Online hotel and travel booking platform</p>
             </div>
             <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
-              <img src="../images/tinder.png" alt="Tinder Logo" class="w-10 h-10 rounded-full object-cover mb-2">
-              <h4 class="text-sm font-semibold text-gray-100">Tinder</h4>
-              <p class="text-xs text-gray-400">Dating app with identity verification</p>
-            </div>
-            <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
               <img src="../images/facebook.png" alt="Meta (Facebook) Logo" class="w-10 h-10 rounded-full object-cover mb-2">
               <h4 class="text-sm font-semibold text-gray-100">Facebook</h4>
               <p class="text-xs text-gray-400">Social platform with verified accounts</p>
@@ -141,13 +157,8 @@ export function renderDashboard() {
               <h4 class="text-sm font-semibold text-gray-100">Instagram</h4>
               <p class="text-xs text-gray-400">Social platform with verified accounts</p>
             </div>
-            <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
-              <img src="../images/coursera.png" alt="Coursera Logo" class="w-10 h-10 rounded-full object-cover mb-2">
-              <h4 class="text-sm font-semibold text-gray-100">Coursera</h4>
-              <p class="text-xs text-gray-400">Online learning with identity-linked certifications</p>
-            </div>
-
         </div>
+        
       </div>
     </div>
   `;
