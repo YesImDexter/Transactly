@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TransX Login</title>
+  <title>TransX Landing</title>
   <link rel="stylesheet" href="../style/commonstyle.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -80,25 +80,38 @@
 <body class="bg-gray-900 text-gray-100">
   <div id="header-placeholder"></div>
 
-  <div id="login-container" class="main-content-area p-4 md:p-8 flex items-center justify-center min-h-[calc(100vh-128px)]">
+  <div id="dashboard-container" class="main-content-area p-4 md:p-8 flex items-center justify-center min-h-[calc(100vh-128px)]">
   </div>
 
   <div id="footer-placeholder"></div>
 
   <script src="shared.js"></script>
   <script type="module">
-    import { renderLoginForm, setupLoginRedirect } from './login.js'; // Import setupLoginRedirect
+    import { renderDashboard } from './landing.js'; // Changed to landing.js
 
     document.addEventListener('DOMContentLoaded', () => {
       // Load header and footer
       window.loadHTML('header.html', 'header-placeholder');
       window.loadHTML('footer.html', 'footer-placeholder');
 
-      // Render the login form
-      const loginContainer = document.getElementById('login-container');
-      if (loginContainer) {
-        loginContainer.innerHTML = renderLoginForm();
-        setupLoginRedirect(); // Call the setup function after rendering the form
+      // Render the dashboard content
+      const dashboardContainer = document.getElementById('dashboard-container');
+      if (dashboardContainer) {
+        // Set isUserVerified to false to display the verification prompt
+        dashboardContainer.innerHTML = renderDashboard(false); 
+        
+        // Add hover effects after rendering (only for the actual dashboard, not the prompt)
+        setTimeout(() => {
+          const balanceCards = document.querySelectorAll('.balance-card');
+          balanceCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+              card.classList.add('glow-effect');
+            });
+            card.addEventListener('mouseleave', () => {
+              card.classList.remove('glow-effect');
+            });
+          });
+        }, 100);
       }
     });
   </script>

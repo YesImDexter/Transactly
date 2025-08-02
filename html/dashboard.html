@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard</title>
+  <title>TransX Dashboard</title>
   <link rel="stylesheet" href="../style/commonstyle.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -80,7 +80,7 @@
 <body class="bg-gray-900 text-gray-100">
   <div id="header-placeholder"></div>
 
-  <div id="dashboard-container" class="main-content-area p-4 md:p-8">
+  <div id="dashboard-container" class="main-content-area p-4 md:p-8 flex items-center justify-center min-h-[calc(100vh-128px)]">
   </div>
 
   <div id="footer-placeholder"></div>
@@ -94,10 +94,10 @@
       window.loadHTML('header.html', 'header-placeholder');
       window.loadHTML('footer.html', 'footer-placeholder');
 
-      // Render the dashboard content
+      // Render the dashboard content assuming user is verified
       const dashboardContainer = document.getElementById('dashboard-container');
       if (dashboardContainer) {
-        dashboardContainer.innerHTML = renderDashboard();
+        dashboardContainer.innerHTML = renderDashboard(); 
         
         // Add hover effects after rendering
         setTimeout(() => {

@@ -1,66 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign Up for Banking</title>
-  <link rel="stylesheet" href="../style/styles.css" />
+  <title>TransX Signup</title>
+  <link rel="stylesheet" href="../style/commonstyle.css" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            },
+            secondary: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+              800: '#5b21b6',
+              900: '#4c1d95',
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom styles for the scrollbar */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    /* Glow effect */
+    .glow-effect {
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+    }
+    
+    /* Gradient text */
+    .gradient-text {
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      background-image: linear-gradient(90deg, #3B82F6, #8B5CF6);
+    }
+  </style>
 </head>
-<body class="flex flex-col min-h-screen">
+
+<body class="bg-gray-900 text-gray-100">
   <div id="header-placeholder"></div>
 
-  <div class="flex-grow flex items-center justify-center p-4">
-    <div class="bg-white rounded-lg shadow-md p-8 max-w-md w-full text-center">
-      <h2 class="text-3xl font-bold text-gray-800 mb-6">Register your Account</h2>
-      <form onsubmit="console.log('Registration form submitted! (No actual registration happens yet)'); window.location.href='login.html'; return false;">
-        <div class="mb-4 text-left">
-          <label for="fullName" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-          <input type="text" id="fullName" placeholder="Enter your full name" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        </div>
-        <div class="mb-4 text-left">
-          <label for="dob" class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
-          <input type="date" id="dob" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        </div>
-        <div class="mb-4 text-left">
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-          <input type="email" id="email" placeholder="Enter your email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        </div>
-        <div class="mb-4 text-left">
-          <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-          <input type="tel" id="phone" placeholder="Enter your phone number" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        </div>
-        <div class="mb-4 text-left">
-          <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
-          <input type="text" id="address" placeholder="Enter your address" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        </div>
-        <div class="mb-4 text-left">
-          <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Choose Username</label>
-          <input type="text" id="username" placeholder="Create a username" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        </div>
-        <div class="mb-4 text-left">
-          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Choose Password</label>
-          <input type="password" id="password" placeholder="Create a password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        </div>
-        <div class="mb-6 text-left">
-          <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
-          <input type="password" id="confirmPassword" placeholder="Confirm your password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        </div>
-        <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" type="submit">Register</button>
-      </form>
-      <p class="text-sm text-gray-600 mt-4">Already have an account? <a href="login.html" class="text-blue-600 hover:underline">Login here</a></p>
-    </div>
+  <div id="signup-container" class="main-content-area p-4 md:p-8 flex items-center justify-center min-h-[calc(100vh-128px)]">
   </div>
 
   <div id="footer-placeholder"></div>
 
   <script src="shared.js"></script>
-  <script>
+  <script type="module">
+    import { renderDashboard } from './signup.js';
+
     document.addEventListener('DOMContentLoaded', () => {
-      // Paths are relative to signup.html (assuming header-auth.html and footer.html are in the same directory)
-      loadHTML('header-auth.html', 'header-placeholder');
-      loadHTML('footer.html', 'footer-placeholder');
+      // Load header and footer
+      window.loadHTML('header.html', 'header-placeholder');
+      window.loadHTML('footer.html', 'footer-placeholder');
+
+      // Render the dashboard content
+      const signupContainer = document.getElementById('signup-container');
+      if (signupContainer) {
+        // Set isUserVerified to false to display the verification prompt
+        signupContainer.innerHTML = renderDashboard(false); 
+        
+        // Add hover effects after rendering (only for the actual dashboard, not the prompt)
+        setTimeout(() => {
+          const balanceCards = document.querySelectorAll('.balance-card');
+          balanceCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+              card.classList.add('glow-effect');
+            });
+            card.addEventListener('mouseleave', () => {
+              card.classList.remove('glow-effect');
+            });
+          });
+        }, 100);
+      }
     });
   </script>
 </body>
+
 </html>

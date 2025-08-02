@@ -1,29 +1,10 @@
 /**
- * Returns the HTML string for the E-Wallet Dashboard with enhanced UI
- * @param {boolean} isUserVerified - A flag to indicate if the user is verified.
+ * Returns the HTML string for the E-Wallet Dashboard.
+ * This version assumes the user is verified for the dashboard page.
  */
-export function renderDashboard(isUserVerified = false) { // Added isUserVerified parameter
+export function renderDashboard() {
   return `
     <div class="w-full max-w-6xl mx-auto bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl shadow-2xl overflow-hidden my-8 md:flex transition-all duration-300 hover:shadow-xl relative">
-      ${!isUserVerified ? `
-        <div class="absolute inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center z-50 p-4 rounded-3xl">
-          <div class="text-center bg-gray-800 p-8 rounded-2xl shadow-xl border border-primary-700 max-w-md mx-auto">
-            <h2 class="text-3xl font-bold gradient-text mb-4">Secure Your Account Now!</h2>
-            <p class="text-gray-300 mb-6">Your account is not yet fully verified. Complete our One-Flow Identity Verification to unlock all features and keep your data safe.</p>
-            <ul class="text-left text-gray-400 text-sm mb-6 space-y-2">
-              <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Basic Info & Device Security</li>
-              <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>AI-Powered ID Document Verification</li>
-              <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Face Scan with Liveness Detection</li>
-              <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Smart Risk Check & Secure Approval</li>
-            </ul>
-            <a href="registration.html" class="inline-block bg-gradient-to-r from-primary-600 to-secondary-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:from-primary-500 hover:to-secondary-400 transform transition-all duration-300 scale-105 animate-pulse-slow">
-              Start Verification
-            </a>
-            <p class="text-gray-500 text-xs mt-4">It only takes a few minutes!</p>
-          </div>
-        </div>
-      ` : ''}
-
       <div class="relative bg-gradient-to-br from-primary-700 to-primary-500 p-8 md:p-10 text-white rounded-b-3xl md:rounded-r-none md:rounded-l-3xl flex flex-col justify-between md:w-1/2 lg:w-2/5">
         <div class="flex justify-between items-center mb-6">
           <div class="text-2xl font-semibold drop-shadow-sm">Hello, <span class="gradient-text font-bold">User</span>!</div>
@@ -119,7 +100,7 @@ export function renderDashboard(isUserVerified = false) { // Added isUserVerifie
               <div class="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white mr-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M4 14a1 1 0 0 1-.37-.7c-.2-.54-.1-1.07.2-1.5l7.5-10a1 1 0 0 1 1.6.6c.2.54.1 1.07-.2 1.5l-7.5 10a1 1 0 0 1-1.6-.6Z"/>
-                  <path d="M18 10a1 1 0 0 1 .37.7c-.2.54-.1 1.07-.2 1.5l-7.5 10a1 1 0 0 1-1.6-.6c-.2-.54-.1-1.07.2-1.5l7.5-10a1 1 0 0 1 1.6.6Z"/>
+                  <path d="M18 10a1 1 0 0 1 .37.7c-.2.54-.1 1.07-.2 1.5l-7.5 10a1 1 0 0 1-1.6-.6c-.2-.54-.1 1.07-.2 1.5l7.5-10a1 1 0 0 1 1.6.6Z"/>
                 </svg>
               </div>
               Instant Send
