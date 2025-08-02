@@ -34,6 +34,20 @@ export function renderLoginForm() {
             Log In
           </button>
         </div>
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-700"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-2 bg-gray-800 text-gray-400">Or</span>
+          </div>
+        </div>
+        <div>
+          <button type="button" id="logoutBtn"
+                  class="w-full flex justify-center py-2 px-4 border border-gray-600 rounded-xl shadow-sm text-base font-medium text-gray-300 bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-all duration-300">
+            Log Out from Other Devices
+          </button>
+        </div>
       </form>
       <p class="mt-8 text-center text-base text-gray-400">
         Don't have an account?
@@ -62,6 +76,17 @@ export function setupLoginRedirect() {
         console.log('Simulating user login...');
         window.location.href = 'dashboard.html'; // Redirect to regular user dashboard
       }
+    });
+  }
+
+  // Handle logout button
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      // In a real app, this would make an API call to invalidate sessions on other devices
+      console.log('Logging out from other devices...');
+      // Show confirmation to user
+      alert('Successfully logged out from all other devices.');
     });
   }
 }

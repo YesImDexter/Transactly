@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-KYC Document Upload And Deepfake</title>
+    <!-- Include the common styles for consistent theming -->
+
+    <style>
+        /* commonstyle.css - Dark Mode and Responsive Styles */
+        /* Import Poppins font from Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        /* Base styles for dark mode */
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* Changed font family to Poppins */
+            background-color: #111827;
+            /* Dark gray background */
+            color: #E5E7EB;
+            /* Light text color */
+            margin: 0;
+            /* Remove default body margin */
+            padding: 0;
+            /* Remove default body padding */
+            box-sizing: border-box;
+            /* Include padding and border in the element's total width and height */
+        }
+
+        /* Main content area */
+        .main-content-area {
+            background-color: #1F2937;
+            /* Slightly lighter dark background */
+            min-height: calc(100vh - 128px);
+            /* Adjust based on header/footer height, consider responsive adjustments */
+            padding: 1rem;
+            /* Add some padding for content */
+        }
+
+        /* Cards and containers */
+        .card {
+            background-color: #1F2937;
+            border: 1px solid #374151;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            /* Space between cards */
+            padding: 1rem;
+            /* Padding inside cards */
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: #3B82F6;
+            color: white;
+            padding: 0.75rem 1.25rem;
+            /* Standard button padding */
+            border-radius: 0.375rem;
+            /* Rounded corners for buttons */
+            border: none;
+            /* Remove default button border */
+            cursor: pointer;
+            /* Indicate clickable element */
+            transition: background-color 0.2s ease-in-out;
+            /* Smooth transition on hover */
+        }
+
+        .btn-primary:hover {
+            background-color: #2563EB;
+        }
+
+        /* Input fields */
+        .input-field {
+            background-color: #1F2937;
+            border: 1px solid #374151;
+            color: #F3F4F6;
+            padding: 0.75rem;
+            /* Standard input padding */
+            border-radius: 0.375rem;
+            /* Rounded corners for inputs */
+            width: 100%;
+            /* Full width for inputs */
+            box-sizing: border-box;
+            /* Include padding and border in the element's total width and height */
+        }
+
+        .input-field:focus {
+            border-color: #3B82F6;
+            outline: none;
+        }
+
+        /* Custom scrollbar for instant send section */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        /* Dark mode specific styles (already present and good for consistency) */
+        .dark-mode-text {
+            color: #E5E7EB;
+        }
+
+        .dark-mode-bg {
+            background-color: #111827;
+        }
+
+        .dark-mode-card {
+            background-color: #1F2937;
+            border-color: #374151;
+        }
+
+        /* Responsive adjustments */
+
+        /* For smaller screens (e.g., mobile) */
+        @media (max-width: 768px) {
+            .main-content-area {
+                min-height: calc(100vh - 80px);
+                /* Adjust for smaller header/footer on mobile */
+                padding: 0.5rem;
+                /* Less padding on mobile */
+            }
+
+            .card {
+                margin-bottom: 0.75rem;
+                /* Slightly less space between cards on mobile */
+                padding: 0.75rem;
+                /* Less padding inside cards on mobile */
+            }
+
+            .btn-primary {
+                padding: 0.6rem 1rem;
+                /* Smaller buttons on mobile */
+                font-size: 0.9rem;
+                /* Slightly smaller text on buttons */
+            }
+
+            .input-field {
+                padding: 0.6rem;
+                /* Smaller input fields on mobile */
+                font-size: 0.9rem;
+                /* Slightly smaller text in inputs */
+            }
+        }
+
+        /* For larger screens (e.g., laptops/desktops) */
+        @media (min-width: 769px) {
+            .main-content-area {
+                padding: 2rem;
+                /* More padding on larger screens */
+            }
+
+            .card {
+                margin-bottom: 1.5rem;
+                /* More space between cards on larger screens */
+                padding: 1.5rem;
+                /* More padding inside cards on larger screens */
+            }
+
+            /* Potentially add max-width to main content for better readability on very wide screens */
+            .container {
+                /* You might want to wrap your main content in a container for this */
+                max-width: 1200px;
+                margin: 0 auto;
+                /* Center the container */
+            }
+        }
+    </style>
+
+    <!-- Include the Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+</head>
+
+<body class="bg-gray-900 text-gray-100">
+    <div id="upload-container" class="main-content-area flex items-center justify-center py-8">
+        <!-- The content will be dynamically generated by upload.js -->
+    </div>
+
+    <script>
+        function renderStepTwo() {
+            return `
+        <div>
+            <h2 class="text-xl font-semibold text-gray-200 mb-4">2. Document & Face Scan</h2>
+            <p class="text-gray-400 mb-6">We will securely verify your identity with AI. Please have your IC/Passport ready.</p>
+            <form id="verification-form-step-2">
+                <div class="mb-6">
+                    <label for="idDocument" class="block text-sm font-medium text-gray-400 mb-2">Upload ID Document (Front)</label>
+                    <input type="file" id="idDocument" name="idDocument" accept="image/*" class="w-full text-gray-300 bg-gray-800 p-2 rounded-md border border-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary-500 file:text-white hover:file:bg-primary-600 transition-colors duration-200" required />
+                    <button type="button" id="upload-document-btn" class="mt-3 btn-primary w-full">Upload Document</button>
+                </div>
+                <div class="mb-6">
+                    <h3 class="block text-sm font-medium text-gray-400 mb-2">Live Face Scan</h3>
+                    <p class="text-gray-500 text-xs mb-2">Please upload your ID document first to activate the face scan.</p>
+                    <div id="camera-container" class="relative w-full bg-gray-900 rounded-xl border-2 border-dashed border-gray-700 flex flex-col items-center justify-center text-center p-4">
+                        <!-- Placeholder before file upload -->
+                        <div id="camera-placeholder" class="flex flex-col items-center justify-center h-64 w-full">
+                            <svg class="w-20 h-20 text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <p class="text-gray-500 font-medium">Upload your ID document first</p>
+                            <p class="text-gray-600 text-sm mt-2">Camera will activate after document verification</p>
+                        </div>
+                        
+                        <!-- Hidden camera elements that will be shown after file upload -->
+                        <div id="camera-elements" class="hidden w-full">
+                            <p class="text-gray-300 text-sm mb-3">Please follow the on-screen instructions.</p>
+                            <div class="relative video-frame rounded-xl overflow-hidden border-4 border-primary-600 mb-4">
+                                <img id="video-stream" src="{{ url_for('video') }}" class="w-full bg-gray-900 object-contain h-64" />
+                                <div class="absolute top-0 left-0 right-0 p-2 bg-gradient-to-b from-gray-900 bg-opacity-80">
+                                    <span class="challenge text-primary-400 text-sm font-semibold" id="challenge-text">Performing Challenge...</span>
+                                </div>
+                            </div>
+                            <div class="relative w-full h-2 bg-gray-700 rounded-full overflow-hidden mb-3">
+                                <div id="timer-progress" class="absolute left-0 top-0 h-full bg-green-500 transition-all duration-200" style="width: 0%"></div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-primary-400 font-medium" id="challenge-instruction">Follow the instructions above</span>
+                                <div class="timer text-sm text-gray-400" id="countdown">Timer: 0s</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" id="proceed-button" class="w-full py-3 px-4 flex justify-center items-center rounded-md font-medium text-gray-400 bg-gray-700 border border-gray-600 cursor-not-allowed opacity-75 transition-all duration-300" disabled>
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                    Submit for Verification
+                </button>
+            </form>
+        </div>
+    `;
+        }
+
+        /**
+         * Creates and shows a loading modal
+         */
+        function showLoadingModal(message) {
+            // Remove any existing modal
+            const existingModal = document.getElementById('loading-modal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+
+            // Create the modal
+            const modal = document.createElement('div');
+            modal.id = 'loading-modal';
+            modal.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-gray-800 rounded-xl p-8 max-w-md w-full text-center">
+                    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary-500 mx-auto mb-4"></div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Processing</h3>
+                    <p class="text-gray-300">${message}</p>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+            return modal;
+        }
+
+        /**
+         * Hides the loading modal
+         */
+        function hideLoadingModal() {
+            const modal = document.getElementById('loading-modal');
+            if (modal) {
+                // Add fade-out animation
+                modal.classList.add('opacity-0');
+                modal.style.transition = 'opacity 0.3s ease-out';
+
+                // Remove after animation completes
+                setTimeout(() => {
+                    modal.remove();
+                }, 300);
+            }
+        }
+
+        /**
+         * Simulates document verification process
+         */
+        function verifyDocument() {
+            return new Promise((resolve) => {
+                // Simulate API call delay (2-4 seconds)
+                const delay = Math.floor(Math.random() * 2000) + 2000;
+                setTimeout(() => {
+                    resolve({ success: true, message: "Document verified successfully" });
+                }, delay);
+            });
+        }
+
+        /**
+         * Activates the camera for liveness detection
+         */
+        function activateCamera() {
+            const cameraPlaceholder = document.getElementById('camera-placeholder');
+            const cameraElements = document.getElementById('camera-elements');
+            const cameraContainer = document.getElementById('camera-container');
+
+            // Hide placeholder, show camera elements
+            cameraPlaceholder.classList.add('hidden');
+            cameraElements.classList.remove('hidden');
+
+            // Update container styling
+            cameraContainer.classList.remove('border-gray-700');
+            cameraContainer.classList.add('border-primary-500');
+
+            // Set a fixed height to maintain layout consistency
+            cameraContainer.classList.add('h-auto');
+
+            // Start challenge timer
+            startChallengeTimer();
+
+            // Proceed button will be enabled after challenge is passed
+        }
+
+        /**
+         * Attaches event listeners for Step 2.
+         */
+        function attachEventListeners() {
+            const form2 = document.getElementById('verification-form-step-2');
+            const uploadBtn = document.getElementById('upload-document-btn');
+
+            // Document upload button handler
+            if (uploadBtn) {
+                uploadBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+
+                    const fileInput = document.getElementById('idDocument');
+
+                    if (!fileInput.files || fileInput.files.length === 0) {
+                        alert('Please select a document file first.');
+                        return;
+                    }
+
+                    // Show loading modal
+                    const modal = showLoadingModal('Verifying your document...');
+
+                    try {
+                        // Simulate document verification
+                        const result = await verifyDocument();
+
+                        // Hide loading modal
+                        hideLoadingModal();
+
+                        if (result.success) {
+                            // Show success message
+                            const successToast = document.createElement('div');
+                            successToast.className = 'fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 fade-in';
+                            successToast.textContent = 'Document verified! Starting liveness check...';
+                            document.body.appendChild(successToast);
+
+                            // Remove toast after 3 seconds
+                            setTimeout(() => {
+                                successToast.classList.add('opacity-0');
+                                successToast.style.transition = 'opacity 0.5s ease-out';
+                                setTimeout(() => successToast.remove(), 500);
+                            }, 3000);
+
+                            // Activate camera for liveness check
+                            setTimeout(() => {
+                                activateCamera();
+                            }, 1000);
+
+                            // Disable the upload button
+                            uploadBtn.disabled = true;
+                            uploadBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                        }
+                    } catch (error) {
+                        hideLoadingModal();
+                        alert('Error verifying document: ' + error.message);
+                    }
+                });
+            }
+
+            // Form submission handler
+            if (form2) {
+                form2.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    console.log("Form submitted for step 2. Redirecting to completion page.");
+                    // In a real application, you'd send data to a backend here.
+                    window.location.href = 'http://127.0.0.1:5501/html/loading_verification.html'; // Redirect to the completion page
+                });
+            }
+        }
+
+        // Initial render when the DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('upload-container');
+            if (container) {
+                container.innerHTML = `
+            <div class="w-full max-w-2xl bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl shadow-2xl p-8 md:p-12 fade-in">
+                <div class="flex justify-between items-center mb-8">
+                    <h1 class="text-2xl font-bold gradient-text">Verification Form</h1>
+                    <div class="text-sm text-gray-400">Step 3 of 4</div>
+                </div>
+                <div class="w-full h-2 bg-gray-700 rounded-full mb-8 overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-primary-500 to-secondary-500 transition-all duration-500"
+                        style="width: 75%"></div>
+                </div>
+                ${renderStepTwo()}
+            </div>
+        `;
+                attachEventListeners();
+            }
+        });
+
+    </script>
+
+    <script>
+        let elapsed = 0;
+        let interval = null;
+
+        /**
+         * Starts the challenge timer for liveness detection
+         */
+        function startChallengeTimer() {
+            // Get the elements
+            const countdownEl = document.getElementById("countdown");
+            const challengeText = document.getElementById("challenge-text");
+            const proceedButton = document.getElementById("proceed-button");
+            const timerProgress = document.getElementById("timer-progress");
+
+            const CHALLENGE_DURATION = 3; // 3 seconds for challenge completion
+
+            if (interval) {
+                clearInterval(interval);
+            }
+
+            // Start the challenge status polling
+            interval = setInterval(() => {
+                fetch("/challenge-status")
+                    .then(res => res.json())
+                    .then(data => {
+                        const challengeMap = {
+                            "peace_sign": "Challenge: Hold a peace sign for 3 seconds",
+                            "finger_gun": "Challenge: Make a finger gun gesture for 3 seconds",
+                            "high_five": "Challenge: Show a high five for 3 seconds",
+                            "thumbs_up": "Challenge: Give a thumbs up for 3 seconds",
+                            "rock_sign": "Challenge: Show a rock sign for 3 seconds"
+                        };
+
+                        const challengeInstructions = {
+                            "peace_sign": "Hold up a peace sign",
+                            "finger_gun": "Make a finger gun gesture",
+                            "high_five": "Show a high five",
+                            "thumbs_up": "Give a thumbs up",
+                            "rock_sign": "Show a rock sign"
+                        };
+
+                        // Update both the challenge text and instruction
+                        challengeText.innerText = challengeMap[data.challenge] || "Performing Challenge...";
+                        const instructionEl = document.getElementById("challenge-instruction");
+                        if (instructionEl) {
+                            instructionEl.innerText = challengeInstructions[data.challenge] || "Follow the instructions above";
+                        }
+
+                        if (data.success) {
+                            // Update button style for success state
+                            proceedButton.classList.remove("text-gray-400", "bg-gray-700", "border-gray-600", "cursor-not-allowed", "opacity-75");
+                            proceedButton.classList.add("text-white", "bg-green-600", "border-green-700", "hover:bg-green-700", "cursor-pointer");
+                            proceedButton.innerHTML = `
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Submit for Verification
+                            `;
+                            proceedButton.disabled = false;
+                            challengeText.innerText = "✅ Challenge Passed!";
+                            if (instructionEl) instructionEl.innerText = "Verification successful!";
+                            countdownEl.style.color = "green";
+                            clearInterval(interval);
+                        } else {
+                            if (data.start_time) {
+                                elapsed = Math.floor((Date.now() - data.start_time) / 1000);
+                                const progress = Math.min((elapsed / CHALLENGE_DURATION) * 100, 100);
+                                timerProgress.style.width = `${progress}%`;
+                                countdownEl.innerText = "Timer: " + elapsed + "s";
+                            } else {
+                                elapsed = 0;
+                                timerProgress.style.width = "0%";
+                                countdownEl.innerText = "Timer: 0s";
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error fetching challenge status:", error);
+                    });
+            }, 1000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Camera and challenge elements will be activated after document upload
+            // No need to start the timer here, it will be started by activateCamera()
+        });
+    </script>
+</body>
+
+</html>

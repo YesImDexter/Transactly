@@ -1,5 +1,159 @@
-   <div id="mobile-menu" class="absolute right-0 mt-2 bg-white dark:bg-gray-800 text-black dark:text-white w-48 rounded-md shadow-lg py-1 z-50 overflow-hidden transition-all duration-300 ease-in-out max-h-0 opacity-0">
-      <a href="dashboard.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Dashboard</a>
-      <a href="settings.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Settings</a>
-      <a href="../index.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Logout</a>
+<!-- Admin Header -->
+<header class="bg-gray-900 shadow-lg border-b border-gray-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo and Brand -->
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <a href="admin_dashboard.html" class="flex items-center">
+            <span class="text-2xl font-bold gradient-text">TrustX Admin</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="hidden md:flex space-x-8">
+        <a href="admin_dashboard.html"
+          class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Dashboard</a>
+        <a href="admin_transactions.html"
+          class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Transactions</a>
+        <a href="http://127.0.0.1:5050/ai_analyse"
+          class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Analytics</a>
+        <a href="admin_settings.html"
+          class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Settings</a>
+      </nav>
+
+      <!-- Right side - Profile Menu -->
+      <div class="flex items-center">
+        <!-- Notifications -->
+        <button class="p-2 text-gray-400 hover:text-white focus:outline-none focus:text-white mr-4">
+          <span class="sr-only">View notifications</span>
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0h-6" />
+          </svg>
+        </button>
+
+        <!-- Logout Button -->
+        <a href="../index.html"
+          class="mr-4 px-3 py-2 rounded-md text-sm font-medium text-red-400 hover:text-red-300 hover:bg-gray-800 transition-colors duration-200">
+          Logout
+        </a>
+
+        <!-- Profile dropdown -->
+        <div class="ml-3 relative">
+          <div>
+            <button type="button"
+              class="flex items-center max-w-xs bg-gray-800 rounded-full p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+              id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+              <span class="sr-only">Open user menu</span>
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </button>
+          </div>
+          <div id="profile-menu"
+            class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-gray-800 ring-1 ring-black ring-opacity-5 z-[100]"
+            role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+            <a href="admin_profile.html" onclick="window.location.href='admin_profile.html';"
+              class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white cursor-pointer"
+              role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+            <a href="admin_settings.html"
+              class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white cursor-pointer"
+              role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+            <a href="../index.html"
+              class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white cursor-pointer"
+              role="menuitem" tabindex="-1" id="user-menu-item-2">Sign
+              out</a>
+          </div>
+        </div> <!-- Mobile menu button -->
+        <button type="button" class="md:hidden p-2 rounded-md text-gray-400 hover:text-white focus:outline-none"
+          id="mobile-menu-button">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
     </div>
+
+    <!-- Mobile menu -->
+    <div class="hidden md:hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        <a href="admin_dashboard.html"
+          class="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
+        <a href="admin_transactions.html"
+          class="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-medium">Transactions</a>
+        <a href="http://127.0.0.1:5050/ai_analyse"
+          class="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-medium">Analytics</a>
+        <a href="admin_settings.html"
+          class="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-medium">Settings</a>
+        <a href="admin_profile.html"
+          class="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-medium">Your Profile</a>
+        <a href="../index.html"
+          class="block text-red-400 hover:text-red-300 px-3 py-2 rounded-md text-base font-medium">Logout</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Initialize menu functionality after the header is loaded
+  (function initializeHeader() {
+    function setupMenus() {
+      const profileMenu = document.getElementById('profile-menu');
+      const profileButton = document.getElementById('user-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileButton = document.getElementById('mobile-menu-button');
+
+      // Add click handlers for menu buttons
+      if (profileButton && profileMenu) {
+        profileButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          profileMenu.classList.toggle('hidden');
+          const expanded = profileMenu.classList.contains('hidden') ? 'false' : 'true';
+          profileButton.setAttribute('aria-expanded', expanded);
+        });
+
+        // Make sure profile menu items work properly
+        document.querySelectorAll('#profile-menu a').forEach(item => {
+          item.addEventListener('click', function (e) {
+            // Don't prevent default - let the link navigate
+            const href = this.getAttribute('href');
+            if (href) {
+              window.location.href = href;
+            }
+          });
+        });
+      }
+
+      if (mobileButton && mobileMenu) {
+        mobileButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      // Close menus when clicking outside
+      document.addEventListener('click', function (event) {
+        if (profileMenu && profileButton && !profileButton.contains(event.target) && !profileMenu.contains(event.target)) {
+          profileMenu.classList.add('hidden');
+        }
+
+        if (mobileMenu && mobileButton && !mobileButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+          mobileMenu.classList.add('hidden');
+        }
+      });
+    }
+
+    // Try to set up menus immediately
+    setupMenus();
+
+    // If elements aren't ready, retry after a short delay
+    if (!document.getElementById('profile-menu') || !document.getElementById('mobile-menu')) {
+      setTimeout(setupMenus, 100);
+    }
+  })();
+</script>

@@ -3,10 +3,14 @@
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
-from openai import OpenAI
+import openai
 
-# Your API key (best practice: move to env variable later)
-OPENAI_API_KEY = "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"
+from dotenv import load_dotenv
+
+load_dotenv()
+import os
+
+openai.api_key = "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"
 
 
 def run_ai_analysis(parquet_path: str) -> dict:
@@ -55,17 +59,31 @@ def run_ai_analysis(parquet_path: str) -> dict:
     parquet_columns = list(df.columns)
 
     ai_prompt = f"""
-    You are a financial fraud detection AI. Review the following suspicious transactions and provide a short title and explanation for each. Where applicable, reference other related transactions to support your reasoning.
+    You are a financial fraud detection AI. Review the following suspicious transactions and provide a structured analysis in JSON format.
 
     Structure of the transaction data (Parquet columns):
     {parquet_columns}
 
-    For each flagged transaction, return:
-    - A short title summarizing the suspicion (e.g., "Unusual Spike in Transaction Volume")
-    - A risk score (0–100)
-    - An explanation (1–3 sentences)
-    - Mention the row index of any related transaction you are referencing.
+    Analyze the transactions and return a JSON object with this exact structure:
+    {{
+        "transactions": [
+            {{
+                "id": "transaction_id",
+                "title": "A short title summarizing the suspicion",
+                "risk_score": number between 0-100,
+                "explanation": "1-3 sentences explaining the risk",
+                "related_transactions": ["id1", "id2"] // optional, include if referencing other transactions
+            }}
+        ],
+        "risk_summary": {{
+            "high_risk_count": number of transactions with risk score > 70,
+            "medium_risk_count": number of transactions with risk score 40-70,
+            "total_risk_score": average risk score of all transactions,
+            "summary_text": "2-3 sentences summarizing overall risk assessment"
+        }}
+    }}
 
+    Available data:
     Flagged Transactions:
     {suspicious_df[['trxn_id', 'ofi_acct_number', 'trxn_amount', 'suspicion_flag']].to_json(orient='records')}
 
@@ -74,24 +92,50 @@ def run_ai_analysis(parquet_path: str) -> dict:
     """
 
     # OpenAI call
-    client = OpenAI(api_key=OPENAI_API_KEY)
-    response = client.chat.completions.create(
+    response = openai.chat.completions.create(
         model="gpt-4",
         messages=[
             {
                 "role": "system",
-                "content": "You are a financial fraud detection assistant.",
+                "content": "You are a financial fraud detection assistant. Return your analysis as a valid JSON object following the exact structure specified in the prompt. Do not include any text outside the JSON object.",
             },
             {"role": "user", "content": ai_prompt},
         ],
-        temperature=0.2,
+        temperature=0.1,
     )
 
-    # Return data as a dictionary
-    return {
-        "unique_trxns": unique_trxns,
-        "total_trxns": total_trxns,
-        "summary_text": response.choices[0].message.content,
-        "flagged_transactions": suspicious_df.to_dict(orient="records"),
-        "related_sample": related_sample.to_dict(orient="records"),
-    }
+    # Process the AI response
+    try:
+        # Parse the JSON response
+        import json
+
+        ai_analysis = json.loads(response.choices[0].message.content)
+
+        # Calculate additional statistics
+        risk_scores = [t["risk_score"] for t in ai_analysis["transactions"]]
+        risk_stats = {
+            "max_risk": max(risk_scores) if risk_scores else 0,
+            "avg_risk": sum(risk_scores) / len(risk_scores) if risk_scores else 0,
+            "risk_levels": {
+                "high": len([s for s in risk_scores if s > 70]),
+                "medium": len([s for s in risk_scores if 40 <= s <= 70]),
+                "low": len([s for s in risk_scores if s < 40]),
+            },
+        }
+
+        # Return enriched structured data
+        return {
+            "unique_trxns": unique_trxns,
+            "total_trxns": total_trxns,
+            "analysis": {
+                "transactions": ai_analysis["transactions"],
+                "risk_summary": ai_analysis["risk_summary"],
+                "risk_stats": risk_stats,
+            },
+            "flagged_transactions": suspicious_df.to_dict(orient="records"),
+            "related_sample": related_sample.to_dict(orient="records"),
+        }
+    except json.JSONDecodeError as e:
+        print(f"Error parsing GPT response: {str(e)}")
+        print("Raw response:", response.choices[0].message.content)
+        raise Exception("Failed to parse AI analysis response")

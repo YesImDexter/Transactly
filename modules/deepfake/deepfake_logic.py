@@ -25,12 +25,12 @@ action_successful = False
 def generate_video_frames():
     global prev_gray, current_challenge, challenge_start_time, action_successful
 
-    challenges = ["peace_sign", "high_five", "thumbs_up"]
+    challenges = ["peace_sign", "high_five", "thumbs_up", "rock_sign"]
     current_challenge = random.choice(challenges)
     challenge_start_time = None
     action_successful = False
 
-    cap = cv2.VideoCapture(2)  # Use camera index 1
+    cap = cv2.VideoCapture(1)  # Use camera index 1
     if not cap.isOpened():
         print("[ERROR] Camera not accessible")
         return
@@ -72,12 +72,14 @@ def generate_video_frames():
                     action_detected = True
                 elif current_challenge == "thumbs_up" and is_thumbs_up(hand_landmarks):
                     action_detected = True
+                elif current_challenge == "rock_sign" and is_rock_sign(hand_landmarks):
+                    action_detected = True
 
         # Timer logic
         if action_detected:
             if challenge_start_time is None:
                 challenge_start_time = time.time()
-            elif time.time() - challenge_start_time >= 4:
+            elif time.time() - challenge_start_time >= 3:  # Reduced from 4 to 3 seconds
                 action_successful = True
             generate_video_frames._last_lost_time = None
         else:
@@ -109,6 +111,7 @@ def generate_video_frames():
                 "peace_sign": "Challenge: Hold a peace sign",
                 "high_five": "Challenge: Show a high five",
                 "thumbs_up": "Challenge: Give a thumbs up",
+                "rock_sign": "Challenge: Show a rock sign",
             }[current_challenge]
             cv2.putText(
                 frame, text, (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 0), 2
@@ -164,3 +167,20 @@ def is_thumbs_up(hand_landmarks):
         for i in [1, 2, 3, 4]
     )
     return thumb_up and others_folded
+
+
+def is_rock_sign(hand_landmarks):
+    tip_ids = [4, 8, 12, 16, 20]
+    thumb_tip = hand_landmarks.landmark[tip_ids[0]]
+    thumb_ip = hand_landmarks.landmark[tip_ids[0] - 2]
+    thumb_out = thumb_tip.x > thumb_ip.x
+    index_out = (
+        hand_landmarks.landmark[tip_ids[1]].y
+        < hand_landmarks.landmark[tip_ids[1] - 2].y
+    )
+    others_folded = all(
+        hand_landmarks.landmark[tip_ids[i]].y
+        > hand_landmarks.landmark[tip_ids[i] - 2].y
+        for i in [2, 3, 4]
+    )
+    return index_out and thumb_out and others_folded

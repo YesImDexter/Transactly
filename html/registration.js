@@ -57,7 +57,7 @@ function attachEventListeners() {
 
             if (captchaInput === correctCaptcha) {
                 console.log("CAPTCHA matched. Redirecting to upload page.");
-                window.location.href = 'upload.html'; // Redirect to the new page
+                window.location.href = 'http://127.0.0.1:5050/fingerprint'; // Redirect to the new page
             } else {
                 console.log("Incorrect CAPTCHA.");
                 errorDiv.classList.remove('hidden');
@@ -99,12 +99,12 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="w-full max-w-2xl bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl shadow-2xl p-8 md:p-12 fade-in">
                 <div class="flex justify-between items-center mb-8">
                     <h1 class="text-2xl font-bold gradient-text">E-KYC Verification</h1>
-                    <div class="text-sm text-gray-400">Step 1 of 3</div>
+                    <div class="text-sm text-gray-400">Step 1 of 4</div>
                 </div>
-                <div class="w-full h-2 bg-gray-700 rounded-full mb-8 overflow-hidden">
-                    <div class="h-full bg-gradient-to-r from-primary-500 to-secondary-500 transition-all duration-500"
-                        style="width: 33.33%"></div>
-                </div>
+            <div class="w-full h-2 bg-gray-700 rounded-full mb-8 overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-primary-500 to-secondary-500 transition-all duration-500"
+                    style="width: 0%"></div>
+            </div>
                 ${renderStepOne()}
             </div>
         `;
