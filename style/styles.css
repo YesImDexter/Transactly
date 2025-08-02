@@ -5,22 +5,30 @@
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background-color: #E9ECEF; /* Light gray background, similar to React Native website */
-  color: #333333; /* Darker text for contrast */
-  min-height: 100vh; /* Ensure body takes at least full viewport height */
+  background-color: #E9ECEF;
+  /* Light gray background, similar to React Native website */
+  color: #333333;
+  /* Darker text for contrast */
+  min-height: 100vh;
+  /* Ensure body takes at least full viewport height */
   display: flex;
-  flex-direction: column; /* Arrange children in a column */
+  flex-direction: column;
+  /* Arrange children in a column */
   /* Removed align-items: center; to allow content to span full width if needed */
 }
 
 /* Header */
 .site-header {
-  background-color: #ffffff; /* White header */
+  background-color: #ffffff;
+  /* White header */
   padding: 20px;
   text-align: center;
-  width: 100%; /* Full width */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  color: #333333; /* Dark text for header */
+  width: 100%;
+  /* Full width */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow */
+  color: #333333;
+  /* Dark text for header */
 }
 
 .site-header h1 {
@@ -28,7 +36,8 @@ body {
   font-size: 2.4rem;
   font-weight: 700;
   font-family: 'Inter', sans-serif;
-  color: #2c3e50; /* Dark blue for title */
+  color: #2c3e50;
+  /* Dark blue for title */
 }
 
 /* Main Layout */
@@ -36,7 +45,8 @@ body {
   width: 100%;
   max-width: 1200px;
   display: flex;
-  flex: 1; /* Allow main-layout to grow and push footer down */
+  flex: 1;
+  /* Allow main-layout to grow and push footer down */
   margin: 20px auto;
   justify-content: center;
   align-items: flex-start;
@@ -45,38 +55,38 @@ body {
 }
 
 /* Base nav-link style */
-  .nav-link {
-    position: relative;
-    padding-bottom: 4px;
-    transition: color 0.3s ease;
-  }
+.nav-link {
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s ease;
+}
 
-  /* Animated underline effect */
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    width: 0%;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: white;
-    transition: width 0.3s ease;
-  }
+/* Animated underline effect */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transition: width 0.3s ease;
+}
 
-  /* Hover underline */
-  .nav-link:hover::after {
-    width: 100%;
-  }
+/* Hover underline */
+.nav-link:hover::after {
+  width: 100%;
+}
 
-  /* Active class underline */
-  .nav-link.active::after {
-    width: 100%;
-  }
+/* Active class underline */
+.nav-link.active::after {
+  width: 100%;
+}
 
-  .nav-link.active {
-    font-weight: bold;
-    color: #fff;
-  }
+.nav-link.active {
+  font-weight: bold;
+  color: #fff;
+}
 
 .sidebar h2 {
   margin-top: 0;
@@ -96,7 +106,8 @@ body {
 }
 
 .sidebar a {
-  color: #555555; /* Gray text for links */
+  color: #555555;
+  /* Gray text for links */
   text-decoration: none;
   display: block;
   padding: 10px 12px;
@@ -104,15 +115,19 @@ body {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-.sidebar a:hover, .sidebar ul li.active a {
-  background-color: #e0e6ed; /* Lighter gray on hover/active */
-  color: #2c3e50; /* Darker text on hover/active */
+.sidebar a:hover,
+.sidebar ul li.active a {
+  background-color: #e0e6ed;
+  /* Lighter gray on hover/active */
+  color: #2c3e50;
+  /* Darker text on hover/active */
 }
 
 /* Content Area */
 .content-area {
   flex: 1;
-  background-color: #ffffff; /* White content area */
+  background-color: #ffffff;
+  /* White content area */
   border-radius: 10px;
   padding: 40px;
   display: flex;
@@ -144,10 +159,12 @@ body {
   margin-top: 20px;
 }
 
-a.btn, button.btn {
+a.btn,
+button.btn {
   padding: 12px 24px;
   font-size: 1rem;
-  background-color: #3498db; /* Blue button */
+  background-color: #3498db;
+  /* Blue button */
   border: none;
   color: white;
   text-decoration: none;
@@ -158,20 +175,24 @@ a.btn, button.btn {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-a.btn:hover, button.btn:hover {
-  background-color: #2980b9; /* Darker blue on hover */
+a.btn:hover,
+button.btn:hover {
+  background-color: #2980b9;
+  /* Darker blue on hover */
   transform: translateY(-1px);
 }
 
 /* Login Box */
 .login-box {
-  background-color: #ffffff; /* White login box */
+  background-color: #ffffff;
+  /* White login box */
   padding: 30px;
   border-radius: 10px;
   width: 100%;
   max-width: 400px;
   margin: 40px auto;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  /* Slightly stronger shadow */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -199,32 +220,39 @@ a.btn:hover, button.btn:hover {
 .input-box input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #cccccc; /* Light gray border */
+  border: 1px solid #cccccc;
+  /* Light gray border */
   border-radius: 5px;
   outline: none;
-  background-color: #f9f9f9; /* Off-white input background */
+  background-color: #f9f9f9;
+  /* Off-white input background */
   color: #333333;
 }
 
 .input-box input:focus {
-  border-color: #3498db; /* Blue border on focus */
+  border-color: #3498db;
+  /* Blue border on focus */
 }
 
 /* Footer */
 .site-footer {
-  background-color: #ffffff; /* White footer */
-  padding: 20px;
+  background-color: transparent;
+  padding: 12px 20px;
   text-align: center;
-  width: 100%; /* Full width */
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  margin-top: auto; /* Pushes the footer to the bottom when content is short */
-  color: #555555; /* Gray text for footer */
+  width: 100%;
+  /* Full width */
+  border-top: 1px solid #f0f0f0;
+  /* Very subtle border */
+  margin-top: auto;
+  /* Pushes the footer to the bottom when content is short */
 }
 
 .site-footer p {
   margin: 0;
-  font-size: 0.9rem;
-  color: #777777;
+  font-size: 0.8rem;
+  color: #9e9e9e;
+  /* Lighter gray for more subtle text */
+  font-weight: 300;
 }
 
 /* Form Footer (e.g. login links) */
@@ -235,7 +263,8 @@ a.btn:hover, button.btn:hover {
 }
 
 .form-footer a {
-  color: #3498db; /* Blue link */
+  color: #3498db;
+  /* Blue link */
   text-decoration: none;
 }
 
@@ -247,7 +276,8 @@ a.btn:hover, button.btn:hover {
 .divider {
   width: 100%;
   height: 1px;
-  background-color: #e0e0e0; /* Light gray divider */
+  background-color: #e0e0e0;
+  /* Light gray divider */
   margin: 30px 0;
 }
 

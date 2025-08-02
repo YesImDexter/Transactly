@@ -2,116 +2,535 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>AI Transaction Risk Analysis</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Analytics Results - TrustX Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        },
+                    },
+                },
+            },
+        };
+    </script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
+        /* Hide print-only content when not printing */
+        .print-only {
+            display: none;
         }
 
-        h1,
-        h2 {
-            color: #333;
-        }
+        @media print {
 
-        .summary-box {
-            background: #f0f0f0;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
+            /* Hide everything by default */
+            body>* {
+                display: none !important;
+            }
 
-        .table-container {
-            overflow-x: auto;
-        }
+            /* Only show print version */
+            .print-only {
+                display: block !important;
+                padding: 20px !important;
+                margin: 0 !important;
+                background: white !important;
+                color: black !important;
+            }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 40px;
-        }
+            /* Remove browser's default header/footer */
+            @page {
+                margin: 2cm;
+                size: auto;
+            }
 
-        th,
-        td {
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
+            @page :first {
+                margin-top: 0;
+            }
 
-        th {
-            background-color: #e0e0e0;
-        }
+            /* Basic print styles */
+            body {
+                background: white !important;
+                color: black !important;
+                font-family: serif !important;
+            }
 
-        code {
-            white-space: pre-wrap;
-            background: #f9f9f9;
-            padding: 10px;
-            display: block;
-            border-left: 3px solid #00aaff;
+            /* Table styles */
+            table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                margin: 10px 0 20px 0 !important;
+                page-break-inside: avoid !important;
+            }
+
+            th,
+            td {
+                border: 1px solid #000 !important;
+                padding: 8px !important;
+                text-align: left !important;
+            }
+
+            th {
+                background-color: #f0f0f0 !important;
+            }
+
+            /* Headers */
+            h1 {
+                font-size: 24pt !important;
+                margin-bottom: 20px !important;
+                text-align: center !important;
+            }
+
+            h2 {
+                font-size: 18pt !important;
+                margin: 15px 0 !important;
+                page-break-after: avoid !important;
+            }
+
+            .print\:hidden {
+                display: none !important;
+            }
+
+            .print\:block {
+                display: block !important;
+            }
+
+            .print\:p-8 {
+                padding: 2rem !important;
+            }
+
+            table {
+                page-break-inside: avoid;
+            }
+
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
         }
     </style>
 </head>
 
-<body>
+<body class="bg-gray-900 text-gray-100">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Back to Dashboard -->
+        <div class="mb-8">
+            <a href="http://127.0.0.1:5501/html/admin_dashboard.html"
+                class="inline-flex items-center text-gray-400 hover:text-white transition-colors duration-200">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Dashboard
+            </a>
+        </div>
 
-    <h1>AI Risk Analysis Summary</h1>
+        <div class="max-w-6xl mx-auto">
+            <!-- Page Title -->
+            <div class="mb-8 flex items-center">
+                <h1 class="text-3xl font-bold text-white mr-3">AI Analytics Results</h1>
+                <span
+                    class="bg-primary-500 text-white text-xs px-2 py-1 rounded-full uppercase tracking-wide font-semibold">Beta</span>
+            </div>
 
-    <div class="summary-box">
-        <p><strong>Total Transactions:</strong> {{ result.total_trxns }}</p>
-        <p><strong>Unique Transactions:</strong> {{ result.unique_trxns }}</p>
-    </div>
+            <!-- Results Section -->
+            <div class="bg-gray-800 rounded-xl p-6 shadow-lg space-y-6">
+                <h2 class="text-xl font-semibold text-primary-400">Analysis Results</h2>
 
-    <h2>🔍 AI-Generated Risk Insights</h2>
-    <code>{{ result.summary_text }}</code>
+                <!-- Display the results in a nice format -->
+                <div class="space-y-6">
+                    {% if result %}
+                    <!-- Executive Summary -->
+                    <div class="bg-gray-700 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-primary-400 mb-6 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            Executive Summary
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-gray-800 p-4 rounded-lg border-l-4 border-primary-500">
+                                <p class="text-gray-400 text-sm uppercase tracking-wider">Total Transactions</p>
+                                <p class="text-3xl font-bold text-white mt-1">{{ result.total_trxns }}</p>
+                                <p class="text-primary-400 text-sm mt-2">Analyzed Transactions</p>
+                            </div>
+                            <div class="bg-gray-800 p-4 rounded-lg border-l-4 border-secondary-500">
+                                <p class="text-gray-400 text-sm uppercase tracking-wider">Unique Transactions</p>
+                                <p class="text-3xl font-bold text-white mt-1">{{ result.unique_trxns }}</p>
+                                <p class="text-secondary-400 text-sm mt-2">Distinct Cases</p>
+                            </div>
+                            <div class="bg-gray-800 p-4 rounded-lg border-l-4 border-red-500">
+                                <p class="text-gray-400 text-sm uppercase tracking-wider">Risk Level</p>
+                                <p class="text-3xl font-bold text-white mt-1">
+                                    {% if result.flagged_transactions|length > 10 %}High
+                                    {% elif result.flagged_transactions|length > 5 %}Medium
+                                    {% else %}Low{% endif %}
+                                </p>
+                                <p class="text-red-400 text-sm mt-2">{{ result.flagged_transactions|length }} Flagged
+                                    Items</p>
+                            </div>
+                        </div>
+                    </div>
 
-    <h2>🚩 Flagged Transactions</h2>
-    <div class="table-container">
-        <table>
-            <thead>
+                    <!-- AI Insights -->
+                    <div class="bg-gray-700 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-primary-400 mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
+                            AI Risk Analysis
+                        </h3>
+                        <div class="bg-gray-800 rounded-lg p-6 relative">
+                            <div class="absolute top-0 right-0 mt-4 mr-4">
+                                <span
+                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                                    AI Generated
+                                </span>
+                            </div>
+                            <div class="space-y-4">
+                                <p class="text-gray-200 leading-relaxed">{{ result.analysis.risk_summary.summary_text }}
+                                </p>
+                                <div class="pt-4 border-t border-gray-700">
+                                    <h4 class="text-sm font-medium text-primary-400 mb-2">Risk Statistics:</h4>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <h5 class="text-sm text-gray-400">Risk Level Distribution</h5>
+                                            <ul class="list-disc list-inside text-gray-300 space-y-1 text-sm mt-2">
+                                                <li>High Risk: {{ result.analysis.risk_stats.risk_levels.high }}</li>
+                                                <li>Medium Risk: {{ result.analysis.risk_stats.risk_levels.medium }}
+                                                </li>
+                                                <li>Low Risk: {{ result.analysis.risk_stats.risk_levels.low }}</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h5 class="text-sm text-gray-400">Risk Scores</h5>
+                                            <ul class="list-disc list-inside text-gray-300 space-y-1 text-sm mt-2">
+                                                <li>Maximum Risk: {{ "%.1f"|format(result.analysis.risk_stats.max_risk)
+                                                    }}</li>
+                                                <li>Average Risk: {{ "%.1f"|format(result.analysis.risk_stats.avg_risk)
+                                                    }}</li>
+                                                <li>Total High Risk: {{ result.analysis.risk_summary.high_risk_count }}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Flagged Transactions -->
+                    <div class="bg-gray-700 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-primary-400 mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                            High-Risk Transactions
+                        </h3>
+                        <div class="bg-gray-800 rounded-lg p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <p class="text-sm text-gray-400">Showing {{ result.flagged_transactions|length }}
+                                    flagged transactions</p>
+                                <span class="px-3 py-1 text-xs font-medium bg-red-900 text-red-200 rounded-lg">
+                                    Requires Review
+                                </span>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-700">
+                                    <thead>
+                                        <tr class="bg-gray-900 text-gray-300">
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                                Transaction ID</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                                Title</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                                Risk Score</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                                Explanation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-700">
+                                        {% for trx in result.analysis.transactions %}
+                                        <tr class="hover:bg-gray-700 transition-colors">
+                                            <td class="px-6 py-4">
+                                                <div class="flex items-center">
+                                                    <div
+                                                        class="h-2 w-2 {% if trx.risk_score > 70 %}bg-red-400{% elif trx.risk_score > 40 %}bg-yellow-400{% else %}bg-green-400{% endif %} rounded-full mr-2">
+                                                    </div>
+                                                    <span class="text-sm font-medium text-gray-200">{{ trx.id }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <span class="text-sm text-gray-200">{{ trx.title }}</span>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <span
+                                                    class="text-sm font-medium {% if trx.risk_score > 70 %}text-red-400{% elif trx.risk_score > 40 %}text-yellow-400{% else %}text-green-400{% endif %}">
+                                                    {{ trx.risk_score }}%
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <span class="text-sm text-gray-200">{{ trx.explanation }}</span>
+                                                {% if trx.related_transactions %}
+                                                <div class="mt-1">
+                                                    <span class="text-xs text-gray-400">Related:
+                                                        {% for related_id in trx.related_transactions %}
+                                                        <span class="text-primary-400">{{ related_id }}</span>{% if not
+                                                        loop.last %}, {% endif %}
+                                                        {% endfor %}
+                                                    </span>
+                                                </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Related Transactions -->
+                    <div class="bg-gray-700 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-primary-400 mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                            </svg>
+                            Context Transactions
+                        </h3>
+                        <div class="bg-gray-800 rounded-lg p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <p class="text-sm text-gray-400">Related transaction sample for context</p>
+                                <span class="px-3 py-1 text-xs font-medium bg-gray-700 text-gray-300 rounded-lg">
+                                    Reference Data
+                                </span>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-700">
+                                    <thead>
+                                        <tr class="bg-gray-900 text-gray-300">
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                                Transaction ID</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                                Account Number</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                                Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-700">
+                                        {% for trx in result.related_sample %}
+                                        <tr class="hover:bg-gray-700 transition-colors">
+                                            <td class="px-6 py-4">
+                                                <div class="flex items-center">
+                                                    <div class="h-2 w-2 bg-gray-400 rounded-full mr-2"></div>
+                                                    <span class="text-sm text-gray-200">{{ trx.trxn_id }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <span class="text-sm text-gray-200">{{ trx.ofi_acct_number }}</span>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <span class="text-sm text-gray-200">{{ trx.trxn_amount }}</span>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Report Footer -->
+                    <div class="bg-gray-700 rounded-lg p-6">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex items-center">
+                                    <div class="h-3 w-3 bg-red-400 rounded-full mr-2"></div>
+                                    <span class="text-sm text-gray-400">High Risk</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="h-3 w-3 bg-gray-400 rounded-full mr-2"></div>
+                                    <span class="text-sm text-gray-400">Reference</span>
+                                </div>
+                            </div>
+                            <div class="text-sm text-gray-400">
+                                Generated on {{ generated_time }}
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p class="text-gray-400">No analysis results available.</p>
+                    {% endif %}
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex justify-between mt-6">
+                    <button onclick="window.print()"
+                        class="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200 flex items-center print:hidden">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                        </svg>
+                        Print Report
+                    </button>
+                    <a href="/ai_analyse"
+                        class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 flex items-center print:hidden">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                        New Analysis
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Print-only Report -->
+    <div class="print-only">
+        <div class="text-center mb-8">
+            <h1>Transaction Analysis Report</h1>
+            <p>Confidential Document</p>
+        </div>
+
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Executive Summary</h2>
+            <p class="mb-4">{{ result.analysis.risk_summary.summary_text }}</p>
+            <table class="w-full border-collapse border border-gray-300 mb-4">
                 <tr>
-                    <th>Transaction ID</th>
-                    <th>Account Number</th>
-                    <th>Entity Name</th>
-                    <th>Amount</th>
-                    <th>Suspicion Flags</th>
+                    <th class="border border-gray-300 p-2 bg-gray-100">Total Transactions</th>
+                    <th class="border border-gray-300 p-2 bg-gray-100">Unique Transactions</th>
+                    <th class="border border-gray-300 p-2 bg-gray-100">High Risk</th>
+                    <th class="border border-gray-300 p-2 bg-gray-100">Medium Risk</th>
+                    <th class="border border-gray-300 p-2 bg-gray-100">Low Risk</th>
                 </tr>
-            </thead>
-            <tbody>
+                <tr>
+                    <td class="border border-gray-300 p-2 text-center">{{ result.total_trxns }}</td>
+                    <td class="border border-gray-300 p-2 text-center">{{ result.unique_trxns }}</td>
+                    <td class="border border-gray-300 p-2 text-center">{{ result.analysis.risk_stats.risk_levels.high }}
+                    </td>
+                    <td class="border border-gray-300 p-2 text-center">{{ result.analysis.risk_stats.risk_levels.medium
+                        }}</td>
+                    <td class="border border-gray-300 p-2 text-center">{{ result.analysis.risk_stats.risk_levels.low }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Detailed Transaction Analysis</h2>
+            <table class="w-full border-collapse border border-gray-300">
+                <tr>
+                    <th class="border border-gray-300 p-2 bg-gray-100">Transaction ID</th>
+                    <th class="border border-gray-300 p-2 bg-gray-100">Title</th>
+                    <th class="border border-gray-300 p-2 bg-gray-100">Risk Score</th>
+                    <th class="border border-gray-300 p-2 bg-gray-100">Analysis</th>
+                </tr>
+                {% for trx in result.analysis.transactions %}
+                <tr>
+                    <td class="border border-gray-300 p-2">{{ trx.id }}</td>
+                    <td class="border border-gray-300 p-2">{{ trx.title }}</td>
+                    <td class="border border-gray-300 p-2">{{ trx.risk_score }}%</td>
+                    <td class="border border-gray-300 p-2">
+                        {{ trx.explanation }}
+                        {% if trx.related_transactions %}
+                        <br>
+                        <small>Related Transactions: {{ trx.related_transactions|join(', ') }}</small>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Supporting Data</h2>
+            <h3 class="text-xl font-bold mb-2">Flagged Transactions</h3>
+            <table class="w-full border-collapse border border-gray-300 mb-4">
+                <tr>
+                    <th class="border border-gray-300 p-2 bg-gray-100">Transaction ID</th>
+                    <th class="border border-gray-300 p-2 bg-gray-100">Account Number</th>
+                    <th class="border border-gray-300 p-2 bg-gray-100">Amount</th>
+                    <th class="border border-gray-300 p-2 bg-gray-100">Flags</th>
+                </tr>
                 {% for trx in result.flagged_transactions %}
                 <tr>
-                    <td>{{ trx.trxn_id }}</td>
-                    <td>{{ trx.ofi_acct_number }}</td>
-                    <td>{{ trx.get('rfi_entity_name', '-') }}</td>
-                    <td>{{ trx.trxn_amount }}</td>
-                    <td>{{ trx.suspicion_flag }}</td>
+                    <td class="border border-gray-300 p-2">{{ trx.trxn_id }}</td>
+                    <td class="border border-gray-300 p-2">{{ trx.ofi_acct_number }}</td>
+                    <td class="border border-gray-300 p-2">{{ trx.trxn_amount }}</td>
+                    <td class="border border-gray-300 p-2">{{ trx.suspicion_flag }}</td>
                 </tr>
                 {% endfor %}
-            </tbody>
-        </table>
+            </table>
+        </div>
+
+        <footer style="text-align: center; margin-top: 30px; border-top: 1px solid #000; padding-top: 20px;">
+            <p style="margin-bottom: 10px;">Generated by TrustX AI Analytics System</p>
+            <p style="margin-bottom: 10px; font-weight: bold;">CONFIDENTIAL - FOR INTERNAL USE ONLY</p>
+            <p>This report contains sensitive financial information and should be handled accordingly.</p>
+        </footer>
     </div>
 
-    <h2>📌 Related Transactions (for context)</h2>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Transaction ID</th>
-                    <th>Account Number</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for trx in result.related_sample %}
-                <tr>
-                    <td>{{ trx.trxn_id }}</td>
-                    <td>{{ trx.ofi_acct_number }}</td>
-                    <td>{{ trx.trxn_amount }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    <script>
+        // Initialize the analysis data
+        const analysisData = {{ result| tojson | safe }};
 
+        // Helper function to format risk scores
+        function formatRiskScore(score) {
+            return score.toFixed(1) + '%';
+        }
+
+        // Helper function to get risk level class
+        function getRiskLevelClass(score) {
+            if (score > 70) return 'text-red-400';
+            if (score > 40) return 'text-yellow-400';
+            return 'text-green-400';
+        }
+
+        // Add event listeners after page load
+        document.addEventListener('DOMContentLoaded', function () {
+            // You can add interactive features here, such as:
+            // - Sorting transactions by risk score
+            // - Filtering by risk level
+            // - Showing/hiding related transactions
+            // - Generating charts/graphs of risk distribution
+        });
+    </script>
 </body>
 
 </html>

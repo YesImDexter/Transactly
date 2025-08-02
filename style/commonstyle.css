@@ -4,19 +4,28 @@
 
 /* Base styles for dark mode */
 body {
-    font-family: 'Poppins', sans-serif; /* Changed font family to Poppins */
-    background-color: #111827; /* Dark gray background */
-    color: #E5E7EB; /* Light text color */
-    margin: 0; /* Remove default body margin */
-    padding: 0; /* Remove default body padding */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    font-family: 'Poppins', sans-serif;
+    /* Changed font family to Poppins */
+    background-color: #111827;
+    /* Dark gray background */
+    color: #E5E7EB;
+    /* Light text color */
+    margin: 0;
+    /* Remove default body margin */
+    padding: 0;
+    /* Remove default body padding */
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
 }
 
 /* Main content area */
 .main-content-area {
-    background-color: #1F2937; /* Slightly lighter dark background */
-    min-height: calc(100vh - 128px); /* Adjust based on header/footer height, consider responsive adjustments */
-    padding: 1rem; /* Add some padding for content */
+    background-color: #1F2937;
+    /* Slightly lighter dark background */
+    min-height: calc(100vh - 128px);
+    /* Adjust based on header/footer height, consider responsive adjustments */
+    padding: 1rem;
+    /* Add some padding for content */
 }
 
 /* Cards and containers */
@@ -25,19 +34,26 @@ body {
     border: 1px solid #374151;
     border-radius: 0.5rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1rem; /* Space between cards */
-    padding: 1rem; /* Padding inside cards */
+    margin-bottom: 1rem;
+    /* Space between cards */
+    padding: 1rem;
+    /* Padding inside cards */
 }
 
 /* Buttons */
 .btn-primary {
     background-color: #3B82F6;
     color: white;
-    padding: 0.75rem 1.25rem; /* Standard button padding */
-    border-radius: 0.375rem; /* Rounded corners for buttons */
-    border: none; /* Remove default button border */
-    cursor: pointer; /* Indicate clickable element */
-    transition: background-color 0.2s ease-in-out; /* Smooth transition on hover */
+    padding: 0.75rem 1.25rem;
+    /* Standard button padding */
+    border-radius: 0.375rem;
+    /* Rounded corners for buttons */
+    border: none;
+    /* Remove default button border */
+    cursor: pointer;
+    /* Indicate clickable element */
+    transition: background-color 0.2s ease-in-out;
+    /* Smooth transition on hover */
 }
 
 .btn-primary:hover {
@@ -49,10 +65,14 @@ body {
     background-color: #1F2937;
     border: 1px solid #374151;
     color: #F3F4F6;
-    padding: 0.75rem; /* Standard input padding */
-    border-radius: 0.375rem; /* Rounded corners for inputs */
-    width: 100%; /* Full width for inputs */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    padding: 0.75rem;
+    /* Standard input padding */
+    border-radius: 0.375rem;
+    /* Rounded corners for inputs */
+    width: 100%;
+    /* Full width for inputs */
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
 }
 
 .input-field:focus {
@@ -66,8 +86,10 @@ body {
 }
 
 .no-scrollbar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 /* Dark mode specific styles (already present and good for consistency) */
@@ -89,39 +111,53 @@ body {
 /* For smaller screens (e.g., mobile) */
 @media (max-width: 768px) {
     .main-content-area {
-        min-height: calc(100vh - 80px); /* Adjust for smaller header/footer on mobile */
-        padding: 0.5rem; /* Less padding on mobile */
+        min-height: calc(100vh - 80px);
+        /* Adjust for smaller header/footer on mobile */
+        padding: 0.5rem;
+        /* Less padding on mobile */
     }
 
     .card {
-        margin-bottom: 0.75rem; /* Slightly less space between cards on mobile */
-        padding: 0.75rem; /* Less padding inside cards on mobile */
+        margin-bottom: 0.75rem;
+        /* Slightly less space between cards on mobile */
+        padding: 0.75rem;
+        /* Less padding inside cards on mobile */
     }
 
     .btn-primary {
-        padding: 0.6rem 1rem; /* Smaller buttons on mobile */
-        font-size: 0.9rem; /* Slightly smaller text on buttons */
+        padding: 0.6rem 1rem;
+        /* Smaller buttons on mobile */
+        font-size: 0.9rem;
+        /* Slightly smaller text on buttons */
     }
 
     .input-field {
-        padding: 0.6rem; /* Smaller input fields on mobile */
-        font-size: 0.9rem; /* Slightly smaller text in inputs */
+        padding: 0.6rem;
+        /* Smaller input fields on mobile */
+        font-size: 0.9rem;
+        /* Slightly smaller text in inputs */
     }
 }
 
 /* For larger screens (e.g., laptops/desktops) */
 @media (min-width: 769px) {
     .main-content-area {
-        padding: 2rem; /* More padding on larger screens */
+        padding: 2rem;
+        /* More padding on larger screens */
     }
 
     .card {
-        margin-bottom: 1.5rem; /* More space between cards on larger screens */
-        padding: 1.5rem; /* More padding inside cards on larger screens */
+        margin-bottom: 1.5rem;
+        /* More space between cards on larger screens */
+        padding: 1.5rem;
+        /* More padding inside cards on larger screens */
     }
+
     /* Potentially add max-width to main content for better readability on very wide screens */
-    .container { /* You might want to wrap your main content in a container for this */
+    .container {
+        /* You might want to wrap your main content in a container for this */
         max-width: 1200px;
-        margin: 0 auto; /* Center the container */
+        margin: 0 auto;
+        /* Center the container */
     }
 }

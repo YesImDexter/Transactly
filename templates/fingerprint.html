@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-KYC Fingerprint Biometrics</title>
+    <!-- Include the common styles for consistent theming -->
+
+    <style>
+        /* commonstyle.css - Dark Mode and Responsive Styles */
+        /* Import Poppins font from Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        /* Base styles for dark mode */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #111827;
+            color: #E5E7EB;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Main content area */
+        .main-content-area {
+            background-color: #1F2937;
+            min-height: calc(100vh - 128px);
+            padding: 1rem;
+        }
+
+        /* Cards and containers */
+        .card {
+            background-color: #1F2937;
+            border: 1px solid #374151;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            padding: 1rem;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: #3B82F6;
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.375rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563EB;
+        }
+
+        /* Fingerprint scanner styles */
+        .fingerprint-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .fingerprint-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #1E3A8A 0%, #1E293B 100%);
+            z-index: 1;
+        }
+
+        .fingerprint-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 14C53.8 14 16 51.8 16 98s37.8 84 84 84 84-37.8 84-84-37.8-84-84-84zm0 10c40.9 0 74 33.1 74 74s-33.1 74-74 74-74-33.1-74-74 33.1-74 74-74zm0 20c-30.1 0-54 23.9-54 54 0 9.2 2.7 17.8 6.9 25.3 1.8-11.2 11.6-19.7 23.1-19.7 13 0 23.5 10.5 23.5 23.5S89 151.5 76 151.5c-6.4 0-12.2-2.5-16.4-6.7-6.8-11.5-10.6-24.7-10.6-38.8 0-42.5 34.5-77 77-77s77 34.5 77 77-34.5 77-77 77c-16.6 0-32-5.3-44.6-14.2 9-1.2 16-9 16-18.3 0-10.2-8.3-18.5-18.5-18.5S60.5 140.2 60.5 150.4c0 2 .3 3.9.9 5.7C47.9 141 40 120.8 40 98c0-33.1 26.9-60 60-60zm0 10c-27.6 0-50 22.4-50 50 0 19.7 11.5 36.8 28.1 44.9-.7-2.2-1.1-4.6-1.1-7 0-13.3 10.7-24 24-24s24 10.7 24 24c0 4.8-1.4 9.2-3.8 13 17.8-7.7 30.3-25.4 30.3-46 0-27.6-22.4-50-50-50zm0 10c-22.1 0-40 17.9-40 40s17.9 40 40 40 40-17.9 40-40-17.9-40-40-40zm0 10c-16.6 0-30 13.4-30 30s13.4 30 30 30 30-13.4 30-30-13.4-30-30-30zm0 10c-11 0-20 9-20 20s9 20 20 20 20-9 20-20-9-20-20-20zm0 10c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10z' fill='%2338BDF8' fill-opacity='0.6' fill-rule='evenodd'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6;
+            z-index: 2;
+        }
+
+        .fingerprint-scan {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(to bottom, rgba(56, 189, 248, 0.2) 0%, rgba(56, 189, 248, 0.8) 100%);
+            z-index: 3;
+            transition: height 0.1s linear;
+        }
+
+        .fingerprint-pulse {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: rgba(56, 189, 248, 0.4);
+            transform: scale(1);
+            opacity: 0;
+            z-index: 4;
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.7;
+            }
+
+            70% {
+                transform: scale(1.1);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+        }
+
+        .fingerprint-text {
+            position: relative;
+            font-size: 0.9rem;
+            color: #94A3B8;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .progress-container {
+            position: relative;
+            width: 100%;
+            height: 6px;
+            background-color: #1F2937;
+            border-radius: 3px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            position: absolute;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, #38BDF8, #8B5CF6);
+            transition: width 0.1s linear;
+        }
+
+        /* Success modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .modal-active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: #1F2937;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transform: translateY(20px);
+            transition: transform 0.3s;
+        }
+
+        .modal-active .modal-content {
+            transform: translateY(0);
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(16, 185, 129, 0.2);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            color: #10B981;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+    <!-- Include the Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-900 text-gray-100">
+    <div id="fingerprint-container"
+        class="w-full max-w-2xl bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl shadow-2xl p-8 md:p-12 fade-in">
+        <div class="flex justify-between items-center mb-8">
+            <h1
+                class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-secondary-400">
+                Verification Form</h1>
+            <div class="text-sm text-gray-400">Step 2 of 3</div>
+        </div>
+
+        <div class="w-full h-2 bg-gray-700 rounded-full mb-8 overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-primary-500 to-secondary-500 transition-all duration-500"
+                style="width: 33.33%"></div>
+        </div>
+
+        <div class="mb-6 text-center">
+            <h2 class="text-xl font-semibold text-gray-200 mb-4">Fingerprint Verification</h2>
+            <p class="text-gray-400 mb-6">Please place your finger on the sensor below for biometric verification.</p>
+        </div>
+
+        <div class="fingerprint-container" id="scanner">
+            <div class="fingerprint-bg"></div>
+            <div class="fingerprint-overlay"></div>
+            <div class="fingerprint-scan" id="scan-effect"></div>
+            <div class="fingerprint-pulse" id="pulse-effect"></div>
+        </div>
+
+        <div class="fingerprint-text" id="instructions">Tap and hold on the sensor to begin scanning</div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <button id="continue-btn" class="btn-primary w-full opacity-50 cursor-not-allowed" disabled>Continue</button>
+    </div>
+
+    <!-- Success modal -->
+    <div class="modal" id="success-modal">
+        <div class="modal-content">
+            <div class="success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Verification Successful</h3>
+            <p class="text-gray-400 mb-6">Your fingerprint has been successfully verified.</p>
+            <button id="modal-continue-btn" class="btn-primary w-full">Continue to Face Verification</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const scanner = document.getElementById('scanner');
+            const scanEffect = document.getElementById('scan-effect');
+            const pulseEffect = document.getElementById('pulse-effect');
+            const progressBar = document.getElementById('progress-bar');
+            const instructionsText = document.getElementById('instructions');
+            const continueBtn = document.getElementById('continue-btn');
+            const successModal = document.getElementById('success-modal');
+            const modalContinueBtn = document.getElementById('modal-continue-btn');
+
+            let scanning = false;
+            let progress = 0;
+            let scanInterval;
+
+            // Function to start scanning
+            const startScanning = () => {
+                if (!scanning) {
+                    scanning = true;
+                    pulseEffect.classList.add('pulse-animation');
+                    instructionsText.textContent = "Scanning fingerprint... Please keep your finger still";
+
+                    scanInterval = setInterval(() => {
+                        if (progress < 100) {
+                            progress += 1;
+                            scanEffect.style.height = `${progress}%`;
+                            progressBar.style.width = `${progress}%`;
+
+                            if (progress === 25) {
+                                instructionsText.textContent = "Processing ridges and patterns...";
+                            } else if (progress === 50) {
+                                instructionsText.textContent = "Analyzing fingerprint features...";
+                            } else if (progress === 75) {
+                                instructionsText.textContent = "Comparing with registered templates...";
+                            } else if (progress === 100) {
+                                completeScanning();
+                            }
+                        }
+                    }, 60); // Speed of scanning
+                }
+            };
+
+            // Function to potentially cancel scanning
+            const stopScanning = () => {
+                if (scanning && progress < 100) {
+                    clearInterval(scanInterval);
+
+                    // Only reset if not nearly complete
+                    if (progress < 80) {
+                        resetScanning();
+                    }
+                }
+            };
+
+            // Mouse events
+            scanner.addEventListener('mousedown', startScanning);
+            scanner.addEventListener('mouseup', stopScanning);
+
+            // Touch events for mobile support
+            scanner.addEventListener('touchstart', (e) => {
+                e.preventDefault(); // Prevent scrolling when touching
+                startScanning();
+            });
+
+            scanner.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                stopScanning();
+            });
+
+            // Complete the scanning process
+            function completeScanning() {
+                clearInterval(scanInterval);
+                scanning = false;
+
+                instructionsText.textContent = "Fingerprint verification complete!";
+                instructionsText.style.color = "#10B981";
+                continueBtn.classList.remove("opacity-50", "cursor-not-allowed");
+                continueBtn.disabled = false;
+                continueBtn.addEventListener('click', showSuccessModal);
+            }
+
+            // Reset the scanning process
+            function resetScanning() {
+                scanning = false;
+                progress = 0;
+                scanEffect.style.height = "0%";
+                progressBar.style.width = "0%";
+                pulseEffect.classList.remove('pulse-animation');
+                instructionsText.textContent = "Scan interrupted. Tap and hold again to restart";
+                instructionsText.style.color = "#94A3B8";
+            }
+
+            // Show the success modal
+            function showSuccessModal() {
+                successModal.classList.add('modal-active');
+            }
+
+            // Continue to next step after modal
+            modalContinueBtn.addEventListener('click', () => {
+                window.location.href = 'http://127.0.0.1:5050/upload';
+            });
+        });
+    </script>
+</body>
+
+</html>

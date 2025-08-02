@@ -1,9 +1,10 @@
 from flask import Flask, Response, render_template, jsonify, request, redirect, url_for
 from werkzeug.utils import secure_filename
+from datetime import datetime
 import os
 
 from modules.deepfake.deepfake_logic import generate_video_frames, get_challenge_status
-from modules.ai_analyse.analyse import run_ai_analysis
+from modules.ai_analyse.ai_analyse import run_ai_analysis
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "uploads/"
@@ -13,14 +14,14 @@ app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024  # 50MB max upload
 os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
 
 
-@app.route("/")
-def index():
-    return render_template("index.html")
-
-
 @app.route("/deepfake")
 def deepfake():
     return render_template("deepfake.html")
+
+
+@app.route("/fingerprint")
+def fingerprint():
+    return render_template("fingerprint.html")
 
 
 @app.route("/video")
@@ -48,9 +49,23 @@ def ai_analyse():
 
         try:
             result = run_ai_analysis(filepath)
+            generated_time = datetime.now().strftime("%B %d, %Y at %H:%M")
         except Exception as e:
             return f"Error during analysis: {e}", 500
 
-        return render_template("ai_analyse.html", result=result)
+        return render_template(
+            "ai_analyse.html", result=result, generated_time=generated_time
+        )
 
     return render_template("ai_upload.html")  # A simple upload form
+
+
+@app.route("/upload")
+def upload():
+    return render_template("upload.html")  # this now includes deepfake content
+
+
+if __name__ == "__main__":
+    port = 5050
+    print(f"[INFO] Flask app running on http://127.0.0.1:{port}")
+    app.run(debug=True, host="127.0.0.1", port=port)

@@ -1,7 +1,51 @@
 /**
  * Returns the HTML string for the Signup form.
  */
+function handleSignupSubmit(event) {
+  event.preventDefault();
+
+  // Here you would normally make an API call to your backend for signup
+  // For now, we'll just simulate a successful signup
+
+  // Get form data
+  const formData = new FormData(event.target);
+  const userData = {
+    fullName: formData.get('full-name'),
+    phoneNumber: formData.get('phone-number'),
+    email: formData.get('email'),
+    password: formData.get('password'),
+    confirmPassword: formData.get('confirm-password')
+  };
+
+  // Basic validation
+  if (userData.password !== userData.confirmPassword) {
+    alert('Passwords do not match!');
+    return;
+  }
+
+  // Simulate API call delay
+  setTimeout(() => {
+    // Store user data in localStorage (temporary solution)
+    localStorage.setItem('user', JSON.stringify({
+      name: userData.fullName,
+      email: userData.email,
+      isLoggedIn: true
+    }));
+
+    // Redirect to dashboard
+    window.location.href = 'dashboard.html';
+  }, 1000);
+}
+
 export function renderSignupForm() {
+  // Attach form submit handler after the form is rendered
+  setTimeout(() => {
+    const form = document.getElementById('signupForm');
+    if (form) {
+      form.addEventListener('submit', handleSignupSubmit);
+    }
+  }, 0);
+
   return `
     <div class="w-full max-w-md mx-auto my-16 p-8 bg-gray-800 rounded-3xl shadow-2xl text-center">
       <h2 class="text-4xl font-bold gradient-text mb-6">Create Your Trust-X Account</h2>

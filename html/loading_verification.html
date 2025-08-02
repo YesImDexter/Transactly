@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verifying Identity - TrustX</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #111827;
+            color: #E5E7EB;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .loading-animation {
+            width: 80px;
+            height: 80px;
+            border: 5px solid #1F2937;
+            border-radius: 50%;
+            border-top-color: #3B82F6;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #1F2937;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+            width: 0%;
+            transition: width 5s linear;
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .bounce {
+            animation: bounce 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-10px);
+            }
+        }
+
+        .verification-steps {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .verification-steps.show {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.5s ease-out;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-xl bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl shadow-2xl p-8 md:p-12 fade-in">
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-bold text-white mb-2">Verifying Your Identity</h1>
+            <p class="text-gray-400">Please wait while we process your verification</p>
+        </div>
+
+        <!-- Loading Animation -->
+        <div class="flex justify-center mb-8">
+            <div class="loading-animation"></div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar mb-8">
+            <div class="progress-fill"></div>
+        </div>
+
+        <!-- Verification Steps -->
+        <div class="space-y-4 verification-steps" id="verificationSteps">
+            <div class="flex items-center text-gray-400">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Analyzing document authenticity</span>
+            </div>
+            <div class="flex items-center text-gray-400">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Verifying facial biometrics</span>
+            </div>
+            <div class="flex items-center text-gray-400">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Validating liveness detection</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Start progress bar animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const progressFill = document.querySelector('.progress-fill');
+            const steps = document.querySelectorAll('.verification-steps > div');
+
+            // Start progress bar
+            progressFill.style.width = '100%';
+
+            // Show verification steps one by one
+            steps.forEach((step, index) => {
+                setTimeout(() => {
+                    step.querySelector('svg').style.color = '#10B981';
+                    step.style.color = '#10B981';
+                    step.classList.add('show');
+                }, (index + 1) * 1500);
+            });
+
+            // Redirect after 5 seconds
+            setTimeout(() => {
+                window.location.href = 'http://127.0.0.1:5501/html/completion.html';
+            }, 5000);
+        });
+    </script>
+</body>
+
+</html>

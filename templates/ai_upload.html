@@ -2,16 +2,222 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Upload Parquet File</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Analytics - TrustX Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        },
+                    },
+                },
+            },
+        };
+    </script>
 </head>
 
-<body>
-    <h1>Upload a Parquet File for AI Analysis</h1>
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="parquet_file" accept=".parquet" required>
-        <button type="submit">Analyze</button>
-    </form>
+<body class="bg-gray-900 text-gray-100">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Back to Dashboard -->
+        <div class="mb-8">
+            <a href="http://127.0.0.1:5501/html/admin_dashboard.html"
+                class="inline-flex items-center text-gray-400 hover:text-white transition-colors duration-200">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Dashboard
+            </a>
+        </div>
+
+        <div class="max-w-3xl mx-auto">
+            <!-- Page Title -->
+            <div class="mb-8 flex items-center">
+                <h1 class="text-3xl font-bold text-white mr-3">AI Analytics</h1>
+                <span
+                    class="bg-primary-500 text-white text-xs px-2 py-1 rounded-full uppercase tracking-wide font-semibold">Beta</span>
+            </div>
+
+            <!-- Upload Section -->
+            <div class="bg-gray-800 rounded-xl p-6 shadow-lg mb-8">
+                <h2 class="text-xl font-semibold text-primary-400 mb-4">Data Upload</h2>
+                <div class="space-y-4">
+                    <!-- Upload Form -->
+                    <form method="POST" enctype="multipart/form-data" class="space-y-4">
+                        <div class="flex flex-col">
+                            <!-- File Drop Zone -->
+                            <div
+                                class="border-2 border-dashed border-gray-600 rounded-lg p-8 text-center hover:border-primary-500 transition-colors cursor-pointer relative">
+                                <input type="file" name="parquet_file" accept=".parquet" required
+                                    class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                                <div class="space-y-2">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none"
+                                        viewBox="0 0 48 48">
+                                        <path d="M28 8H12a4 4 0 00-4 4v20m0 0v4a4 4 0 004 4h20a4 4 0 004-4V28m-4-4h4"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M24 32v-8m0 0l-4 4m4-4l4 4" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                    <div class="text-gray-300">
+                                        <span class="font-medium">Click to upload</span> or drag and drop
+                                    </div>
+                                    <p class="text-xs text-gray-500">
+                                        Parquet files only (.parquet)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Upload Button -->
+                        <div class="flex justify-end">
+                            <button type="submit"
+                                class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                                </svg>
+                                Analyze Data
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Modal -->
+        <div id="loadingModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center z-50">
+            <div class="bg-gray-800 rounded-lg p-8 max-w-md w-full mx-4 shadow-xl">
+                <div class="flex flex-col items-center">
+                    <!-- Loading Animation -->
+                    <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-primary-500 mb-4">
+                    </div>
+
+                    <!-- Loading Text -->
+                    <h3 class="text-xl font-semibold text-white mb-2">Analyzing Data</h3>
+                    <p class="text-gray-400 text-center mb-4">Please wait while our AI system analyzes your
+                        transactions. This may take a few minutes.</p>
+
+                    <!-- Progress Indicators -->
+                    <div class="w-full space-y-3">
+                        <div id="step1" class="flex items-center text-sm text-gray-400">
+                            <svg class="w-5 h-5 mr-2 text-primary-500" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            Loading and processing data...
+                        </div>
+                        <div id="step2" class="flex items-center text-sm text-gray-400 opacity-50">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            Running AI analysis...
+                        </div>
+                        <div id="step3" class="flex items-center text-sm text-gray-400 opacity-50">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            Generating insights...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // File upload preview
+        const fileInput = document.querySelector('input[type="file"]');
+        const dropZone = fileInput.parentElement;
+        const form = document.querySelector('form');
+        const loadingModal = document.getElementById('loadingModal');
+        const steps = [
+            document.getElementById('step1'),
+            document.getElementById('step2'),
+            document.getElementById('step3')
+        ];
+
+        // Add visual feedback for drag and drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-primary-500');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-primary-500');
+        });
+
+        dropZone.addEventListener('drop', () => {
+            dropZone.classList.remove('border-primary-500');
+        });
+
+        // Show selected filename
+        fileInput.addEventListener('change', function () {
+            const fileName = this.files[0]?.name;
+            if (fileName) {
+                const fileNameElement = dropZone.querySelector('.text-gray-300');
+                fileNameElement.textContent = `Selected: ${fileName}`;
+            }
+        });
+
+        // Handle form submission and loading states
+        form.addEventListener('submit', function (e) {
+            // Show loading modal
+            loadingModal.classList.remove('hidden');
+            loadingModal.classList.add('flex');
+
+            // Simulate progress steps (you can adjust timing based on your actual processing time)
+            setTimeout(() => {
+                steps[0].classList.remove('opacity-50');
+                steps[0].querySelector('svg').classList.add('text-primary-500');
+            }, 500);
+
+            setTimeout(() => {
+                steps[1].classList.remove('opacity-50');
+                steps[1].querySelector('svg').classList.add('text-primary-500');
+            }, 2000);
+
+            setTimeout(() => {
+                steps[2].classList.remove('opacity-50');
+                steps[2].querySelector('svg').classList.add('text-primary-500');
+            }, 3500);
+        });
+
+        // Optional: Add error handling
+        window.addEventListener('error', function () {
+            loadingModal.classList.add('hidden');
+            loadingModal.classList.remove('flex');
+            alert('An error occurred during processing. Please try again.');
+        });
+    </script>
 </body>
 
 </html>

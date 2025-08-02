@@ -57,7 +57,7 @@ function attachEventListeners() {
 
             if (captchaInput === correctCaptcha) {
                 console.log("CAPTCHA matched. Redirecting to upload page.");
-                window.location.href = 'upload.html'; // Redirect to the new page
+                window.location.href = 'http://127.0.0.1:5050/fingerprint'; // Redirect to the new page
             } else {
                 console.log("Incorrect CAPTCHA.");
                 errorDiv.classList.remove('hidden');

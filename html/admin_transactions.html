@@ -6,97 +6,251 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TrustX Admin Transactions</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        },
+                    },
+                },
+            },
+        };
+    </script>
     <link rel="stylesheet" href="../style/adminstyles.css" />
 </head>
 
-<body class="bg-[#181a20] text-[#e5e7eb] min-h-screen flex flex-col">
+<body class="bg-gray-900 text-gray-100">
     <div id="header-placeholder"></div>
-    <main class="p-6 flex-1">
-        <h1 class="text-3xl font-bold mb-6 text-blue-400">Admin Transactions</h1>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Title -->
+        <div class="mb-8 flex items-center">
+            <h1 class="text-3xl font-bold text-white mr-3">Transaction Management</h1>
+            <span
+                class="bg-primary-500 text-white text-xs px-2 py-1 rounded-full uppercase tracking-wide font-semibold">Live</span>
+        </div>
+
+        <!-- Metric Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-gradient-to-r from-red-500 to-red-700 rounded-lg p-6 shadow text-white">
-                <div class="text-lg font-semibold mb-2">Suspicious Transactions Detected</div>
-                <div class="text-3xl font-bold">5</div>
+            <div class="bg-gray-800 p-4 rounded-lg border-l-4 border-red-500">
+                <p class="text-gray-400 text-sm uppercase tracking-wider">Suspicious Transactions</p>
+                <p class="text-3xl font-bold text-white mt-1">5</p>
+                <p class="text-red-400 text-sm mt-2">Flagged for Review</p>
             </div>
-            <div class="bg-gradient-to-r from-green-500 to-green-700 rounded-lg p-6 shadow text-white">
-                <div class="text-lg font-semibold mb-2">Total Transactions</div>
-                <div class="text-3xl font-bold">1,234</div>
+            <div class="bg-gray-800 p-4 rounded-lg border-l-4 border-primary-500">
+                <p class="text-gray-400 text-sm uppercase tracking-wider">Total Transactions</p>
+                <p class="text-3xl font-bold text-white mt-1">1,234</p>
+                <p class="text-primary-400 text-sm mt-2">Processed Successfully</p>
             </div>
-            <div class="bg-gradient-to-r from-yellow-500 to-yellow-700 rounded-lg p-6 shadow text-white">
-                <div class="text-lg font-semibold mb-2">Pending Reviews</div>
-                <div class="text-3xl font-bold">12</div>
+            <div class="bg-gray-800 p-4 rounded-lg border-l-4 border-yellow-500">
+                <p class="text-gray-400 text-sm uppercase tracking-wider">Pending Reviews</p>
+                <p class="text-3xl font-bold text-white mt-1">12</p>
+                <p class="text-yellow-400 text-sm mt-2">Awaiting Action</p>
             </div>
         </div>
-        <section>
-            <h2 class="text-xl font-semibold mb-4 text-blue-300">Recent Transactions</h2>
-            <div class="overflow-x-auto bg-[#23272f] rounded-lg shadow p-4">
-                <table class="min-w-full text-sm text-gray-200">
-                    <thead class="bg-blue-900 text-blue-300 uppercase text-xs">
-                        <tr>
-                            <th class="px-4 py-3 text-left">Transaction ID</th>
-                            <th class="px-4 py-3 text-left">User</th>
-                            <th class="px-4 py-3 text-left">Amount</th>
-                            <th class="px-4 py-3 text-left">Status</th>
-                            <th class="px-4 py-3 text-left">Risk</th>
-                            <th class="px-4 py-3 text-left">Date</th>
-                            <th class="px-4 py-3 text-left">Action</th>
+
+        <!-- Transactions Table -->
+        <section class="bg-gray-800 rounded-xl p-6 shadow-lg">
+            <h3 class="text-lg font-semibold text-primary-400 mb-4 flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                </svg>
+                Recent Transactions
+            </h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-700">
+                    <thead>
+                        <tr class="bg-gray-900 text-gray-300">
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Transaction ID
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">User</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Amount</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Risk</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td class="px-4 py-3">TXN-1001</td>
-                            <td class="px-4 py-3">alice</td>
-                            <td class="px-4 py-3">$1,200</td>
-                            <td class="px-4 py-3 text-green-400 font-bold">Completed</td>
-                            <td class="px-4 py-3 text-yellow-400 font-bold">Medium</td>
-                            <td class="px-4 py-3">2025-07-30</td>
-                            <td class="px-4 py-3"><button
-                                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">View</button>
+                    <tbody class="divide-y divide-gray-700">
+                        <tr class="hover:bg-gray-700 transition-colors">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <div class="h-2 w-2 bg-green-400 rounded-full mr-2"></div>
+                                    <span class="text-sm font-medium text-gray-200">TXN-1001</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm text-gray-200">alice</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm font-medium text-gray-200">$1,200</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="px-2.5 py-1 text-xs font-medium bg-green-900 text-green-200 rounded-lg">Completed</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="px-2.5 py-1 text-xs font-medium bg-yellow-900 text-yellow-200 rounded-lg">Medium</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm text-gray-200">2025-07-30</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <button
+                                    class="px-3 py-1 text-xs font-medium bg-primary-600 text-white rounded hover:bg-primary-700 transition">
+                                    View Details
+                                </button>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="px-4 py-3">TXN-1002</td>
-                            <td class="px-4 py-3">bob</td>
-                            <td class="px-4 py-3">$5,000</td>
-                            <td class="px-4 py-3 text-red-400 font-bold">Flagged</td>
-                            <td class="px-4 py-3 text-red-400 font-bold">High</td>
-                            <td class="px-4 py-3">2025-07-30</td>
-                            <td class="px-4 py-3"><button
-                                    class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition">Review</button>
+                        <tr class="hover:bg-gray-700 transition-colors">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <div class="h-2 w-2 bg-red-400 rounded-full mr-2"></div>
+                                    <span class="text-sm font-medium text-gray-200">TXN-1002</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm text-gray-200">bob</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm font-medium text-gray-200">$5,000</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="px-2.5 py-1 text-xs font-medium bg-red-900 text-red-200 rounded-lg">Flagged</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="px-2.5 py-1 text-xs font-medium bg-red-900 text-red-200 rounded-lg">High</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm text-gray-200">2025-07-30</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <button
+                                    class="px-3 py-1 text-xs font-medium bg-red-600 text-white rounded hover:bg-red-700 transition">
+                                    Review
+                                </button>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="px-4 py-3">TXN-1003</td>
-                            <td class="px-4 py-3">charlie</td>
-                            <td class="px-4 py-3">$300</td>
-                            <td class="px-4 py-3 text-yellow-400 font-bold">Pending</td>
-                            <td class="px-4 py-3 text-yellow-400 font-bold">Medium</td>
-                            <td class="px-4 py-3">2025-07-29</td>
-                            <td class="px-4 py-3"><button
-                                    class="bg-yellow-600 text-white px-3 py-1 rounded hover:bg-yellow-700 transition">Review</button>
+                        <tr class="hover:bg-gray-700 transition-colors">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <div class="h-2 w-2 bg-yellow-400 rounded-full mr-2"></div>
+                                    <span class="text-sm font-medium text-gray-200">TXN-1003</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm text-gray-200">charlie</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm font-medium text-gray-200">$300</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="px-2.5 py-1 text-xs font-medium bg-yellow-900 text-yellow-200 rounded-lg">Pending</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="px-2.5 py-1 text-xs font-medium bg-yellow-900 text-yellow-200 rounded-lg">Medium</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm text-gray-200">2025-07-29</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <button
+                                    class="px-3 py-1 text-xs font-medium bg-yellow-600 text-white rounded hover:bg-yellow-700 transition">
+                                    Review
+                                </button>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="px-4 py-3">TXN-1004</td>
-                            <td class="px-4 py-3">diana</td>
-                            <td class="px-4 py-3">$2,000</td>
-                            <td class="px-4 py-3 text-green-400 font-bold">Completed</td>
-                            <td class="px-4 py-3 text-green-400 font-bold">Low</td>
-                            <td class="px-4 py-3">2025-07-28</td>
-                            <td class="px-4 py-3"><button
-                                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">View</button>
+                        <tr class="hover:bg-gray-700 transition-colors">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <div class="h-2 w-2 bg-green-400 rounded-full mr-2"></div>
+                                    <span class="text-sm font-medium text-gray-200">TXN-1004</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm text-gray-200">diana</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm font-medium text-gray-200">$2,000</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="px-2.5 py-1 text-xs font-medium bg-green-900 text-green-200 rounded-lg">Completed</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="px-2.5 py-1 text-xs font-medium bg-green-900 text-green-200 rounded-lg">Low</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm text-gray-200">2025-07-28</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <button
+                                    class="px-3 py-1 text-xs font-medium bg-primary-600 text-white rounded hover:bg-primary-700 transition">
+                                    View Details
+                                </button>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="px-4 py-3">TXN-1005</td>
-                            <td class="px-4 py-3">eve</td>
-                            <td class="px-4 py-3">$7,500</td>
-                            <td class="px-4 py-3 text-red-400 font-bold">Flagged</td>
-                            <td class="px-4 py-3 text-red-400 font-bold">High</td>
-                            <td class="px-4 py-3">2025-07-27</td>
-                            <td class="px-4 py-3"><button
-                                    class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition">Review</button>
+                        <tr class="hover:bg-gray-700 transition-colors">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <div class="h-2 w-2 bg-red-400 rounded-full mr-2"></div>
+                                    <span class="text-sm font-medium text-gray-200">TXN-1005</span>
+                                </div>
                             </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm text-gray-200">eve</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm font-medium text-gray-200">$7,500</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="px-2.5 py-1 text-xs font-medium bg-red-900 text-red-200 rounded-lg">Flagged</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="px-2.5 py-1 text-xs font-medium bg-red-900 text-red-200 rounded-lg">High</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm text-gray-200">2025-07-27</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <button
+                                    class="px-3 py-1 text-xs font-medium bg-red-600 text-white rounded hover:bg-red-700 transition">
+                                    Review
+                                </button>
+                            </td>
+                        </tr>
                         </tr>
                     </tbody>
                 </table>
