@@ -35,24 +35,16 @@
               700: '#6d28d9',
               800: '#5b21b6',
               900: '#4c1d95',
-            }
+            },
           },
-          animation: {
-            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'float': 'float 6s ease-in-out infinite',
-          },
-          keyframes: {
-            float: {
-              '0%, 100%': { transform: 'translateY(0)' },
-              '50%': { transform: 'translateY(-10px)' },
-            }
-          }
-        }
-      }
-    }
+        },
+      },
+    };
   </script>
   <style>
-    /* Custom styles for the scrollbar */
+    /* Custom styles for components */
+    
+    /* Hide the scrollbar */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -80,6 +72,7 @@
 <body class="bg-gray-900 text-gray-100">
   <div id="header-placeholder"></div>
 
+  <!-- The signup form will be rendered inside this container -->
   <div id="signup-container" class="main-content-area p-4 md:p-8 flex items-center justify-center min-h-[calc(100vh-128px)]">
   </div>
 
@@ -87,31 +80,18 @@
 
   <script src="shared.js"></script>
   <script type="module">
-    import { renderDashboard } from './signup.js';
+    // Import the new renderSignupForm function
+    import { renderSignupForm } from './signup.js'; 
 
     document.addEventListener('DOMContentLoaded', () => {
       // Load header and footer
-      window.loadHTML('header.html', 'header-placeholder');
-      window.loadHTML('footer.html', 'footer-placeholder');
+      window.loadHTML('header-auth.html', 'header-placeholder');
+      // window.loadHTML('footer.html', 'footer-placeholder');
 
-      // Render the dashboard content
+      // Render the signup form
       const signupContainer = document.getElementById('signup-container');
       if (signupContainer) {
-        // Set isUserVerified to false to display the verification prompt
-        signupContainer.innerHTML = renderDashboard(false); 
-        
-        // Add hover effects after rendering (only for the actual dashboard, not the prompt)
-        setTimeout(() => {
-          const balanceCards = document.querySelectorAll('.balance-card');
-          balanceCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-              card.classList.add('glow-effect');
-            });
-            card.addEventListener('mouseleave', () => {
-              card.classList.remove('glow-effect');
-            });
-          });
-        }, 100);
+        signupContainer.innerHTML = renderSignupForm(); 
       }
     });
   </script>

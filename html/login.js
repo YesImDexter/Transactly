@@ -4,7 +4,7 @@
 export function renderLoginForm() {
   return `
     <div class="w-full max-w-md mx-auto my-16 p-8 bg-gray-800 rounded-3xl shadow-2xl text-center">
-      <h2 class="text-4xl font-bold gradient-text mb-6">Welcome Back to TransX!</h2>
+      <h2 class="text-4xl font-bold gradient-text mb-6">Welcome Back to Trust-X!</h2>
       <p class="text-gray-300 mb-8 text-lg">
         Please log in to access your account and manage your finances.
       </p>

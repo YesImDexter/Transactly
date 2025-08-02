@@ -5,57 +5,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome</title>
-  <link rel="stylesheet" href="style/styles.css" />
+  <!-- Link to the commonstyle.css file for consistent styling -->
+  <link rel="stylesheet" href="./style/commonstyle.css" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind CSS configuration for 'Inter' font and gradient text -->
+  <style>
+    /* Gradient text */
+    .gradient-text {
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      background-image: linear-gradient(90deg, #3B82F6, #8B5CF6);
+    }
+  </style>
 </head>
 
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen dark-mode-bg">
+  <!-- The header is kept as is, but we will remove the inline styles and scripts. -->
   <header
     class="site-header bg-gradient-to-r from-blue-700 to-blue-500 text-white p-4 shadow-lg flex justify-between items-center relative z-10">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      /* Custom styles for the dropdown if needed for future expansion */
-      .dropdown-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background-color: white;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
-        border-radius: 0.5rem;
-        overflow: hidden;
-      }
-
-      .dropdown-menu a {
-        color: #333;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        transition: background-color 0.2s;
-      }
-
-      .dropdown-menu a:hover {
-        background-color: #f1f1f1;
-      }
-
-      .dropdown-menu.show {
-        display: block;
-      }
-
-      /* Styles for mobile menu toggle */
-      @media (max-width: 768px) {
-        .dropdown-menu {
-          position: static;
-          width: 100%;
-          box-shadow: none;
-          border-radius: 0;
-          margin-top: 0.5rem;
-        }
-      }
-    </style>
-    <div class="text-2xl font-bold">Transactly</div>
+    <!-- Changed "Transactly" to "Trust-X" -->
+    <div class="text-2xl font-bold">Trust-X</div>
 
     <div class="md:hidden relative">
       <button id="menu-button" class="text-white focus:outline-none focus:ring-2 focus:ring-white rounded-md p-2">
@@ -67,49 +37,53 @@
       </div>
     </div>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const menuButton = document.getElementById('menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        if (menuButton && mobileMenu) {
-          menuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('show');
-          });
-
-          // Close the dropdown if the user clicks outside of it
-          window.addEventListener('click', (event) => {
-            if (!event.target.matches('#menu-button') && !event.target.closest('#mobile-menu')) {
-              if (mobileMenu.classList.contains('show')) {
-                mobileMenu.classList.remove('show');
-              }
-            }
-          });
-        }
-      });
-    </script>
+    <!-- The original inline script is moved to the bottom of the body for better performance -->
   </header>
 
-  <div class="flex-grow flex items-center justify-center p-4">
-    <div class="bg-white rounded-lg shadow-md p-8 max-w-md w-full text-center">
-      <h1 class="text-3xl font-bold text-gray-800 mb-4">Welcome to Transactly</h1>
-      <p class="text-gray-600 mb-6">Start your journey with us.</p>
+  <!-- The main content area now uses the `main-content-area` and `card` classes from the stylesheet -->
+  <div class="flex-grow flex items-center justify-center p-4 main-content-area">
+    <!-- Removed the 'card' class to make the box transparent -->
+    <div class="p-8 max-w-md w-full text-center">
+      <!-- Added the `gradient-text` class to the h1 element -->
+      <h1 class="text-3xl font-bold gradient-text mb-4">Welcome to Trust-X</h1>
+      <!-- Changed the paragraph text color to match the login page -->
+      <p class="text-gray-300 mb-6">Start your journey with us.</p>
       <div class="flex flex-col space-y-4">
-        <a class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        <!-- The "Login" button now has the same padding and font size as the "Sign Up" button. -->
+        <a class="w-full btn-primary py-3 px-4 text-lg font-semibold transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
           href="html/login.html">Login</a>
-        <a class="w-full bg-gray-200 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
+        <!-- The "Sign Up" button now has the same padding and font size as the "Login" button. -->
+        <a class="w-full bg-gray-600 text-white py-3 px-4 text-lg rounded-lg font-semibold hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
           href="html/signup.html">Sign Up</a>
       </div>
     </div>
   </div>
 
-  <div id="footer-placeholder"></div>
+  <!-- The footer placeholder div has been removed -->
 
   <script src="html/shared.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // No need to load header since it's embedded
-      loadHTML('html/footer.html', 'footer-placeholder');
+      // Logic for mobile menu
+      const menuButton = document.getElementById('menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      if (menuButton && mobileMenu) {
+        menuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('show');
+        });
+
+        // Close the dropdown if the user clicks outside of it
+        window.addEventListener('click', (event) => {
+          if (!event.target.matches('#menu-button') && !event.target.closest('#mobile-menu')) {
+            if (mobileMenu.classList.contains('show')) {
+              mobileMenu.classList.remove('show');
+            }
+          }
+        });
+      }
+
+      // The call to load the footer has been removed
     });
   </script>
 </body>
