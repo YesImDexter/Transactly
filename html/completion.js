@@ -15,7 +15,7 @@ function renderStepThree() {
                 <br>
                 We will notify you once your account has been fully verified.
             </p>
-            <a href="dashboard.html" class="btn-primary inline-block">Go to Dashboard</a>
+            <a href="home.html" class="btn-primary inline-block">Go to Dashboard</a>
         </div>
     `;
 }

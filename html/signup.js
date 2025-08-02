@@ -99,3 +99,19 @@ export function renderSignupForm() {
     </div>
   `;
 }
+
+// Add this function to handle form submission and redirection
+export function setupSignupRedirect() {
+  const signupForm = document.getElementById('signupForm');
+  if (signupForm) {
+    signupForm.addEventListener('submit', (event) => {
+      event.preventDefault(); // Prevent default form submission
+
+      // In a real application, you would handle form data submission (e.g., to a server)
+      // and then redirect upon successful account creation.
+      // For this example, we'll just redirect directly.
+      console.log('Simulating user signup...');
+      window.location.href = 'dashboard.html'; // Redirect to the user dashboard after signup
+    });
+  }
+}

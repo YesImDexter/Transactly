@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TransX Signup</title>
+  <title>Trust-X Signup</title>
   <link rel="stylesheet" href="../style/commonstyle.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -72,7 +72,6 @@
 <body class="bg-gray-900 text-gray-100">
   <div id="header-placeholder"></div>
 
-  <!-- The signup form will be rendered inside this container -->
   <div id="signup-container" class="main-content-area p-4 md:p-8 flex items-center justify-center min-h-[calc(100vh-128px)]">
   </div>
 
@@ -80,8 +79,8 @@
 
   <script src="shared.js"></script>
   <script type="module">
-    // Import the new renderSignupForm function
-    import { renderSignupForm } from './signup.js'; 
+    // Import the new renderSignupForm function and setupSignupRedirect
+    import { renderSignupForm, setupSignupRedirect } from './signup.js'; 
 
     document.addEventListener('DOMContentLoaded', () => {
       // Load header and footer
@@ -92,6 +91,7 @@
       const signupContainer = document.getElementById('signup-container');
       if (signupContainer) {
         signupContainer.innerHTML = renderSignupForm(); 
+        setupSignupRedirect(); // Call the setup function after rendering the form
       }
     });
   </script>
