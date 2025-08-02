@@ -1,0 +1,7 @@
+flask==3.0.3
+pandas==2.2.2
+pyarrow==15.0.2
+openai==1.33.0
+opencv-python==4.9.0.80
+mediapipe==0.10.9
+python-dotenv==1.0.1
