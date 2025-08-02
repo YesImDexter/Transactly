@@ -32,60 +32,161 @@ export function renderDashboard() {
           </div>
         </div>
         
-        <div>
-          <div class="flex justify-between items-center mb-4">
-            <div class="flex items-center text-gray-100 font-semibold text-lg">
-              <div class="w-6 h-6 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center text-white mr-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                </svg>
+        <h2 class="text-gray-100 font-semibold text-lg mb-4">Use your eKYC to register for accounts</h2>
+        <div class="space-y-6">
+
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-100 mb-3">Financial Services</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/3498db/white?text=MB" alt="Maybank Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">Maybank</h4>
+                <p class="text-xs text-gray-400">Leading Malaysian bank</p>
               </div>
-              Promotions
-            </div>
-            <button class="text-sm text-primary-400 hover:text-primary-300 transition-colors duration-200">
-              See All
-            </button>
-          </div>
-          <div class="flex overflow-x-auto no-scrollbar space-x-4 pb-2">
-            <div class="flex-shrink-0 w-72 bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-600/50 transform transition-all duration-300 hover:scale-[1.02] group">
-              <div class="relative h-36 overflow-hidden">
-                <img src="https://placehold.co/600x300/6A5ACD/FFFFFF?text=MYDIN+PAY+Promo" alt="MYDIN PAY Promotion" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute top-2 left-2 bg-yellow-400 text-gray-900 text-xs font-bold px-2 py-1 rounded-full">
-                  NEW
-                </div>
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/2ecc71/white?text=TNG" alt="Touch ‘n Go eWallet Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">Touch ‘n Go eWallet</h4>
+                <p class="text-xs text-gray-400">Popular digital wallet in Malaysia</p>
               </div>
-              <div class="p-4">
-                <div class="flex items-center text-sm font-semibold text-gray-100 mb-2">
-                  <div class="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold mr-2">M</div>
-                  MYDIN PAY
-                </div>
-                <p class="text-xs text-gray-400 mb-2">Imbas & Bayar</p>
-                <p class="text-sm text-gray-300 mb-4">Install MYDIN PAY to get some rewards.</p>
-                <button class="w-full bg-gradient-to-r from-primary-600 to-primary-500 text-white py-2 rounded-lg text-sm font-semibold hover:from-primary-500 hover:to-primary-400 transition-all duration-200">
-                  Learn More
-                </button>
-              </div>
-            </div>
-            <div class="flex-shrink-0 w-72 bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-600/50 transform transition-all duration-300 hover:scale-[1.02] group">
-              <div class="relative h-36 overflow-hidden">
-                <img src="https://placehold.co/600x300/87CEEB/FFFFFF?text=Special+Offer" alt="Special Offer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute top-2 left-2 bg-pink-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                  LIMITED
-                </div>
-              </div>
-              <div class="p-4">
-                <div class="flex items-center text-sm font-semibold text-gray-100 mb-2">
-                  <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold mr-2">P</div>
-                  Partner Offers
-                </div>
-                <p class="text-xs text-gray-400 mb-2">Exclusive Deals</p>
-                <p class="text-sm text-gray-300 mb-4">Discover great savings from our partners.</p>
-                <button class="w-full bg-gradient-to-r from-secondary-600 to-secondary-500 text-white py-2 rounded-lg text-sm font-semibold hover:from-secondary-500 hover:to-secondary-400 transition-all duration-200">
-                  Explore
-                </button>
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/e74c3c/white?text=LU" alt="Luno Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">Luno</h4>
+                <p class="text-xs text-gray-400">Licensed cryptocurrency exchange</p>
               </div>
             </div>
           </div>
+
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-100 mb-3">Government & Public Sector</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/f39c12/white?text=JPN" alt="Jabatan Pendaftaran Negara (JPN) Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">JPN e-Daftar</h4>
+                <p class="text-xs text-gray-400">National registration department</p>
+              </div>
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/8e44ad/white?text=LHDN" alt="Lembaga Hasil Dalam Negeri (LHDN) Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">MyTax</h4>
+                <p class="text-xs text-gray-400">Inland Revenue Board</p>
+              </div>
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/d35400/white?text=JIM" alt="Jabatan Imigresen Malaysia Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">MyIMM</h4>
+                <p class="text-xs text-gray-400">Immigration department</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-100 mb-3">Corporate / HR Tech</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/27ae60/white?text=JS" alt="JobStreet Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">JobStreet</h4>
+                <p class="text-xs text-gray-400">Malaysia’s top job portal</p>
+              </div>
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/2980b9/white?text=LI" alt="LinkedIn Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">LinkedIn</h4>
+                <p class="text-xs text-gray-400">Global professional network</p>
+              </div>
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/c0392b/white?text=UW" alt="Upwork Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">Upwork</h4>
+                <p class="text-xs text-gray-400">Leading freelance marketplace</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-100 mb-3">E-Commerce & Logistics</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/f39c12/white?text=SH" alt="Shopee Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">Shopee</h4>
+                <p class="text-xs text-gray-400">E-commerce platform with financial services</p>
+              </div>
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/e67e22/white?text=JT" alt="J&T Express Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">J&T Express</h4>
+                <p class="text-xs text-gray-400">Courier and delivery service</p>
+              </div>
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/d35400/white?text=AT" alt="Atome Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">Atome</h4>
+                <p class="text-xs text-gray-400">Buy Now, Pay Later provider</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-100 mb-3">Healthcare</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/27ae60/white?text=KPJ" alt="KPJ Healthcare Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">KPJ Healthcare</h4>
+                <p class="text-xs text-gray-400">Major hospital group</p>
+              </div>
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/16a085/white?text=DOC" alt="DoctorOnCall Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">DoctorOnCall</h4>
+                <p class="text-xs text-gray-400">Telemedicine platform</p>
+              </div>
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/2c3e50/white?text=PRU" alt="Prudential Malaysia Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">PRUServices</h4>
+                <p class="text-xs text-gray-400">Insurance with health benefits</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-100 mb-3">Travel & Hospitality</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/34495e/white?text=AA" alt="AirAsia Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">AirAsia</h4>
+                <p class="text-xs text-gray-400">Budget airline with super app services</p>
+              </div>
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/95a5a6/white?text=KLIA" alt="KLIA (Malaysia Airports) Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">MYAirport</h4>
+                <p class="text-xs text-gray-400">National airport operator</p>
+              </div>
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/7f8c8d/white?text=AG" alt="Agoda Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">Agoda</h4>
+                <p class="text-xs text-gray-400">Online hotel and travel booking platform</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-100 mb-3">Online Platforms</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/c0392b/white?text=TI" alt="Tinder Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">Tinder</h4>
+                <p class="text-xs text-gray-400">Dating app with identity verification</p>
+              </div>
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/3b5998/white?text=FB" alt="Meta (Facebook) Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">Facebook</h4>
+                <p class="text-xs text-gray-400">Social platform with verified accounts</p>
+              </div>
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/8e44ad/white?text=IG" alt="Meta (Instagram) Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">Instagram</h4>
+                <p class="text-xs text-gray-400">Social platform with verified accounts</p>
+              </div>
+              <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                <img src="https://placehold.co/60x60/8e44ad/white?text=CO" alt="Coursera Logo" class="w-16 h-16 rounded-full object-cover mb-2">
+                <h4 class="text-sm font-semibold text-gray-100">Coursera</h4>
+                <p class="text-xs text-gray-400">Online learning with identity-linked certifications</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
