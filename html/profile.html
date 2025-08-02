@@ -20,10 +20,10 @@
         }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+<body class="bg-gray-800 text-gray-100 min-h-screen flex flex-col">
     <div id="header-placeholder"></div>
 
-    <div class="main-content-area flex-grow p-4 md:p-8 bg-gray-900">
+    <div class="main-content-area flex-grow p-4 md:p-8 bg-gray-800">
         <div class="w-full max-w-3xl mx-auto">
              <!-- Profile Header Section -->
             <div class="flex items-center justify-center mb-8">
@@ -63,9 +63,11 @@
                     <input type="password" id="password" value="********" class="w-full p-3 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-900 text-gray-100">
                 </div>
 
-                <button onclick="window.history.back()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    Save Changes
-                </button>
+                <div class="pb-12"> <!-- Adds space below the button -->
+                    <button onclick="window.history.back()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                        Save Changes
+                    </button>
+                </div>
             </div>
         </div>
     </div>
