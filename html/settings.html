@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Settings</title>
-  <!-- Use the shared commonstyle.css file -->
   <link rel="stylesheet" href="../style/commonstyle.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -66,8 +65,9 @@
 <body class="bg-gray-900 text-gray-100">
   <div id="header-placeholder"></div>
 
-  <div id="settings-container" class="main-content-area p-4 md:p-8">
-    <!-- Settings content will be rendered here by JavaScript -->
+  <div id="settings-container" class="main-content-area p-4 md:p-8 flex items-center justify-center min-h-[calc(100vh-128px)]">
+    <div class="w-full max-w-4xl mx-auto rounded-xl shadow-2xl overflow-hidden my-6 transition-all duration-300 hover:shadow-xl relative">
+      </div>
   </div>
 
   <script src="shared.js"></script>
@@ -79,7 +79,7 @@
       window.loadHTML('header.html', 'header-placeholder');
 
       // Render the settings content
-      const settingsContainer = document.getElementById('settings-container');
+      const settingsContainer = document.querySelector('#settings-container > div'); // Select the new wrapper div
       if (settingsContainer) {
         settingsContainer.innerHTML = renderSettings();
       }

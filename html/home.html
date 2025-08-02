@@ -1,67 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to Transactly</title>
-  <link rel="stylesheet" href="../style/styles.css" />
+  <title>Trust-X Home</title>
+  <!-- Assuming commonstyle.css is in a 'style' directory relative to where home.html will be -->
+  <link rel="stylesheet" href="../style/commonstyle.css" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Original Tailwind CSS configuration from dashboard.html
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            },
+            secondary: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+              800: '#5b21b6',
+              900: '#4c1d95',
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': {
+                transform: 'translateY(0)'
+              },
+              '50%': {
+                transform: 'translateY(-10px)'
+              },
+            }
+          }
+        }
+      }
+    }
+  </script>
   <style>
+    /* Original custom styles from dashboard.html */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .glow-effect {
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+    }
+
+    .gradient-text {
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      background-image: linear-gradient(90deg, #3B82F6, #8B5CF6);
+    }
+    /* Added a body background to match the theme */
     body {
-      margin: 0;
-      overflow: hidden; /* Prevent scrolling */
-      display: flex; /* Use flexbox for centering */
-      justify-content: center; /* Center horizontally */
-      align-items: center; /* Center vertically */
-      height: 100vh; /* Full viewport height */
-      background: linear-gradient(to bottom right, #1E3A8A, #1E40AF); /* Dark blue gradient background */
-      color: #E5E7EB; /* Light gray text color */
-      text-align: center; /* Center text */
-      font-family: sans-serif; /* A clean font */
-    }
-
-    .welcome-content {
-      padding: 2rem; /* Add some padding */
-      /* No box-shadow or transform for a flat, full-screen look */
-    }
-
-    .welcome-content h1 {
-      font-size: 3rem; /* text-5xl equivalent */
-      font-weight: bold;
-      margin-bottom: 1rem;
-      color: white; /* Brighter white for headings */
-    }
-
-    .welcome-content p {
-      font-size: 1.25rem; /* text-xl equivalent */
-      margin-bottom: 2rem;
-      color: #D1D5DB; /* Slightly lighter gray for paragraphs */
-    }
-
-    .welcome-content .text-sm {
-      color: #9CA3AF; /* Even lighter gray for small text */
+        background-color: #111827; /* dark gray */
     }
   </style>
 </head>
-<body>
 
-  <div id="welcomeScreen" class="welcome-content">
-    <h1>Welcome!</h1>
-    <p>Your secure e-wallet is ready.</p>
-    <p class="text-sm">Redirecting to Dashboard...</p>
-  </div>
+<body class="text-gray-100">
 
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <main id="dashboard-container" class="main-content-area p-4 md:p-8 flex items-center justify-center min-h-[calc(100vh-128px)]">
+    <!-- Dashboard content will be rendered here -->
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- This script assumes you have a shared.js file with a loadHTML function -->
+  <script src="shared.js"></script>
   <script>
+    /**
+     * Returns the HTML string for the homepage of a user with verified eKYC,
+     * using the reference layout.
+     */
+    function renderVerifiedDashboard() {
+      return `
+        <div class="w-full max-w-4xl mx-auto rounded-xl shadow-2xl overflow-hidden my-6 transition-all duration-300 hover:shadow-xl relative">
+          <div class="relative p-8 md:p-10 text-white flex flex-col justify-between">
+            <div class="text-2xl font-semibold drop-shadow-sm mb-6">Hello, <span class="gradient-text font-bold">User</span>!</div>
+            
+            <!-- Verified eKYC Component -->
+            <div class="w-full bg-green-500/10 backdrop-blur-sm p-6 rounded-lg shadow-lg text-white mt-auto transform transition-all duration-300 hover:scale-[1.02] border border-green-400/20 flex items-center space-x-4">
+              <div class="flex-shrink-0">
+                <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-green-300">eKYC Verified</h3>
+                <p class="text-sm text-gray-300">Your account is fully verified and you have access to all features.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6 md:p-10 bg-gray-800/50 flex-grow backdrop-blur-sm">
+            <h2 class="text-gray-100 font-semibold text-lg mb-4">Information</h2>
+            <div class="space-y-4 mb-10">
+              <div class="w-full text-left p-4 bg-gray-700/50 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold text-gray-100 mb-2">What is E-KYC?</h3>
+                <p class="text-sm text-gray-400">E-KYC is the electronic process of verifying your identity to ensure a secure and trusted account. It typically involves uploading an ID and performing a face scan.</p>
+              </div>
+              <div class="w-full text-left p-4 bg-gray-700/50 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold text-gray-100 mb-2">Why is it required?</h3>
+                <p class="text-sm text-gray-400">This process helps us comply with regulatory requirements and protect your account from fraud, ensuring a safe platform for all users.</p>
+              </div>
+            </div>
+                    
+            <h2 class="text-gray-100 font-semibold text-lg mb-4">Use your eKYC to register for accounts</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/maybank.png" alt="Maybank Logo" class="w-10 h-10 rounded-full object-cover mb-2">
+                  <h4 class="text-sm font-semibold text-gray-100">Maybank</h4>
+                  <p class="text-xs text-gray-400">Leading Malaysian bank</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/touchngo.png" alt="Touch ‘n Go eWallet Logo" class="w-10 h-10 rounded-full object-cover mb-2">
+                  <h4 class="text-sm font-semibold text-gray-100">Touch ‘n Go eWallet</h4>
+                  <p class="text-xs text-gray-400">Popular digital wallet in Malaysia</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/luno.png" alt="Luno Logo" class="w-10 h-10 rounded-full object-cover mb-2">
+                  <h4 class="text-sm font-semibold text-gray-100">Luno</h4>
+                  <p class="text-xs text-gray-400">Licensed cryptocurrency exchange</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/jpn.png" alt="Jabatan Pendaftaran Negara (JPN) Logo" class="w-10 h-10 rounded-full object-cover mb-2">
+                  <h4 class="text-sm font-semibold text-gray-100">JPN e-Daftar</h4>
+                  <p class="text-xs text-gray-400">National registration department</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/mytax.png" alt="Lembaga Hasil Dalam Negeri (LHDN) Logo" class="w-10 h-10 rounded-full object-cover mb-2">
+                  <h4 class="text-sm font-semibold text-gray-100">MyTax</h4>
+                  <p class="text-xs text-gray-400">Inland Revenue Board</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/myimm.png" alt="Jabatan Imigresen Malaysia Logo" class="w-10 h-10 rounded-full object-cover mb-2">
+                  <h4 class="text-sm font-semibold text-gray-100">MyIMM</h4>
+                  <p class="text-xs text-gray-400">Immigration department</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/jobstreet.png" alt="JobStreet Logo" class="w-10 h-10 rounded-full object-cover mb-2">
+                  <h4 class="text-sm font-semibold text-gray-100">JobStreet</h4>
+                  <p class="text-xs text-gray-400">Malaysia’s top job portal</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/linkedin.png" alt="LinkedIn Logo" class="w-10 h-10 rounded-full object-cover mb-2">
+                  <h4 class="text-sm font-semibold text-gray-100">LinkedIn</h4>
+                  <p class="text-xs text-gray-400">Global professional network</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/upwork.png" alt="Upwork Logo" class="w-10 h-10 rounded-full object-cover mb-2">
+                  <h4 class="text-sm font-semibold text-gray-100">Upwork</h4>
+                  <p class="text-xs text-gray-400">Leading freelance marketplace</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/shopee.png" alt="Shopee Logo" class="w-10 h-10 rounded-full object-cover mb-2">
+                  <h4 class="text-sm font-semibold text-gray-100">Shopee</h4>
+                  <p class="text-xs text-gray-400">E-commerce platform with financial services</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/jtexpress.png" alt="J&T Express Logo" class="w-10 h-10 rounded-full object-cover mb-2">
+                  <h4 class="text-sm font-semibold text-gray-100">J&T Express</h4>
+                  <p class="text-xs text-gray-400">Courier and delivery service</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/atome.png" alt="Atome Logo" class="w-10 h-10 rounded-full object-cover mb-2">
+                  <h4 class="text-sm font-semibold text-gray-100">Atome</h4>
+                  <p class="text-xs text-gray-400">Buy Now, Pay Later provider</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/pruservices.png" alt="Prudential Malaysia Logo" class="w-10 h-10 rounded-full object-cover mb-2">
+                  <h4 class="text-sm font-semibold text-gray-100">PRUServices</h4>
+                  <p class="text-xs text-gray-400">Insurance with health benefits</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/airasia.png" alt="AirAsia Logo" class="w-10 h-10 rounded-full object-cover mb-2">
+                  <h4 class="text-sm font-semibold text-gray-100">AirAsia</h4>
+                  <p class="text-xs text-gray-400">Budget airline with super app services</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-3 bg-gray-700/50 rounded-lg shadow-md text-center hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/agoda.png" alt="Agoda Logo" class="w-10 h-10 rounded-full object-cover mb-2">
+                  <h4 class="text-sm font-semibold text-gray-100">Agoda</h4>
+                  <p class="text-xs text-gray-400">Online hotel and travel booking platform</p>
+                </div>
+            </div>
+
+            <h2 class="text-gray-100 font-semibold text-lg mb-4 mt-10">Bantuan Kerajaan</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="flex flex-col bg-gray-700/50 rounded-lg shadow-md overflow-hidden hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/budi_individu.png" alt="People at a market stall" class="w-full h-32 object-cover">
+                  <div class="p-4">
+                    <h4 class="text-base font-semibold text-gray-100">BUDI Individu</h4>
+                    <p class="text-sm text-gray-400 mt-1">Cash assistance for eligible individual diesel vehicle owners.</p>
+                  </div>
+                </div>
+
+                <div class="flex flex-col bg-gray-700/50 rounded-lg shadow-md overflow-hidden hover:bg-gray-600/50 transition-colors duration-200">
+                  <img src="../images/budi_agri.png" alt="Farmer in a field" class="w-full h-32 object-cover">
+                  <div class="p-4">
+                    <h4 class="text-base font-semibold text-gray-100">BUDI Agri-Komoditi</h4>
+                    <p class="text-sm text-gray-400 mt-1">Cash subsidy for small-scale farmers and smallholders to offset diesel cost increases.</p>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
-      const welcomeScreen = document.getElementById('welcomeScreen');
+      // Load header and footer using placeholders, as seen in dashboard.html
+      // This requires a 'shared.js' file with a 'loadHTML' function.
+      if(typeof window.loadHTML === 'function') {
+        window.loadHTML('header.html', 'header-placeholder');
+        // window.loadHTML('footer.html', 'footer-placeholder');
+      } else {
+        console.warn('`loadHTML` function not found. Header and footer will not be loaded. Make sure `shared.js` is included and correct.');
+      }
+      
+      // Render the main dashboard content for a verified user
+      const dashboardContainer = document.getElementById('dashboard-container');
+      if (dashboardContainer) {
+        dashboardContainer.innerHTML = renderVerifiedDashboard();
+      }
 
-      // No need to toggle classes for display as it's always visible
-      // Simply set the timeout for redirection
-
+      // Add hover effects after rendering
       setTimeout(() => {
-        window.location.href = 'dashboard.html'; // Redirect to dashboard.html
-      }, 3000); // 3 seconds
+        const cards = document.querySelectorAll('.hover\\:bg-gray-600\\/50');
+        cards.forEach(card => {
+          card.addEventListener('mouseenter', () => {
+            card.classList.add('glow-effect');
+          });
+          card.addEventListener('mouseleave', () => {
+            card.classList.remove('glow-effect');
+          });
+        });
+      }, 100);
     });
   </script>
+
 </body>
+
 </html>
