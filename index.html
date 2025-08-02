@@ -2,90 +2,139 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome</title>
-  <!-- Link to the commonstyle.css file for consistent styling -->
-  <link rel="stylesheet" href="./style/commonstyle.css" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Tailwind CSS configuration for 'Inter' font and gradient text -->
-  <style>
-    /* Gradient text */
-    .gradient-text {
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      background-image: linear-gradient(90deg, #3B82F6, #8B5CF6);
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Trust-X</title>
+    <!-- Link to the commonstyle.css file for consistent styling -->
+    <link rel="stylesheet" href="./style/commonstyle.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the landing page */
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(90deg, #3B82F6, #8B5CF6);
+        }
+
+        .feature-item {
+            background-color: #1F2937;
+            border: 1px solid #374151;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 
-<body class="flex flex-col min-h-screen dark-mode-bg">
-  <!-- The header is kept as is, but we will remove the inline styles and scripts. -->
-  <header
-    class="site-header bg-gradient-to-r from-blue-700 to-blue-500 text-white p-4 shadow-lg flex justify-between items-center relative z-10">
-    <!-- Changed "Transactly" to "Trust-X" -->
-    <div class="text-2xl font-bold">Trust-X</div>
+<body class="flex flex-col min-h-screen dark-mode-bg font-poppins">
+    <!-- Header with Trust-X and navigation -->
+    <header
+        class="site-header bg-gradient-to-r from-blue-700 to-blue-500 text-white p-4 shadow-lg flex justify-between items-center relative z-10">
+        <div class="text-2xl font-bold">Trust-X</div>
+        <nav class="hidden md:flex space-x-4">
+            <a href="html/login.html" class="hover:text-gray-200 px-3 py-2 rounded-md transition-colors">Login</a>
+            <a href="html/signup.html" class="hover:text-gray-200 px-3 py-2 rounded-md transition-colors">Sign Up</a>
+        </nav>
+        <div class="md:hidden relative">
+            <button id="menu-button" class="text-white focus:outline-none focus:ring-2 focus:ring-white rounded-md p-2"
+                aria-label="Toggle menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                </svg>
+            </button>
+            <div id="mobile-menu"
+                class="dropdown-menu absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 z-20 hidden">
+                <a href="html/login.html"
+                    class="block px-4 py-2 text-white hover:bg-gray-700 transition-colors">Login</a>
+                <a href="html/signup.html"
+                    class="block px-4 py-2 text-white hover:bg-gray-700 transition-colors">Sign Up</a>
+            </div>
+        </div>
+    </header>
 
-    <div class="md:hidden relative">
-      <button id="menu-button" class="text-white focus:outline-none focus:ring-2 focus:ring-white rounded-md p-2">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-      <div id="mobile-menu" class="dropdown-menu">
-      </div>
-    </div>
+    <!-- Main content area for the landing page -->
+    <main class="flex-grow flex items-center justify-center p-4 main-content-area">
+        <div class="container mx-auto px-4 py-8 max-w-4xl text-center">
+            <!-- Hero section -->
+            <section class="mb-12">
+                <h1 class="text-3xl md:text-4xl font-extrabold mb-4 gradient-text">
+                    Welcome to Trust-X
+                </h1>
+                <p class="text-base md:text-lg text-gray-300 max-w-2xl mx-auto">
+                    Your one-time identity verification for a lifetime of secure access.
+                </p>
+            </section>
 
-    <!-- The original inline script is moved to the bottom of the body for better performance -->
-  </header>
+            <!-- Main content in a two-column grid on medium screens and up -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                <!-- What is Trust-X section -->
+                <section>
+                    <h2 class="text-2xl font-bold text-white mb-4 text-center md:text-left">What is Trust-X?</h2>
+                    <p class="text-gray-300">
+                        Trust-X is a system that helps users verify their identity once (using E-KYC) and then use that
+                        same verification across multiple apps and platforms—no more filling out long forms every time!
+                    </p>
+                </section>
 
-  <!-- The main content area now uses the `main-content-area` and `card` classes from the stylesheet -->
-  <div class="flex-grow flex items-center justify-center p-4 main-content-area">
-    <!-- Removed the 'card' class to make the box transparent -->
-    <div class="p-8 max-w-md w-full text-center">
-      <!-- Added the `gradient-text` class to the h1 element -->
-      <h1 class="text-3xl font-bold gradient-text mb-4">Welcome to Trust-X</h1>
-      <!-- Changed the paragraph text color to match the login page -->
-      <p class="text-gray-300 mb-6">Start your journey with us.</p>
-      <div class="flex flex-col space-y-4">
-        <!-- The "Login" button now has the same padding and font size as the "Sign Up" button. -->
-        <a class="w-full btn-primary py-3 px-4 text-lg font-semibold transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-          href="html/login.html">Login</a>
-        <!-- The "Sign Up" button now has the same padding and font size as the "Login" button. -->
-        <a class="w-full bg-gray-600 text-white py-3 px-4 text-lg rounded-lg font-semibold hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
-          href="html/signup.html">Sign Up</a>
-      </div>
-    </div>
-  </div>
+                <!-- How Trust X Helps You section -->
+                <section>
+                    <h2 class="text-2xl font-bold text-white mb-4 text-center md:text-left">How Trust X Helps You</h2>
+                    <div class="space-y-4">
+                        <div class="feature-item">
+                            <h3 class="text-lg font-semibold text-white">One-Time Verification</h3>
+                            <p class="text-gray-400 text-sm">No more filling forms for every new app.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3 class="text-lg font-semibold text-white">Fast & Secure</h3>
+                            <p class="text-gray-400 text-sm">Your identity is confirmed safely in minutes.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3 class="text-lg font-semibold text-white">Works Everywhere</h3>
+                            <p class="text-gray-400 text-sm">Use your Trust X verification on any supported platform.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
 
-  <!-- The footer placeholder div has been removed -->
+            <!-- Call to action -->
+            <section class="mt-12">
+                <p class="text-base md:text-lg text-gray-300 max-w-2xl mx-auto mb-6">
+                    With <strong>Trust X</strong>, you prove who you are just once, and then enjoy smooth, secure access without the hassle! 🚀
+                </p>
+                <a href="html/signup.html" class="btn-primary text-base font-semibold inline-block">Get Started</a>
+            </section>
+        </div>
+    </main>
 
-  <script src="html/shared.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Logic for mobile menu
-      const menuButton = document.getElementById('menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
+    <!-- Shared script for mobile menu functionality -->
+    <script src="html/shared.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
 
-      if (menuButton && mobileMenu) {
-        menuButton.addEventListener('click', () => {
-          mobileMenu.classList.toggle('show');
-        });
-
-        // Close the dropdown if the user clicks outside of it
-        window.addEventListener('click', (event) => {
-          if (!event.target.matches('#menu-button') && !event.target.closest('#mobile-menu')) {
-            if (mobileMenu.classList.contains('show')) {
-              mobileMenu.classList.remove('show');
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+                window.addEventListener('click', (event) => {
+                    if (!menuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
             }
-          }
         });
-      }
-
-      // The call to load the footer has been removed
-    });
-  </script>
+    </script>
 </body>
 
 </html>
