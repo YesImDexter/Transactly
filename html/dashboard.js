@@ -4,8 +4,8 @@
  */
 export function renderDashboard() {
   return `
-    <div class="w-full max-w-6xl mx-auto rounded-xl shadow-2xl overflow-hidden my-6 md:flex transition-all duration-300 hover:shadow-xl relative">
-      <div class="relative p-8 md:p-10 text-white flex flex-col justify-between md:w-1/2 lg:w-2/5">
+    <div class="w-full max-w-6xl mx-auto rounded-xl shadow-2xl overflow-hidden my-6 transition-all duration-300 hover:shadow-xl relative">
+      <div class="relative p-8 md:p-10 text-white flex flex-col justify-between">
         <div class="text-2xl font-semibold drop-shadow-sm mb-6">Hello, <span class="gradient-text font-bold">User</span>!</div>
         
         <div class="w-full bg-white/10 backdrop-blur-sm p-6 rounded-lg shadow-lg text-white mt-auto transform transition-all duration-300 hover:scale-[1.02] border border-white/10">
@@ -14,14 +14,13 @@ export function renderDashboard() {
           </div>
           <p class="text-sm text-gray-300 mb-4">Complete your E-KYC registration to unlock full access to your account.</p>
           
-          <!-- This button is now a link that redirects to the registration page -->
           <a href="registration.html" class="block w-full text-center bg-gradient-to-r from-green-500 to-green-600 text-white py-3 rounded-lg text-sm font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-200">
             Start Verification Process
           </a>
         </div>
       </div>
 
-      <div class="p-6 md:p-10 bg-gray-800/50 flex-grow md:w-1/2 lg:w-3/5 backdrop-blur-sm">
+      <div class="p-6 md:p-10 bg-gray-800/50 flex-grow backdrop-blur-sm">
         <h2 class="text-gray-100 font-semibold text-lg mb-4">Information</h2>
         <div class="space-y-4 mb-10">
           <div class="w-full text-left p-4 bg-gray-700/50 rounded-lg shadow-md">
@@ -37,7 +36,6 @@ export function renderDashboard() {
         <h2 class="text-gray-100 font-semibold text-lg mb-4">Use your eKYC to register for accounts</h2>
         <div class="space-y-6">
 
-          <!-- Financial Services -->
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-100 mb-3">Financial Services</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -59,7 +57,6 @@ export function renderDashboard() {
             </div>
           </div>
 
-          <!-- Government & Public Sector -->
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-100 mb-3">Government & Public Sector</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -81,7 +78,6 @@ export function renderDashboard() {
             </div>
           </div>
 
-          <!-- Corporate / HR Tech -->
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-100 mb-3">Corporate / HR Tech</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -103,7 +99,6 @@ export function renderDashboard() {
             </div>
           </div>
 
-          <!-- E-Commerce & Logistics -->
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-100 mb-3">E-Commerce & Logistics</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -125,7 +120,6 @@ export function renderDashboard() {
             </div>
           </div>
 
-          <!-- Healthcare -->
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-100 mb-3">Healthcare</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -147,7 +141,6 @@ export function renderDashboard() {
             </div>
           </div>
 
-          <!-- Travel & Hospitality -->
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-100 mb-3">Travel & Hospitality</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -169,7 +162,6 @@ export function renderDashboard() {
             </div>
           </div>
 
-          <!-- Online Platforms -->
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-100 mb-3">Online Platforms</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">

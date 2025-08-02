@@ -10,10 +10,10 @@ export function renderLoginForm() {
       </p>
       <form id="loginForm" class="space-y-6">
         <div>
-          <label for="email" class="sr-only">Email address</label>
-          <input id="email" name="email" type="email" autocomplete="email" required
+          <label for="username" class="sr-only">Username</label>
+          <input id="username" name="username" type="text" autocomplete="username" required
                  class="block w-full px-4 py-3 rounded-xl border border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
-                 placeholder="Email address">
+                 placeholder="Username">
         </div>
         <div>
           <label for="password" class="sr-only">Password</label>
@@ -52,11 +52,16 @@ export function setupLoginRedirect() {
     loginForm.addEventListener('submit', (event) => {
       event.preventDefault(); // Prevent default form submission
 
-      // Here you would typically handle authentication (e.g., API call)
-      // For this example, we'll just simulate a successful login and redirect.
-      console.log('Simulating login...');
-      // In a real application, you'd check credentials and then redirect
-      window.location.href = 'dashboard.html'; // Redirect to dashboard.html
+      const username = loginForm.username.value;
+      const password = loginForm.password.value;
+
+      if (username === 'admin' && password === 'admin') {
+        console.log('Admin login successful!');
+        window.location.href = 'admin_dashboard.html'; // Redirect to an admin dashboard page
+      } else {
+        console.log('Simulating user login...');
+        window.location.href = 'dashboard.html'; // Redirect to regular user dashboard
+      }
     });
   }
 }
