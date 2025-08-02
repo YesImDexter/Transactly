@@ -10,8 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 import os
 
-api_key = os.getenv("API_KEY")
-openai.api_key = api_key
+openai.api_key = "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"
 
 
 def run_ai_analysis(parquet_path: str) -> dict:
