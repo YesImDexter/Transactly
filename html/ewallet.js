@@ -69,17 +69,17 @@ const walletData = [
 // Helper function to render transactions for a given array
 function generateTransactionHTML(transactions) {
   if (!transactions || transactions.length === 0) {
-    return `<div class="text-center text-gray-500 py-4">No transactions found for this wallet.</div>`;
+    return `<div class="text-center text-gray-400 py-4">No transactions found for this wallet.</div>`;
   }
   return transactions.map(transaction => `
-    <div class="flex justify-between items-center bg-white p-4 rounded-xl shadow-sm mb-3 border border-gray-200 transform transition-transform duration-200 hover:scale-[1.01]">
+    <div class="flex justify-between items-center bg-gray-800 p-4 rounded-xl shadow-sm mb-3 border border-gray-700 transform transition-transform duration-200 hover:scale-[1.01]">
       <div class="flex items-center">
-        <div class="bg-blue-100 text-blue-600 p-3 rounded-full mr-4">
+        <div class="bg-blue-600 text-white p-3 rounded-full mr-4">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wallet"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h12a2 2 0 0 1 0 4H5a2 2 0 0 0 0 4h12a2 2 0 0 0 2-2v-3"/><path d="M10 12h.01"/></svg>
         </div>
         <div>
-          <div class="font-semibold text-gray-800">${transaction.name}</div>
-          <div class="text-sm text-gray-500">${transaction.date}</div>
+          <div class="font-semibold text-gray-100">${transaction.name}</div>
+          <div class="text-sm text-gray-400">${transaction.date}</div>
         </div>
       </div>
       <div class="text-lg font-bold ${parseFloat(transaction.amount) < 0 ? 'text-red-500' : 'text-green-500'}">RM${transaction.amount}</div>
@@ -92,8 +92,8 @@ export function renderEwallet() {
   const initialTransactionsHTML = generateTransactionHTML(walletData[0].transactions);
 
   return `
-    <div class="w-full min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div class="w-full max-w-5xl bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+    <div class="w-full min-h-screen bg-gray-900 flex items-center justify-center p-4">
+      <div class="w-full max-w-5xl bg-gray-800 rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row">
 
         <div class="md:w-1/2 p-8 bg-gradient-to-br from-blue-700 to-blue-500 text-white flex flex-col justify-between">
           <div class="mb-8">
@@ -122,8 +122,8 @@ export function renderEwallet() {
           </div>
         </div>
 
-        <div class="md:w-1/2 p-8 bg-gray-50 flex flex-col">
-          <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+        <div class="md:w-1/2 p-8 bg-gray-900 flex flex-col">
+          <h2 class="text-2xl font-bold text-gray-100 mb-6 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-receipt text-blue-500 mr-2"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17v1"/><path d="M12 6v1"/></svg>
             Transactions
           </h2>
@@ -148,7 +148,7 @@ export function setupEwalletInteractivity() {
     if (selectedWallet) {
       transactionListContainer.innerHTML = generateTransactionHTML(selectedWallet.transactions);
     } else {
-      transactionListContainer.innerHTML = `<div class="text-center text-gray-500 py-4">Wallet not found.</div>`;
+      transactionListContainer.innerHTML = `<div class="text-center text-gray-400 py-4">Wallet not found.</div>`;
     }
   };
 

@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Settings</title>
-  <link rel="stylesheet" href="../style/styles.css" />
+  <!-- Use the shared commonstyle.css file -->
+  <link rel="stylesheet" href="../style/commonstyle.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* Custom styles for the toggle switch */
@@ -28,7 +29,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: #ccc;
+      background-color: #374151; /* Dark-mode toggle color */
       -webkit-transition: .4s;
       transition: .4s;
       border-radius: 28px;
@@ -41,18 +42,18 @@
       width: 20px;
       left: 4px;
       bottom: 4px;
-      background-color: white;
+      background-color: #D1D5DB; /* Light color for the slider dot */
       -webkit-transition: .4s;
       transition: .4s;
       border-radius: 50%;
     }
 
     input:checked + .slider {
-      background-color: #2563eb; /* blue-600 */
+      background-color: #3B82F6; /* blue-500 */
     }
 
     input:focus + .slider {
-      box-shadow: 0 0 1px #2563eb;
+      box-shadow: 0 0 1px #3B82F6;
     }
 
     input:checked + .slider:before {
@@ -62,11 +63,12 @@
     }
   </style>
 </head>
-<body>
+<body class="bg-gray-900 text-gray-100">
   <div id="header-placeholder"></div>
 
   <div id="settings-container" class="main-content-area p-4 md:p-8">
-    </div>
+    <!-- Settings content will be rendered here by JavaScript -->
+  </div>
 
   <div id="footer-placeholder"></div>
 
