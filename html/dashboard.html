@@ -5,8 +5,52 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard</title>
-  <link rel="stylesheet" href="../style/commonstyle.css" />  <!-- Updated path -->
+  <link rel="stylesheet" href="../style/commonstyle.css" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            },
+            secondary: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+              800: '#5b21b6',
+              900: '#4c1d95',
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
   <style>
     /* Custom styles for the scrollbar */
     .no-scrollbar::-webkit-scrollbar {
@@ -18,14 +62,17 @@
       scrollbar-width: none;
     }
     
-    /* Dark mode base styles */
-    body {
-      background-color: #111827; /* Dark background */
-      color: #E5E7EB; /* Light text */
+    /* Glow effect */
+    .glow-effect {
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
     }
     
-    .main-content-area {
-      background-color: #111827;
+    /* Gradient text */
+    .gradient-text {
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      background-image: linear-gradient(90deg, #3B82F6, #8B5CF6);
     }
   </style>
 </head>
@@ -51,6 +98,19 @@
       const dashboardContainer = document.getElementById('dashboard-container');
       if (dashboardContainer) {
         dashboardContainer.innerHTML = renderDashboard();
+        
+        // Add hover effects after rendering
+        setTimeout(() => {
+          const balanceCards = document.querySelectorAll('.balance-card');
+          balanceCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+              card.classList.add('glow-effect');
+            });
+            card.addEventListener('mouseleave', () => {
+              card.classList.remove('glow-effect');
+            });
+          });
+        }, 100);
       }
     });
   </script>
