@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,30 +8,38 @@
     <link rel="stylesheet" href="../style/commonstyle.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* No custom styles needed here since commonstyle.css handles the main theme */
+        .site-header {
+            background: linear-gradient(to right, #1E3A8A, #1E40AF);
+        }
+        .dark .site-header {
+            background: linear-gradient(to right, #1E3A8A, #1E40AF);
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100">
+<body class="bg-gray-900 text-gray-100 h-full flex flex-col">
     <div id="header-placeholder"></div>
 
-    <div class="main-content-area flex items-center justify-center p-4 md:p-8">
-        <div class="w-full max-w-6xl mx-auto bg-gray-800 rounded-3xl shadow-xl overflow-hidden my-8 border border-gray-700">
-            <!-- Profile Header Section -->
-            <div class="bg-gradient-to-br from-blue-700 to-blue-500 p-4 text-white flex items-center rounded-t-3xl">
-                <button onclick="window.history.back()" class="p-2 rounded-full hover:bg-white hover:bg-opacity-20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 mr-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg>
-                </button>
-                <h2 class="text-xl font-bold flex-grow text-center">Edit Profile</h2>
-                <div class="w-10"></div> <!-- Spacer to center the title -->
+    <div class="main-content-area flex-grow p-4 md:p-8">
+        <div class="w-full max-w-3xl mx-auto">
+             <!-- Profile Header Section -->
+            <div class="flex items-center justify-center mb-8">
+                <h2 class="text-xl font-bold text-gray-100">Edit Profile</h2>
             </div>
-
+            
             <!-- Profile Content Section -->
-            <div class="p-6 text-center bg-gray-800">
+            <div class="text-center">
                 <div class="relative w-32 h-32 mx-auto mb-6">
-                    <img src="https://placehold.co/128x128/ADD8E6/000000?text=JD" alt="Profile Picture" class="w-full h-full rounded-full object-cover border-4 border-gray-700 shadow-lg">
-                    <button class="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full shadow-md hover:bg-blue-700 transition-colors duration-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-camera"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-                    </button>
+                    <label for="profile-upload" class="cursor-pointer">
+                        <img id="profile-image" src="https://placehold.co/128x128/374151/9CA3AF?text=JD" alt="Profile Picture" class="w-full h-full rounded-full object-cover border-4 border-gray-700 shadow-lg">
+                        <input type="file" id="profile-upload" class="hidden" accept="image/*">
+                        <div class="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full shadow-md hover:bg-blue-700 transition-colors duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-camera"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                        </div>
+                    </label>
                 </div>
 
                 <div class="mb-4 text-left">
@@ -55,21 +63,61 @@
                     <input type="password" id="password" value="********" class="w-full p-3 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-900 text-gray-100">
                 </div>
 
-                <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                <button onclick="window.history.back()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                     Save Changes
                 </button>
             </div>
         </div>
     </div>
 
-    <div id="footer-placeholder"></div>
-    <script src="shared.js"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        // Load header and footer
-        window.loadHTML('header.html', 'header-placeholder');
-        window.loadHTML('footer.html', 'footer-placeholder');
-      });
+        // Define the loadHTML function to fetch and inject content.
+        async function loadHTML(url, elementId) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Failed to load ${url}: ${response.statusText}`);
+                }
+                const text = await response.text();
+                const element = document.getElementById(elementId);
+                if (element) {
+                    element.innerHTML = text;
+                    // Re-run scripts from the loaded content if necessary
+                    Array.from(element.getElementsByTagName("script")).forEach(oldScript => {
+                        const newScript = document.createElement("script");
+                        Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                        oldScript.parentNode.replaceChild(newScript, oldScript);
+                    });
+                } else {
+                    console.error(`Element with ID "${elementId}" not found.`);
+                }
+            } catch (error) {
+                console.error('Error loading HTML:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load header using a relative path
+            loadHTML('./header.html', 'header-placeholder');
+
+            // Handle profile picture upload
+            const profileUpload = document.getElementById('profile-upload');
+            const profileImage = document.getElementById('profile-image');
+
+            if (profileUpload && profileImage) {
+                profileUpload.addEventListener('change', (event) => {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            profileImage.src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>

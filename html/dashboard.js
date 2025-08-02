@@ -13,9 +13,11 @@ export function renderDashboard() {
             <h3 class="text-lg font-semibold">Get Started</h3>
           </div>
           <p class="text-sm text-gray-300 mb-4">Complete your E-KYC registration to unlock full access to your account.</p>
-          <button class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 rounded-lg text-sm font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-200">
+          
+          <!-- This button is now a link that redirects to the registration page -->
+          <a href="registration.html" class="block w-full text-center bg-gradient-to-r from-green-500 to-green-600 text-white py-3 rounded-lg text-sm font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-200">
             Start Verification Process
-          </button>
+          </a>
         </div>
       </div>
 
@@ -35,6 +37,7 @@ export function renderDashboard() {
         <h2 class="text-gray-100 font-semibold text-lg mb-4">Use your eKYC to register for accounts</h2>
         <div class="space-y-6">
 
+          <!-- Financial Services -->
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-100 mb-3">Financial Services</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -56,6 +59,7 @@ export function renderDashboard() {
             </div>
           </div>
 
+          <!-- Government & Public Sector -->
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-100 mb-3">Government & Public Sector</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -77,6 +81,7 @@ export function renderDashboard() {
             </div>
           </div>
 
+          <!-- Corporate / HR Tech -->
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-100 mb-3">Corporate / HR Tech</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -98,6 +103,7 @@ export function renderDashboard() {
             </div>
           </div>
 
+          <!-- E-Commerce & Logistics -->
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-100 mb-3">E-Commerce & Logistics</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -119,6 +125,7 @@ export function renderDashboard() {
             </div>
           </div>
 
+          <!-- Healthcare -->
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-100 mb-3">Healthcare</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -140,6 +147,7 @@ export function renderDashboard() {
             </div>
           </div>
 
+          <!-- Travel & Hospitality -->
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-100 mb-3">Travel & Hospitality</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -161,6 +169,7 @@ export function renderDashboard() {
             </div>
           </div>
 
+          <!-- Online Platforms -->
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-100 mb-3">Online Platforms</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">

@@ -27,14 +27,14 @@ function renderStepOne() {
                     <label for="captcha" class="block text-sm font-medium text-gray-400 mb-2">Security Check</label>
                     <div class="flex items-center space-x-4">
                         <input type="text" id="captcha" name="captcha" class="input-field" placeholder="Enter CAPTCHA" required />
-                        <div id="captcha-display" class="bg-gray-700 text-gray-300 px-4 py-2 rounded-md font-bold text-lg select-none">
-                            ${correctCaptcha}
+                        <div id="captcha-display" class="bg-gray-700 text-gray-300 px-4 py-2 rounded-md font-bold text-lg select-none flex items-center justify-between min-w-[120px]">
+                            <span id="captcha-text">${correctCaptcha}</span>
+                            <button type="button" id="refresh-captcha" class="ml-2 p-1 rounded hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.836 12-3.32-3.32a8 8 0 10-2.36-12.78m.54 3.78H20v-5m-1 7h-4m2 2v-4m-12 1h-4m2-2v4"/>
+                                </svg>
+                            </button>
                         </div>
-                        <button type="button" id="refresh-captcha" class="text-gray-400 hover:text-white transition-colors duration-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.836 12-3.32-3.32a8 8 0 10-2.36-12.78m.54 3.78H20v-5m-1 7h-4m2 2v-4m-12 1h-4m2-2v4"/>
-                            </svg>
-                        </button>
                     </div>
                     <div id="captcha-error" class="text-red-500 text-sm mt-2 hidden">Incorrect CAPTCHA. Please try again.</div>
                 </div>
@@ -63,7 +63,7 @@ function attachEventListeners() {
                 errorDiv.classList.remove('hidden');
                 // Re-generate CAPTCHA and update the display
                 correctCaptcha = generateCaptcha();
-                document.getElementById('captcha-display').textContent = correctCaptcha;
+                document.getElementById('captcha-text').textContent = correctCaptcha; // Updated ID
                 document.getElementById('captcha').value = '';
             }
         });
@@ -71,7 +71,7 @@ function attachEventListeners() {
         // Handle refresh CAPTCHA button click
         document.getElementById('refresh-captcha').addEventListener('click', () => {
             correctCaptcha = generateCaptcha();
-            document.getElementById('captcha-display').textContent = correctCaptcha;
+            document.getElementById('captcha-text').textContent = correctCaptcha; // Updated ID
             document.getElementById('captcha').value = '';
             document.getElementById('captcha-error').classList.add('hidden');
         });
