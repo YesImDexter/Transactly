@@ -1,7 +1,5 @@
 export function renderSettings() {
   return `
-    <div class="p-6 md:p-8 bg-gray-800 rounded-3xl shadow-xl border border-gray-700">
-      
       <!-- Profile Section -->
       <div class="flex items-center mb-8">
         <img src="https://placehold.co/60x60/374151/9CA3AF?text=JD" alt="User Profile" class="w-16 h-16 rounded-full object-cover border-2 border-gray-600 shadow-md mr-4">
@@ -90,12 +88,6 @@ export function renderSettings() {
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
             </a>
           </li>
-          <li class="border-b border-gray-700 last:border-b-0">
-            <a href="#" class="w-full flex justify-between items-center p-4 hover:bg-gray-700 transition-colors duration-200">
-              <span class="text-gray-200">Currency Format</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
-            </a>
-          </li>
         </ul>
       </div>
 
@@ -128,6 +120,5 @@ export function renderSettings() {
       <a href="../index.html" class="block w-full bg-red-500 text-white py-3 rounded-lg font-semibold text-center hover:bg-red-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
         Log out
       </a>
-    </div>
   `;
 }
