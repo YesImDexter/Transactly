@@ -70,16 +70,13 @@
     <!-- Settings content will be rendered here by JavaScript -->
   </div>
 
-  <div id="footer-placeholder"></div>
-
   <script src="shared.js"></script>
   <script type="module">
     import { renderSettings } from './settings.js';
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Load header and footer
+      // Load header 
       window.loadHTML('header.html', 'header-placeholder');
-      window.loadHTML('footer.html', 'footer-placeholder');
 
       // Render the settings content
       const settingsContainer = document.getElementById('settings-container');

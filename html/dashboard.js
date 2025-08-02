@@ -1,154 +1,37 @@
 /**
- * Returns the HTML string for the E-Wallet Dashboard.
- * This version assumes the user is verified for the dashboard page.
+ * Returns the HTML string for a simple E-KYC Dashboard, including promotions and information.
+ * This version assumes the registration process is in a separate HTML page.
  */
 export function renderDashboard() {
   return `
-    <div class="w-full max-w-6xl mx-auto bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl shadow-2xl overflow-hidden my-8 md:flex transition-all duration-300 hover:shadow-xl relative">
-      <div class="relative bg-gradient-to-br from-primary-700 to-primary-500 p-8 md:p-10 text-white rounded-b-3xl md:rounded-r-none md:rounded-l-3xl flex flex-col justify-between md:w-1/2 lg:w-2/5">
-        <div class="flex justify-between items-center mb-6">
-          <div class="text-2xl font-semibold drop-shadow-sm">Hello, <span class="gradient-text font-bold">User</span>!</div>
-          <div class="flex space-x-4">
-            <button class="relative p-2 rounded-full hover:bg-white hover:bg-opacity-20 transition-all duration-200 group">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
-                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
-              </svg>
-              <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-            </button>
-            <a href="#" class="p-2 rounded-full hover:bg-white hover:bg-opacity-20 transition-all duration-200 flex items-center justify-center">
-              <div class="w-8 h-8 rounded-full bg-gradient-to-r from-secondary-500 to-primary-400 flex items-center justify-center text-white font-bold">
-                U
-              </div>
-            </a>
+    <div class="w-full max-w-6xl mx-auto rounded-xl shadow-2xl overflow-hidden my-6 md:flex transition-all duration-300 hover:shadow-xl relative">
+      <div class="relative p-8 md:p-10 text-white flex flex-col justify-between md:w-1/2 lg:w-2/5">
+        <div class="text-2xl font-semibold drop-shadow-sm mb-6">Hello, <span class="gradient-text font-bold">User</span>!</div>
+        
+        <div class="w-full bg-white/10 backdrop-blur-sm p-6 rounded-lg shadow-lg text-white mt-auto transform transition-all duration-300 hover:scale-[1.02] border border-white/10">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold">Get Started</h3>
           </div>
-        </div>
-
-        <div class="mb-8">
-          <div class="text-sm text-primary-100 mb-1">Welcome back</div>
-          <div class="text-4xl font-bold drop-shadow-md animate-float">Good Morning</div>
-        </div>
-
-        <div class="balance-card w-full bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-lg text-white mt-auto transform transition-all duration-300 hover:scale-[1.02] border border-white/10">
-          <div class="flex justify-between items-center">
-            <div>
-              <div class="text-sm text-primary-100 mb-1">Total E-Wallet Balance</div>
-              <div class="text-3xl font-bold">RM 34,246.<span class="text-primary-200">61</span></div>
-            </div>
-            <div class="bg-white/20 p-3 rounded-full shadow-md backdrop-blur-sm">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h12a2 2 0 0 1 0 4H5a2 2 0 0 0 0 4h12a2 2 0 0 0 2-2v-3"/>
-                <path d="M10 12h.01"/>
-              </svg>
-            </div>
-          </div>
-          <div class="mt-4 flex justify-between items-center text-xs">
-            <span class="bg-white/10 px-2 py-1 rounded-full">+12.5% this month</span>
-            <button class="text-primary-100 hover:text-white flex items-center">
-              View details
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1">
-                <path d="m9 18 6-6-6-6"/>
-              </svg>
-            </button>
-          </div>
+          <p class="text-sm text-gray-300 mb-4">Complete your E-KYC registration to unlock full access to your account.</p>
+          <button class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 rounded-lg text-sm font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-200">
+            Start Verification Process
+          </button>
         </div>
       </div>
 
       <div class="p-6 md:p-10 bg-gray-800/50 flex-grow md:w-1/2 lg:w-3/5 backdrop-blur-sm">
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
-          <a href="send.html" class="flex flex-col items-center group">
-            <div class="bg-gradient-to-br from-primary-600 to-primary-400 text-white p-4 rounded-xl mb-2 shadow-sm group-hover:from-primary-500 group-hover:to-primary-300 group-hover:scale-105 transition-all duration-200">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m5 12 7-7 7 7"/>
-                <path d="M12 19V5"/>
-              </svg>
-            </div>
-            <span class="text-sm text-gray-300 font-medium group-hover:text-white">Send</span>
-          </a>
-          <a href="receive.html" class="flex flex-col items-center group">
-            <div class="bg-gradient-to-br from-secondary-600 to-secondary-400 text-white p-4 rounded-xl mb-2 shadow-sm group-hover:from-secondary-500 group-hover:to-secondary-300 group-hover:scale-105 transition-all duration-200">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5v14"/>
-                <path d="m19 12-7 7-7-7"/>
-              </svg>
-            </div>
-            <span class="text-sm text-gray-300 font-medium group-hover:text-white">Receive</span>
-          </a>
-          <div class="flex flex-col items-center group">
-            <button class="bg-gradient-to-br from-purple-600 to-indigo-500 text-white p-4 rounded-xl mb-2 shadow-sm group-hover:from-purple-500 group-hover:to-indigo-400 group-hover:scale-105 transition-all duration-200">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 3v18h18"/>
-                <path d="m18 7-5 5-4-4-3 3"/>
-              </svg>
-            </button>
-            <span class="text-sm text-gray-300 font-medium group-hover:text-white">Activity</span>
+        <h2 class="text-gray-100 font-semibold text-lg mb-4">Information</h2>
+        <div class="space-y-4 mb-10">
+          <div class="w-full text-left p-4 bg-gray-700/50 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold text-gray-100 mb-2">What is E-KYC?</h3>
+            <p class="text-sm text-gray-400">E-KYC is the electronic process of verifying your identity to ensure a secure and trusted account. It typically involves uploading an ID and performing a face scan.</p>
           </div>
-          <div class="flex flex-col items-center group">
-            <button class="bg-gradient-to-br from-green-600 to-teal-500 text-white p-4 rounded-xl mb-2 shadow-sm group-hover:from-green-500 group-hover:to-teal-400 group-hover:scale-105 transition-all duration-200">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" x2="12" y1="2" y2="22"/>
-                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-              </svg>
-            </button>
-            <span class="text-sm text-gray-300 font-medium group-hover:text-white">Exchange</span>
+          <div class="w-full text-left p-4 bg-gray-700/50 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold text-gray-100 mb-2">Why is it required?</h3>
+            <p class="text-sm text-gray-400">This process helps us comply with regulatory requirements and protect your account from fraud, ensuring a safe platform for all users.</p>
           </div>
         </div>
-
-        <div class="mb-10">
-          <div class="flex justify-between items-center mb-4">
-            <div class="flex items-center text-gray-100 font-semibold text-lg">
-              <div class="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white mr-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 14a1 1 0 0 1-.37-.7c-.2-.54-.1-1.07.2-1.5l7.5-10a1 1 0 0 1 1.6.6c.2.54.1 1.07-.2 1.5l-7.5 10a1 1 0 0 1-1.6-.6Z"/>
-                  <path d="M18 10a1 1 0 0 1 .37.7c-.2.54-.1 1.07-.2 1.5l-7.5 10a1 1 0 0 1-1.6-.6c-.2-.54-.1 1.07-.2 1.5l7.5-10a1 1 0 0 1 1.6.6Z"/>
-                </svg>
-              </div>
-              Instant Send
-            </div>
-            <button class="text-sm text-primary-400 hover:text-primary-300 transition-colors duration-200">
-              View All
-            </button>
-          </div>
-          <div class="flex items-center overflow-x-auto no-scrollbar space-x-4 py-2">
-            <div class="flex-shrink-0 text-center transform transition-all duration-200 hover:scale-105 group">
-              <div class="relative">
-                <img src="https://placehold.co/60x60/ADD8E6/000000?text=Isaac" alt="Isaac" class="w-16 h-16 rounded-full object-cover mb-1 shadow-md border-2 border-transparent group-hover:border-primary-400 transition-all duration-200">
-                <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-2 border-gray-800"></div>
-              </div>
-              <span class="text-sm text-gray-300 font-medium">Isaac</span>
-            </div>
-            <div class="flex-shrink-0 text-center transform transition-all duration-200 hover:scale-105 group">
-              <div class="relative">
-                <img src="https://placehold.co/60x60/FFB6C1/000000?text=Katy" alt="Katy" class="w-16 h-16 rounded-full object-cover mb-1 shadow-md border-2 border-transparent group-hover:border-primary-400 transition-all duration-200">
-                <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full border-2 border-gray-800"></div>
-              </div>
-              <span class="text-sm text-gray-300 font-medium">Katy</span>
-            </div>
-            <div class="flex-shrink-0 text-center transform transition-all duration-200 hover:scale-105 group">
-              <div class="relative">
-                <img src="https://placehold.co/60x60/90EE90/000000?text=Jess" alt="Jess" class="w-16 h-16 rounded-full object-cover mb-1 shadow-md border-2 border-transparent group-hover:border-primary-400 transition-all duration-200">
-                <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-red-400 rounded-full border-2 border-gray-800"></div>
-              </div>
-              <span class="text-sm text-gray-300 font-medium">Jess</span>
-            </div>
-            <div class="flex-shrink-0 text-center transform transition-all duration-200 hover:scale-105 group">
-              <div class="relative">
-                <img src="https://placehold.co/60x60/FFD700/000000?text=Amy" alt="Amy" class="w-16 h-16 rounded-full object-cover mb-1 shadow-md border-2 border-transparent group-hover:border-primary-400 transition-all duration-200">
-                <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-400 rounded-full border-2 border-gray-800"></div>
-              </div>
-              <span class="text-sm text-gray-300 font-medium">Amy</span>
-            </div>
-            <div class="flex-shrink-0 text-center transform transition-all duration-200 hover:scale-105 group">
-              <div class="w-16 h-16 bg-gray-700/50 rounded-full flex items-center justify-center shadow-md group-hover:bg-gray-600/50 transition-all duration-200 cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 group-hover:text-white">
-                  <path d="M12 5v14"/><path d="M5 12h14"/>
-                </svg>
-              </div>
-              <span class="text-sm text-gray-400 font-medium">Add New</span>
-            </div>
-          </div>
-        </div>
-
+        
         <div>
           <div class="flex justify-between items-center mb-4">
             <div class="flex items-center text-gray-100 font-semibold text-lg">
