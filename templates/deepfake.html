@@ -5,6 +5,12 @@
     </div>
     <div class="challenge" id="challenge-text">Performing Challenge...</div>
     <div class="timer" id="countdown">Timer: 0s</div>
+    <div class="progress-container"
+        style="height: 8px; background-color: #1F2937; border-radius: 4px; margin: 10px 0; overflow: hidden;">
+        <div id="timer-progress"
+            style="height: 100%; width: 0%; background: linear-gradient(to right, #38BDF8, #8B5CF6); transition: width 0.1s linear;">
+        </div>
+    </div>
     <button class="proceed-btn" id="proceed-button">Proceed</button>
 </div>
 
@@ -12,11 +18,12 @@
     const countdownEl = document.getElementById("countdown");
     const challengeText = document.getElementById("challenge-text");
     const proceedButton = document.getElementById("proceed-button");
-
     let elapsed = 0;
     let interval = null;
 
     window.onload = () => {
+        const CHALLENGE_DURATION = 3; // 3 seconds for challenge completion
+
         interval = setInterval(() => {
             fetch("/challenge-status")
                 .then(res => res.json())
@@ -34,6 +41,8 @@
                         proceedButton.classList.add("success");
                         challengeText.innerText = "✅ Challenge Passed!";
                         countdownEl.style.color = "green";
+                        countdownEl.innerText = "Timer: " + CHALLENGE_DURATION + "s";
+                        document.getElementById("timer-progress").style.width = "100%";
                         clearInterval(interval);
                         // Enable proceed button and add click handler
                         proceedButton.addEventListener("click", function () {
@@ -42,10 +51,17 @@
                     } else {
                         if (data.start_time) {
                             elapsed = Math.floor((Date.now() - data.start_time) / 1000);
+                            // Ensure we don't exceed the challenge duration
+                            elapsed = Math.min(elapsed, CHALLENGE_DURATION);
                             countdownEl.innerText = "Timer: " + elapsed + "s";
+
+                            // Update progress bar
+                            const progressPercent = (elapsed / CHALLENGE_DURATION) * 100;
+                            document.getElementById("timer-progress").style.width = progressPercent + "%";
                         } else {
                             elapsed = 0;
                             countdownEl.innerText = "Timer: 0s";
+                            document.getElementById("timer-progress").style.width = "0%";
                         }
                     }
                 });
